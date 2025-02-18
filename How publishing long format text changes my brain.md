@@ -25,6 +25,8 @@ When I'm taking the first steps into something, it's usually helpful to start wi
 ## "Too Long; Didn't Read"
 One of the things I actually noticing while writing all this is that my brain is at unease: it's saying to me: "this thing is too long"; "there's too much text in the screen"
 
+## TED Talks
+
 ## When you are creating
 One of the proposals of this work itself, is to propel myself to learn how to write a long-format anything. I actually write a lot but, like said in the previous section, I write a great variety only in a surface level.
 
@@ -37,8 +39,19 @@ Even while writing this, it start's to get weird writing because you kind of hav
 A great way of understanding how ourselves think is to look at how some reasoning models of Large Language Models (LLM) themselves think. Before, in the section about [[#The illiteracy of depth]], I talk about how today's content is produced in a way that doesn't enter the nuances of a topic. And that fault transfer's to our logic. This can be well seem in the video [[r0 Video WHY R1 & o1 Models Underthink Complex Reasoning (+ Solution)]], from [[r0 Discover AI (Youtube channel)]]. 
 
 ---
+# Practices while I'm writing and reading
+## Studying my own text
+Spaced repetition
+
+## Writing my own text
+How much to repeat of what I said before? A strategy to guarantee that I'm not just spitting out unrelated information about the same topic
+
+
+---
 # Others
 ## To add in the future
 - This idea partially comes from the book "Building a Second Brain", from Thiago Forte. When he talks about "CODE", being the "E" "Externalize" or something like that.
+- Spaced repetition in writing long texts
+- How commit and push github functions make a immutable yet reparable modification
 ## Sources
 - [[r0 Video WHY R1 & o1 Models Underthink Complex Reasoning (+ Solution)]]
