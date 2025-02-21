@@ -15,8 +15,17 @@ If I'm studying everything, I can't cycle between anything, because I will alway
 
 So, while seeing the pattern that connects things can at the same time widen and deepen my views of many subjects, in this specific scenario it's better to actually focus on how different things feel when doing them.
 
+### The problem with big to-do lists
+Like said above, the problem of seeing things too much connect can bring a sense of monotony and hinder all benefits of cycling through different types of activity. This can happen with motivation and productivity, as everything can be seem through it's lenses.
+It can also happen with to-do lists: if everything that I do in my life can be put in to do lists, it eventually feels that life is only a forever to-do list.
+This is a critic about systems like Getting Things Done, by David Allen, as it incentivizes exactly this. However there are many other benefits, as it will be discussed later.
+
+>[!quote] If I am always cycling through activities, I'm never in a cycle, as to always be in a cycle is to never be in something different.
+
 ---
 ## When studying
+- Learning a new language, especially when it involves looking around the environment where I am, can be a good activity to cycle through while I'm solving math questions.
+- Looking far objects/sceneries
 ---
 ## Dosing novelty
 For this technique to be effective, when choosing which activities I'm going to cycle through, one of the main factors I have to consider is the amount of novelty there will be in the next activity of the cycle.
