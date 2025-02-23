@@ -22,6 +22,9 @@ This is a critic about systems like Getting Things Done, by David Allen, as it i
 
 >[!quote] If I am always cycling through activities, I'm never in a cycle, as to always be in a cycle is to never be in something different.
 
+### Reverse-engineering connection
+The same way I can try to see how things are common, I can try to see how they are different.
+
 ---
 ## When studying
 - Learning a new language, especially when it involves looking around the environment where I am, can be a good activity to cycle through while I'm solving math questions.
