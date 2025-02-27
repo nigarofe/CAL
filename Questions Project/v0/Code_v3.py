@@ -16,26 +16,6 @@ print(2 Days since last attempt)
 print(3 Potential new record increase)
 """
 
-import csv
-import ast
-from prettytable import PrettyTable
-from prettytable import TableStyle
-from datetime import date, datetime
-import math
-
-
-table = PrettyTable()
-today = date.today()
-
-# Example use
-# print(get_vector_from_question(3, 'code_vector', csv_reader_list))
-def get_vector_from_question(q_number, vector_name):
-    string_vector = csv_reader_list[q_number][vector_name]
-    python_vector = ast.literal_eval(string_vector)
-    return(python_vector)
-
-def get_total_attempts(q_number):
-    return len(get_vector_from_question(q_number, 'code_vector'))
 
 def get_days_since_last_attempt(q_number):
     date_vector = get_vector_from_question(q_number, 'date_vector')
@@ -99,54 +79,3 @@ def get_potential_record_increase(q_number):
         return days_since_last_attempt - current_all_time_record
     else:
         return math.inf
-
-
-with open('questions.csv', 'r', newline='') as csv_file:
-    csv_reader = csv.DictReader(csv_file, delimiter='\t')
-    csv_reader_list = list(csv_reader)
-
-    # print(get_vector_from_question(3, 'code_vector'))
-    # print(get_total_attempts(3))
-    # print(get_days_since_last_attempt(20))
-    # print(get_record_report(0))
-    # print(get_potential_record_increase(5))
-
-    ## Generate Table ##
-    table.field_names = ['Question number', "Attempts", "Records"]
-    table.add_row(['','Days Since Last attempt','All time record without help'])
-    table.add_row(['','Total attempts','Current record'])
-    table.add_row(['','Last attempt was without help','Potential new record increase'])
-    table.add_divider();
-    
-
-    for i in range(len(csv_reader_list)):
-        table.add_row([i, [get_days_since_last_attempt(i), get_total_attempts(i), last_attempt_was_without_help(i)], [get_all_time_record(i),  get_current_record(i), get_potential_record_increase(i)]])
-        # print(f"{i+1}   {get_total_attempts(i)}")
-    
-    table.set_style(TableStyle.DOUBLE_BORDER)
-    print(table)
-
-
-
-
-    ## -------------- ##
-
-
-
-
-
-
-
-
-
-
-""" 
-    with open('questions_formatted.csv', 'w', newline='') as new_csv_file:
-        fieldnames = ['q_number','discipline','source','description','code_vector','date_vector']
-
-        csv_writer = csv.DictWriter(new_csv_file, fieldnames=fieldnames, delimiter='\t')
-        csv_writer.writeheader()
-
-        for line in csv_reader:
-            csv_writer.writerow(line)
- """

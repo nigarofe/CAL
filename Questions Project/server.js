@@ -1,6 +1,7 @@
 /* 
 1. First, make sure you have Node.js installed on your system. You can check this by running
 node -v
+npm - v
  
 2. Create a new directory for your project (if you haven't already) and navigate to it:
 mkdir my-express-server
