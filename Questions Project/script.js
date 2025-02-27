@@ -131,7 +131,7 @@ function getDslaColor(question_number) {
         green = Math.floor(255 * (normalizedPosition * 2));
     } else {
         // Second half: Yellow to Green (decrease red)
-        red = Math.floor(255 * (1 - (normalizedPosition - 0.5) * 2));
+        red = Math.floor(255 * ((1 - normalizedPosition) * 2));
         green = 255;
     }
 
@@ -199,19 +199,23 @@ function saveCsvWithoutServer() {
 }
 
 async function saveCsvWithServer() {
-    const headers = Object.keys(matrix[headersRow]);
-    const csvContent = matrix.map(row => headers.map(header => row[header]).join('\t')).join('\n');
+    try {
+        const headers = Object.keys(matrix[headersRow]);
+        const csvContent = matrix.map(row => headers.map(header => row[header]).join('\t')).join('\n');
 
-    const response = await fetch('http://localhost:3000/save-csv', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'text/plain'
-        },
-        body: csvContent
-    });
+        const response = await fetch('http://localhost:3000/save-csv', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'text/plain'
+            },
+            body: csvContent
+        });
 
-    const result = await response.json();
-    console.log(result.message);
+        const result = await response.json();
+        console.log(result.message);
+    } catch (error) {
+        alert('Failed to save CSV to server. Check if the server running.');
+    }
 }
 
 function addSavingOptions() {
@@ -257,6 +261,4 @@ async function main() {
     updateTable();
 
     addSavingOptions();
-    console.log(matrix[questionsStartRow]['Date Vector']);
-    console.log(matrix[questionsStartRow]['Code Vector']);
 }
