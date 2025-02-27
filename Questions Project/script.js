@@ -60,7 +60,12 @@ function loadHTMLTable() {
         if (matrix[visibilityRow][Object.keys(matrix[headersRow])[i]] == 'TRUE') {
             const cellHeader = document.createElement('th');
             cellHeader.textContent = matrix[headersRow][Object.keys(matrix[headersRow])[i]];
-            tableHead.appendChild(cellHeader); 
+
+            cellHeader.title = matrix[toolTipsRow][Object.keys(matrix[headersRow])[i]].replace(/\\n/g, '\n');
+            cellHeader.style.cursor = 'help';
+            cellHeader.style.borderBottom = '1px dotted #888';
+
+            tableHead.appendChild(cellHeader);
         }
     }
     htmlTable.appendChild(tableHead);

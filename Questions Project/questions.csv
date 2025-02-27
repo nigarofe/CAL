@@ -1,5 +1,5 @@
 #	Discipline	Source	Description	Code Vector	Date Vector	DSLA	Actions buttons
-Question number identifier	Subject or field of study	Where this question originated from	Detailed explanation of the question	Vector of codes associated with the question	Dates when this question was attempted	Number of days since I last attempted this question	
+Question number identifier	Subject or field of study	Where this question originated from	Detailed explanation of the question	Vector of codes associated with the question	Dates when this question was attempted	Number of days since I last attempted this question	0 = I did the question with help \n 1 = I did the question from memory only
 TRUE	TRUE	TRUE	TRUE	FALSE	FALSE	TRUE	TRUE
 1	Eletromag			[0, 1, 1, 1, 0, 1, 1]	[2024-11-07,2024-11-08,2025-02-01,2025-02-02,2025-02-08,2025-02-10,2025-03-20]		
 2	C3		-	[0, 1, 1]	[2024-11-07,2024-12-04,2024-12-05]		
