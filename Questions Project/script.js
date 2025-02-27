@@ -47,8 +47,51 @@ function calculateNumberOfDaysSinceLastAttempt() {
 
         matrix[i]['DSLA'] = timeDifferenceInDays;
     }
+}
 
-    console.log(matrix);
+function updateTable() {
+    const table = document.getElementById('questionsTable');
+    table.innerHTML = '';
+    calculateNumberOfDaysSinceLastAttempt();
+    loadHTMLTable();
+}
+
+function registerQuestionAttempt(questionNumber, code) {
+    const question = matrix.find(row => row['#'] === questionNumber);
+    const dateVector = question['Date Vector'];
+    const today = new Date().toISOString().slice(0, 10);
+    if (dateVector.includes(today)) {
+        alert('You have already attempted this question today.');
+    } else {
+        question['Date Vector'] = dateVector.slice(0, -1) + ',' + today + ']';
+        question['Code Vector'] = question['Code Vector'].slice(0, -1) + ',' + code + ']';
+        updateTable()
+        alert('Attempt registered for question number ' + questionNumber);
+    }
+}
+
+function addActionButtonsToCellData(cellData, i) {
+    const buttonContainer = document.createElement('div');
+    buttonContainer.style.display = 'flex';
+    buttonContainer.style.justifyContent = 'space-evenly'; // Equal space between and around
+    buttonContainer.style.width = '100%'; // Take full width of the cell
+    buttonContainer.style.padding = '5px 0'; // Add padding top and bottom
+
+    const button0 = document.createElement('button');
+    button0.textContent = '0';
+    button0.onclick = function () {
+        registerQuestionAttempt(matrix[i]['#'], 0);
+    };
+    buttonContainer.appendChild(button0);
+
+    const button1 = document.createElement('button');
+    button1.textContent = '1';
+    button1.onclick = function () {
+        registerQuestionAttempt(matrix[i]['#'], 1);
+    };
+    buttonContainer.appendChild(button1);
+
+    cellData.appendChild(buttonContainer);
 }
 
 function loadHTMLTable() {
@@ -77,6 +120,11 @@ function loadHTMLTable() {
             if (matrix[visibilityRow][Object.keys(matrix[headersRow])[j]] == 'TRUE') {
                 const cellData = document.createElement('td');
                 cellData.textContent = matrix[i][Object.keys(matrix[headersRow])[j]];
+
+                if (Object.keys(matrix[headersRow])[j] === 'Action buttons') {
+                    addActionButtonsToCellData(cellData, i);
+                }
+
                 tableRow.appendChild(cellData);
             }
         }
@@ -102,7 +150,7 @@ function saveCsvWithoutServer() {
     URL.revokeObjectURL(url);
 }
 
-function addButtonSaveCsvWithoutServer(){
+function addButtonSaveCsvWithoutServer() {
     controls = document.getElementById('controls');
     buttonSaveCsv = document.createElement('button');
     buttonSaveCsv.textContent = 'Save CSV';
@@ -110,11 +158,13 @@ function addButtonSaveCsvWithoutServer(){
     controls.appendChild(buttonSaveCsv);
 }
 
+
+
 async function main() {
     await loadMatrixFromCsv();
-    calculateNumberOfDaysSinceLastAttempt();
-    loadHTMLTable();
+    updateTable();
 
     addButtonSaveCsvWithoutServer();
-    // saveCsvWithoutServer()
+    console.log(matrix[questionsStartRow]['Date Vector']);
+    console.log(matrix[questionsStartRow]['Code Vector']);
 }
