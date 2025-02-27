@@ -1,3 +1,21 @@
+"""
+What to do next
+Rewrite the code in a way that there's only 1 matrix to store all the data
+
+print("=== Main menu ===")
+print("1. List all questions")
+print("2. Register question completion")
+print("3. Create a question")
+print("5. Help")
+print("6. Exit")
+
+print("== Questions listing menu ==")
+print("Order questions by)
+print(1 Question number)
+print(2 Days since last attempt)
+print(3 Potential new record increase)
+"""
+
 import csv
 import ast
 from prettytable import PrettyTable
@@ -9,6 +27,8 @@ import math
 table = PrettyTable()
 today = date.today()
 
+# Example use
+# print(get_vector_from_question(3, 'code_vector', csv_reader_list))
 def get_vector_from_question(q_number, vector_name):
     string_vector = csv_reader_list[q_number][vector_name]
     python_vector = ast.literal_eval(string_vector)
@@ -115,9 +135,6 @@ with open('questions.csv', 'r', newline='') as csv_file:
 
 
 
-
-# Example use
-# print(get_vector_from_question(3, 'code_vector', csv_reader_list))
 
 
 

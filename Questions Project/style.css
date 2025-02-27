@@ -1,0 +1,19 @@
+h1 {
+    text-align: center;
+}
+
+th, td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: center;
+}
+
+thead td {
+    background-color: lightblue;
+    border: 1px solid black;
+    font-weight: bold;
+}
+
+body {
+    font-family: 'Arial', sans-serif;
+}

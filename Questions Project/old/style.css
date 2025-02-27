@@ -1,0 +1,32 @@
+th,
+td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+}
+
+th {
+    background-color: #f2f2f2;
+}
+
+/* Style the column controls */
+#column-controls {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 10px;
+}
+
+.column-control {
+    display: flex;
+    align-items: center;
+    margin-bottom: 5px;
+}
+
+.column-control label {
+    margin-left: 5px;
+}
+
+/* Style the table container */
+#output {
+    overflow-x: auto;
+}
