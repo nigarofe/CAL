@@ -7,6 +7,7 @@
 5 date_vector
 6 days_since_last_attempt
 */
+let matrix = []
 
 columnsVisibility =
     [
@@ -48,7 +49,9 @@ function loadHTMLTable() {
 }
 
 function calculateMetrics() {
-    calculateNumberOfDaysSinceLastAttempt()
+    if (columnsVisibility[6]) {
+        calculateNumberOfDaysSinceLastAttempt()
+    }
 }
 
 function calculateNumberOfDaysSinceLastAttempt() {
@@ -67,14 +70,34 @@ function calculateNumberOfDaysSinceLastAttempt() {
     }
 }
 
-async function load() {
+async function loadCSV() {
     response = await fetch('questions.csv')
     stringCSV = await response.text()
+    stringCSV = stringCSV.replace(/\r\n/g, '\n').replace(/\r/g, '\n');
     matrix = stringCSV.split('\n').map(row => row.split('\t'))
     matrix.pop()
+}
 
+async function load() {
+    await loadCSV()
     calculateMetrics()
     loadHTMLTable()
+    // saveCSV()
+}
+
+async function saveCSV() {
+    const csvContent = matrix.map(row => row.slice(0, 6).join('\t')).join('\n');
+
+    const response = await fetch('http://localhost:3000/save-csv', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'text/plain'
+        },
+        body: csvContent
+    });
+
+    const result = await response.json();
+    console.log(result.message);
 }
 
 load()
