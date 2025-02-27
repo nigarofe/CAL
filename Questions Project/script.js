@@ -5,7 +5,7 @@ headersRow = 0;
 toolTipsRow = 1;
 visibilityRow = 2;
 questionsStartRow = 3;
-let autoSaveEnabled = false;
+autoSaveEnabled = false;
 
 async function loadMatrixFromCsv() {
     const response = await fetch('questions.csv');
@@ -37,6 +37,25 @@ async function loadMatrixFromCsv() {
     // console.log(question14);
 }
 
+function calculateAttemptsSummary() {
+    for (let i = questionsStartRow; i < matrix.length; i++) {
+        totalAttempts = 0;
+        attemptsWithoutHelp = 0;
+        attemptsWithHelp = 0;
+
+        const codeVector = matrix[i]['Code Vector'].replace(/[\[\]]/g, '').split(',');
+        codeVector.forEach(code => {
+            if (code == 1) {
+                attemptsWithoutHelp++;
+            } else {
+                attemptsWithHelp++;
+            }
+            totalAttempts++;
+        });
+        matrix[i]['Attempts Summary'] = [totalAttempts, attemptsWithoutHelp, attemptsWithHelp].join('; ');
+    }
+}
+
 function calculateNumberOfDaysSinceLastAttempt() {
     for (let i = questionsStartRow; i < matrix.length; i++) {
         const dateStrings = matrix[i]['Date Vector'].replace(/[\[\]]/g, '').split(',');
@@ -54,6 +73,7 @@ function updateTable() {
     const table = document.getElementById('questionsTable');
     table.innerHTML = '';
     calculateNumberOfDaysSinceLastAttempt();
+    calculateAttemptsSummary();
     loadHTMLTable();
     const autoSaveSlider = document.getElementById('autoSaveSlider');
     if (autoSaveSlider && autoSaveSlider.checked) {
@@ -244,7 +264,7 @@ function addSavingOptions() {
     slider.type = 'checkbox';
     slider.id = 'autoSaveSlider';
     slider.className = 'slider';
-    slider.checked = true;
+    slider.checked = autoSaveEnabled;
 
     // Add slider and label to container
     optionsContainer.appendChild(sliderLabel);
@@ -253,8 +273,6 @@ function addSavingOptions() {
     // Add container to controls
     controls.appendChild(optionsContainer);
 }
-
-
 
 async function main() {
     await loadMatrixFromCsv();
