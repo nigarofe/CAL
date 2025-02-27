@@ -1,3 +1,28 @@
+/* 
+1. First, make sure you have Node.js installed on your system. You can check this by running
+node -v
+ 
+2. Create a new directory for your project (if you haven't already) and navigate to it:
+mkdir my-express-server
+cd my-express-server
+
+3. Initialize a new Node.js project:
+npm init -y
+
+4. Install the required dependencies:
+npm install express fs path cors
+
+5. Save the server code you provided into a file, for example, server.js
+
+6. Run the server:
+node server.js
+
+7. If you want to automatically restart the server whenever you make changes to the code, you can install and use nodemon:
+npm install -g nodemon
+nodemon server.js
+
+
+*/
 const express = require('express');
 const fs = require('fs');
 const path = require('path');

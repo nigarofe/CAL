@@ -58,3 +58,36 @@ button {
 button:hover {
     background-color: #007f67;
 }
+
+/* Slider switch styling */
+.slider {
+    position: relative;
+    width: 40px;
+    height: 20px;
+    appearance: none;
+    background-color: #ccc;
+    border-radius: 20px;
+    outline: none;
+    transition: .4s;
+    cursor: pointer;
+}
+
+.slider:checked {
+    background-color: #009879;
+}
+
+.slider:before {
+    content: "";
+    position: absolute;
+    height: 16px;
+    width: 16px;
+    left: 2px;
+    bottom: 2px;
+    background-color: white;
+    border-radius: 50%;
+    transition: .4s;
+}
+
+.slider:checked:before {
+    transform: translateX(20px);
+}
