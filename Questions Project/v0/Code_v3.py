@@ -17,15 +17,6 @@ print(3 Potential new record increase)
 """
 
 
-def get_days_since_last_attempt(q_number):
-    date_vector = get_vector_from_question(q_number, 'date_vector')
-    last_attempt_date = datetime.strptime(date_vector[-1], "%Y-%m-%d").date()
-        # print(date_vector[1])
-    # print(last_attempt_date)
-    # print(today)
-    # print((today - last_attempt_date).days)
-    
-    return (today - last_attempt_date).days
 
 def get_all_time_record(q_number):
     code_vector = get_vector_from_question(q_number, 'code_vector')
@@ -63,13 +54,6 @@ def get_current_record(q_number):
             current_record = days_interval;
             break
     return current_record
-
-def last_attempt_was_without_help(q_number):
-    code_vector = get_vector_from_question(q_number, 'code_vector')
-    if code_vector[-1] == 1:
-        return "Yes"
-    else:
-        return "No"
 
 def get_potential_record_increase(q_number):
     if(last_attempt_was_without_help(q_number) == "Yes"):

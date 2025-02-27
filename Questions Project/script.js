@@ -39,9 +39,10 @@ async function loadMatrixFromCsv() {
 
 function calculateAttemptsSummary() {
     for (let i = questionsStartRow; i < matrix.length; i++) {
-        totalAttempts = 0;
-        attemptsWithoutHelp = 0;
-        attemptsWithHelp = 0;
+        let totalAttempts = 0;
+        let attemptsWithoutHelp = 0;
+        let attemptsWithHelp = 0;
+        let lastAttemptMessage = '';
 
         const codeVector = matrix[i]['Code Vector'].replace(/[\[\]]/g, '').split(',');
         codeVector.forEach(code => {
@@ -52,7 +53,16 @@ function calculateAttemptsSummary() {
             }
             totalAttempts++;
         });
-        matrix[i]['Attempts Summary'] = [totalAttempts, attemptsWithoutHelp, attemptsWithHelp].join('; ');
+
+        if (codeVector[codeVector.length - 1] != 1) {
+            lastAttemptMessage += 'W/H';
+        } else {
+            lastAttemptMessage += 'From memory';
+        }
+
+        let summary = [totalAttempts, attemptsWithoutHelp, attemptsWithHelp, lastAttemptMessage].join('; ');
+
+        matrix[i]['Attempts Summary'] = summary;
     }
 }
 
