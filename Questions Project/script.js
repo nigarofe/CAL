@@ -94,6 +94,45 @@ function addActionButtonsToCellData(cellData, i) {
     cellData.appendChild(buttonContainer);
 }
 
+function getDslaColor(question_number) {
+    const question = matrix.find(row => row['#'] === question_number);
+    const dsla = parseInt(question['DSLA']);
+    
+    const dslaValues = matrix
+        .filter(row => row['DSLA'] !== undefined)
+        .map(row => parseInt(row['DSLA']))
+        .filter(value => !isNaN(value));
+    
+    // Handle edge case where all values are the same
+    const maxDSLA = Math.max(...dslaValues);
+    const minDSLA = Math.min(...dslaValues);
+    
+    // If all values are the same or there's an issue with min/max,
+    // return a default color to avoid division by zero
+    if (maxDSLA === minDSLA || maxDSLA === -Infinity || minDSLA === Infinity) {
+        return 'rgb(255, 255, 0)'; // Yellow as default
+    }
+    
+    // Calculate the normalized position (0 to 1) of this value in the range
+    // Invert the position so smaller values (recent attempts) get higher positions (greener)
+    const normalizedPosition = 1 - (dsla - minDSLA) / (maxDSLA - minDSLA);
+    
+    // Red-Yellow-Green color scheme
+    let red, green, blue = 0;
+    
+    if (normalizedPosition <= 0.5) {
+        // First half: Red to Yellow (increase green)
+        red = 255;
+        green = Math.floor(255 * (normalizedPosition * 2));
+    } else {
+        // Second half: Yellow to Green (decrease red)
+        red = Math.floor(255 * (1 - (normalizedPosition - 0.5) * 2));
+        green = 255;
+    }
+    
+    return `rgb(${red},${green},${blue})`;
+}
+
 function loadHTMLTable() {
     htmlTable = document.getElementById('questionsTable');
     htmlTable.innerHTML = '';
@@ -120,6 +159,10 @@ function loadHTMLTable() {
             if (matrix[visibilityRow][Object.keys(matrix[headersRow])[j]] == 'TRUE') {
                 const cellData = document.createElement('td');
                 cellData.textContent = matrix[i][Object.keys(matrix[headersRow])[j]];
+                
+                if (Object.keys(matrix[headersRow])[j] === 'DSLA') {
+                    cellData.style.backgroundColor = getDslaColor(matrix[i]['#']);
+                }
 
                 if (Object.keys(matrix[headersRow])[j] === 'Action buttons') {
                     addActionButtonsToCellData(cellData, i);
