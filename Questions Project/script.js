@@ -1,130 +1,87 @@
-/* Matrix headers
-0 question_number
-1 discipline
-2 source
-3 description
-4 code_vector
-5 date_vector
-6 days_since_last_attempt
-*/
-let matrix = []
+main();
 
-columnsVisibility =
-    [
-        question_number = true,
-        discipline = true,
-        source = true,
-        description = true,
-        code_vector = false,
-        date_vector = false,
-        days_since_last_attempt = true
-    ]
+matrix = [];
+headersRow = 0;
+toolTipsRow = 1;
+visibilityRow = 2;
+questionsStartRow = 3;
 
-function addToolTipToElement(element, tooltipText) {
-    element.className = "tooltip"
+async function loadMatrixFromCsv() {
+    const response = await fetch('questions.csv');
+    const responseText = await response.text();
 
-    let tooltip = document.createElement('span')
-    tooltip.className = "tooltiptext"
-    tooltip.innerHTML = tooltipText
+    // Split into rows and columns
+    const rawData = responseText
+        .replace(/\r\n/g, '\n')
+        .replace(/\r/g, '\n')
+        .split('\n')
+        .map(row => row.split('\t'));
 
-    element.appendChild(tooltip)
-}
+    // Get the header row (first row)
+    const headers = rawData[0];
 
+    // Convert each data row into an object with keys from headers
+    matrix = rawData
+        .filter(row => row.length === headers.length && row.some(cell => cell.trim() !== '')) // Filter out empty rows
+        .map(row => {
+            const obj = {};
+            headers.forEach((header, index) => {
+                obj[header] = row[index];
+            });
+            return obj;
+        });
 
-function loadHTMLTable() {
-    let htmlTable = document.getElementById('table')
-    htmlTable.innerHTML = ''
-
-    let tableHead = document.createElement('thead')
-    let tableBody = document.createElement('tbody')
-
-    for (let i = 0; i < matrix.length; i++) {
-        let tableRow = document.createElement('tr')
-        for (let j = 0; j < columnsVisibility.length; j++) {
-            if (columnsVisibility[j]) {
-                let tableData = document.createElement('td')
-                tableData.textContent = matrix[i][j]
-                tableRow.appendChild(tableData)
-
-                // console.log(matrix[i][j])
-            }
-        }
-        if (i == 0) {
-            let tableData = document.createElement('td')
-            tableData.textContent = "Actions"
-            tableRow.appendChild(tableData)
-
-            tableHead.appendChild(tableRow)
-        } else {
-            let buttonDiv = document.createElement('div')
-            addToolTipToElement(buttonDiv, "0 = I did the question with help<br>1 = I did the question from memory only")
-
-            let buttonHelp = document.createElement('button')
-            buttonHelp.textContent = "0"
-            buttonDiv.appendChild(buttonHelp)
-
-            let buttonMemory = document.createElement('button')
-            buttonMemory.textContent = "1"
-            buttonDiv.appendChild(buttonMemory)
-
-            tableRow.appendChild(buttonDiv)
-            tableBody.appendChild(tableRow)
-        }
-    }
-    htmlTable.appendChild(tableHead)
-    htmlTable.appendChild(tableBody)
-}
-
-function calculateMetrics() {
-    if (columnsVisibility[6]) {
-        calculateNumberOfDaysSinceLastAttempt()
-    }
+    // console.log(matrix);
+    // const question14 = matrix.find(row => row['#'] === '14')['Code Vector'];
+    // console.log(question14);
 }
 
 function calculateNumberOfDaysSinceLastAttempt() {
-    matrix[0].push('days_since_last_attempt')
+    for (let i = questionsStartRow; i < matrix.length; i++) {
+        const dateStrings = matrix[i]['Date Vector'].replace(/[\[\]]/g, '').split(',');
+        const lastDate = new Date(dateStrings[dateStrings.length - 1]);
+        const today = new Date();
 
-    for (let i = 1; i < matrix.length; i++) {
-        // console.log(i)
-        let dateStrings = matrix[i][5].replace(/[\[\]]/g, '').split(',')
-        let lastDate = new Date(dateStrings[dateStrings.length - 1])
-        let today = new Date()
+        const timeDifferenceInMs = today - lastDate;
+        const timeDifferenceInDays = Math.floor(timeDifferenceInMs / (1000 * 60 * 60 * 24));
 
-        let timeDifferenceInMs = today - lastDate
-        let timeDifferenceInDays = Math.floor(timeDifferenceInMs / (1000 * 60 * 60 * 24))
-
-        matrix[i].push(timeDifferenceInDays)
+        matrix[i]['DSLA'] = timeDifferenceInDays;
     }
+
+    console.log(matrix);
 }
 
-async function loadCSV() {
-    response = await fetch('questions.csv')
-    stringCSV = await response.text()
-    stringCSV = stringCSV.replace(/\r\n/g, '\n').replace(/\r/g, '\n')
-    matrix = stringCSV.split('\n').map(row => row.split('\t'))
-    matrix.pop()
+function loadHTMLTable() {
+    htmlTable = document.getElementById('questionsTable');
+    htmlTable.innerHTML = '';
+
+    tableHead = document.createElement('thead');
+    for (let i = 0; i < Object.keys(matrix[headersRow]).length; i++) {
+        if (matrix[visibilityRow][Object.keys(matrix[headersRow])[i]] == 'TRUE') {
+            const cellHeader = document.createElement('th');
+            cellHeader.textContent = matrix[headersRow][Object.keys(matrix[headersRow])[i]];
+            tableHead.appendChild(cellHeader); 
+        }
+    }
+    htmlTable.appendChild(tableHead);
+
+    tableBody = document.createElement('tbody');
+    for (let i = questionsStartRow; i < matrix.length; i++) {
+        tableRow = document.createElement('tr');
+        for (let j = 0; j < Object.keys(matrix[headersRow]).length; j++) {
+            if (matrix[visibilityRow][Object.keys(matrix[headersRow])[j]] == 'TRUE') {
+                const cellData = document.createElement('td');
+                cellData.textContent = matrix[i][Object.keys(matrix[headersRow])[j]];
+                tableRow.appendChild(cellData);
+            }
+        }
+        tableBody.appendChild(tableRow);
+    }
+    htmlTable.appendChild(tableBody);
 }
 
-async function load() {
-    await loadCSV()
-    calculateMetrics()
-    loadHTMLTable()
-    // saveCSV()
+async function main() {
+    await loadMatrixFromCsv();
+    calculateNumberOfDaysSinceLastAttempt();
+    loadHTMLTable();
 }
-
-async function saveCSV() {
-    const csvContent = matrix.map(row => row.slice(0, 6).join('\t')).join('\n')
-
-    const response = await fetch('http://localhost:3000/save-csv', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'text/plain'
-        },
-        body: csvContent
-    })
-
-    const result = await response.json()
-    console.log(result.message)
-}
-
-load()
