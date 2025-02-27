@@ -85,8 +85,36 @@ function loadHTMLTable() {
     htmlTable.appendChild(tableBody);
 }
 
+function saveCsvWithoutServer() {
+    const headers = Object.keys(matrix[headersRow]);
+    const csvContent = matrix.map(row => headers.map(header => row[header]).join('\t')).join('\n');
+
+    const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    const today = new Date().toISOString().slice(0, 19).replace(/:/g, '-');
+    a.download = `questions_${today}.csv`;
+    a.style.display = 'none';
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+}
+
+function addButtonSaveCsvWithoutServer(){
+    controls = document.getElementById('controls');
+    buttonSaveCsv = document.createElement('button');
+    buttonSaveCsv.textContent = 'Save CSV';
+    buttonSaveCsv.onclick = saveCsvWithoutServer;
+    controls.appendChild(buttonSaveCsv);
+}
+
 async function main() {
     await loadMatrixFromCsv();
     calculateNumberOfDaysSinceLastAttempt();
     loadHTMLTable();
+
+    addButtonSaveCsvWithoutServer();
+    // saveCsvWithoutServer()
 }
