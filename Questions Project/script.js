@@ -20,9 +20,20 @@ columnsVisibility =
         days_since_last_attempt = true
     ]
 
+function addToolTipToElement(element, tooltipText) {
+    element.className = "tooltip"
+
+    let tooltip = document.createElement('span')
+    tooltip.className = "tooltiptext"
+    tooltip.innerHTML = tooltipText
+
+    element.appendChild(tooltip)
+}
+
+
 function loadHTMLTable() {
     let htmlTable = document.getElementById('table')
-    htmlTable.innerHTML = '';
+    htmlTable.innerHTML = ''
 
     let tableHead = document.createElement('thead')
     let tableBody = document.createElement('tbody')
@@ -31,7 +42,7 @@ function loadHTMLTable() {
         let tableRow = document.createElement('tr')
         for (let j = 0; j < columnsVisibility.length; j++) {
             if (columnsVisibility[j]) {
-                let tableData = document.createElement('td');
+                let tableData = document.createElement('td')
                 tableData.textContent = matrix[i][j]
                 tableRow.appendChild(tableData)
 
@@ -39,8 +50,24 @@ function loadHTMLTable() {
             }
         }
         if (i == 0) {
+            let tableData = document.createElement('td')
+            tableData.textContent = "Actions"
+            tableRow.appendChild(tableData)
+
             tableHead.appendChild(tableRow)
         } else {
+            let buttonDiv = document.createElement('div')
+            addToolTipToElement(buttonDiv, "0 = I did the question with help<br>1 = I did the question from memory only")
+
+            let buttonHelp = document.createElement('button')
+            buttonHelp.textContent = "0"
+            buttonDiv.appendChild(buttonHelp)
+
+            let buttonMemory = document.createElement('button')
+            buttonMemory.textContent = "1"
+            buttonDiv.appendChild(buttonMemory)
+
+            tableRow.appendChild(buttonDiv)
             tableBody.appendChild(tableRow)
         }
     }
@@ -73,7 +100,7 @@ function calculateNumberOfDaysSinceLastAttempt() {
 async function loadCSV() {
     response = await fetch('questions.csv')
     stringCSV = await response.text()
-    stringCSV = stringCSV.replace(/\r\n/g, '\n').replace(/\r/g, '\n');
+    stringCSV = stringCSV.replace(/\r\n/g, '\n').replace(/\r/g, '\n')
     matrix = stringCSV.split('\n').map(row => row.split('\t'))
     matrix.pop()
 }
@@ -86,7 +113,7 @@ async function load() {
 }
 
 async function saveCSV() {
-    const csvContent = matrix.map(row => row.slice(0, 6).join('\t')).join('\n');
+    const csvContent = matrix.map(row => row.slice(0, 6).join('\t')).join('\n')
 
     const response = await fetch('http://localhost:3000/save-csv', {
         method: 'POST',
@@ -94,10 +121,10 @@ async function saveCSV() {
             'Content-Type': 'text/plain'
         },
         body: csvContent
-    });
+    })
 
-    const result = await response.json();
-    console.log(result.message);
+    const result = await response.json()
+    console.log(result.message)
 }
 
 load()

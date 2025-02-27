@@ -1,32 +1,71 @@
-th,
-td {
-    border: 1px solid #ddd;
-    padding: 8px;
+/* Add this CSS to your stylesheet */
+
+/* Table styles */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px 0;
+    font-family: Arial, sans-serif;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+  }
+  
+  thead {
+    background-color: #009879;
+    color: white;
     text-align: left;
-}
-
-th {
-    background-color: #f2f2f2;
-}
-
-/* Style the column controls */
-#column-controls {
+  }
+  
+  th, td {
+    padding: 12px 15px;
+    border-bottom: 1px solid #dddddd;
+  }
+  
+  tbody tr {
+    border-bottom: 1px solid #dddddd;
+  }
+  
+  tbody tr:nth-of-type(even) {
+    background-color: #f3f3f3;
+  }
+  
+  tbody tr:last-of-type {
+    border-bottom: 2px solid #009879;
+  }
+  
+  /* Button styles */
+  button {
+    padding: 8px 12px;
+    margin: 4px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: all 0.3s ease;
+  }
+  
+  button:hover {
+    opacity: 0.8;
+    transform: translateY(-2px);
+  }
+  
+  .btn-help {
+    background-color: #4CAF50;
+    color: white;
+  }
+  
+  .btn-memory {
+    background-color: #2196F3;
+    color: white;
+  }
+  
+  /* Column specific styles */
+  td:first-child {
+    font-weight: bold;
+    text-align: center;
+  }
+  
+  /* Action buttons column */
+  .action-buttons {
     display: flex;
     flex-direction: column;
-    margin-bottom: 10px;
-}
-
-.column-control {
-    display: flex;
-    align-items: center;
-    margin-bottom: 5px;
-}
-
-.column-control label {
-    margin-left: 5px;
-}
-
-/* Style the table container */
-#output {
-    overflow-x: auto;
-}
+  }

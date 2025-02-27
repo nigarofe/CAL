@@ -13,19 +13,19 @@ app.use(cors()); // Enable CORS for all routes
 app.post('/save-csv', (req, res) => {
     try {
         const csvData = req.body;
-        
+
         // Write the CSV data to a file
-        const filePath = path.join(__dirname, 'data', 'questions_updated.csv');
-        
+        const filePath = path.join(__dirname, 'questions_updated.csv');
+
         // Make sure the directory exists
         const dir = path.dirname(filePath);
         if (!fs.existsSync(dir)) {
             fs.mkdirSync(dir, { recursive: true });
         }
-        
+
         // Write the file
         fs.writeFileSync(filePath, csvData, 'utf8');
-        
+
         console.log('File saved successfully:', filePath);
         res.json({ success: true, message: 'File saved successfully' });
     } catch (error) {
