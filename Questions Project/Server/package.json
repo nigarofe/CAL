@@ -1,7 +1,7 @@
 {
-  "name": "questions-project",
+  "name": "server",
   "version": "1.0.0",
-  "main": "script.js",
+  "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node server.js"
@@ -12,6 +12,8 @@
   "description": "",
   "dependencies": {
     "cors": "^2.8.5",
+    "csv-parser": "^3.2.0",
+    "csv-stringify": "^6.5.2",
     "express": "^4.21.2",
     "fs": "^0.0.1-security",
     "path": "^0.12.7"
