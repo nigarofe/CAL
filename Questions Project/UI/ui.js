@@ -117,7 +117,7 @@ function calculateNumberOfDaysSinceLastAttempt() {
     for (let i = questionsStartRow; i < matrix.length; i++) {
         const dateStrings = matrix[i]['Date Vector'].replace(/[\[\]]/g, '').split(',');
         const lastDate = new Date(dateStrings[dateStrings.length - 1]);
-        const today = new Date();
+        const today = new Date(new Date().getTime() - 3 * 60 * 60 * 1000);
 
         const timeDifferenceInMs = today - lastDate;
         const timeDifferenceInDays = Math.floor(timeDifferenceInMs / (1000 * 60 * 60 * 24));
