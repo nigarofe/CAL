@@ -35,6 +35,7 @@ async function getMatrix() {
         }
     } catch (error) {
         console.error('Fetch error:', error);
+        alert('Check if server is running');
     }
 }
 
