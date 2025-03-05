@@ -56,7 +56,7 @@ function getCellColor(question_number, propertie, greatestIsGreen) {
     const question = matrix.find(row => row['#'] === question_number);
     const dsla = question[propertie];
 
-    if(propertie === 'PMG-X') {
+    if (propertie === 'PMG-X') {
         if (dsla === Infinity) {
             return 'purple';
         } else if (dsla <= 1) {
@@ -212,6 +212,8 @@ function calculateLoMIandLaMI() {
 
 
         matrix[i]['PMG-D'] = matrix[i]['DSLA'] - matrix[i]['LaMI'];
-        matrix[i]['PMG-X'] = (matrix[i]['DSLA'] / matrix[i]['LaMI']);
+
+        const pmgX = matrix[i]['DSLA'] / matrix[i]['LaMI'];
+        matrix[i]['PMG-X'] = isFinite(pmgX) ? pmgX.toFixed(2) : pmgX;
     }
 }
