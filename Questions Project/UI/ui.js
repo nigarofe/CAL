@@ -8,7 +8,7 @@ function loadHTMLTable() {
 
         calculateNumberOfDaysSinceLastAttempt();
         calculateAttemptsSummary();
-        calculateLoMI();
+        calculateLoMIandLaMI();
 
         tableHead = document.createElement('thead');
         for (let i = 0; i < Object.keys(matrix[headersRow]).length; i++) {
@@ -162,7 +162,7 @@ function calculateAttemptsSummary() {
     }
 }
 
-function calculateLoMI() {
+function calculateLoMIandLaMI() {
     for (let i = questionsStartRow; i < matrix.length; i++) {
         let memoryIntervals = [];
 
@@ -177,7 +177,7 @@ function calculateLoMI() {
 
         // console.log('Code Vector:', codeVector);
         for (let j = 1; j < codeVector.length; j++) {
-            if (codeVector[j] == 1 && codeVector[j - 1] == 1) {
+            if (codeVector[j] == 1) {
                 let timeDifferenceInMs = new Date(dateStrings[j]) - new Date(dateStrings[j - 1]);
                 let timeDifferenceInDays = Math.floor(timeDifferenceInMs / (1000 * 60 * 60 * 24));
                 memoryIntervals.push(timeDifferenceInDays);
@@ -188,8 +188,14 @@ function calculateLoMI() {
         if (memoryIntervals.length > 0) {
             const maxInterval = Math.max(...memoryIntervals);
             matrix[i]['LoMI'] = maxInterval;
+            if (memoryIntervals[memoryIntervals.length - 1] == maxInterval) {
+                matrix[i]['LaMI'] = '=';
+            } else {
+                matrix[i]['LaMI'] = memoryIntervals[memoryIntervals.length - 1];
+            }
         } else {
-            matrix[i]['LoMI'] = '-'; // Default value if no intervals
+            matrix[i]['LoMI'] = '0'; // Default value if no intervals
+            matrix[i]['LaMI'] = '0';
         }
     }
 }
