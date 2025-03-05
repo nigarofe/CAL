@@ -8,7 +8,7 @@ function loadHTMLTable() {
 
         calculateNumberOfDaysSinceLastAttempt();
         calculateAttemptsSummary();
-        calculateMemoryMetrics();
+        calculateLoMIandLaMI();
 
         tableHead = document.createElement('thead');
         for (let i = 0; i < Object.keys(matrix[headersRow]).length; i++) {
@@ -34,7 +34,9 @@ function loadHTMLTable() {
                     cellData.textContent = matrix[i][Object.keys(matrix[headersRow])[j]];
 
                     if (Object.keys(matrix[headersRow])[j] === 'DSLA') {
-                        cellData.style.backgroundColor = getDslaColor(matrix[i]['#']);
+                        cellData.style.backgroundColor = getCellColor(matrix[i]['#'], 'DSLA', false);
+                    } else if (Object.keys(matrix[headersRow])[j] === 'PMG-X') {
+                        cellData.style.backgroundColor = getCellColor(matrix[i]['#'], 'PMG-X', true);
                     }
 
                     if (Object.keys(matrix[headersRow])[j] === 'Action buttons') {
@@ -50,24 +52,26 @@ function loadHTMLTable() {
     });
 }
 
-function getDslaColor(question_number) {
+function getCellColor(question_number, propertie, greatestIsGreen) {
     const question = matrix.find(row => row['#'] === question_number);
-    const dsla = parseInt(question['DSLA']);
+    const dsla = question[propertie];
+
+    if(propertie === 'PMG-X') {
+        if (dsla === Infinity) {
+            return 'purple';
+        } else if (dsla <= 1) {
+            return 'black';
+        }
+    }
 
     const dslaValues = matrix
-        .filter(row => row['DSLA'] !== undefined)
-        .map(row => parseInt(row['DSLA']))
-        .filter(value => !isNaN(value));
+        .filter(row => row[propertie] !== undefined)
+        .map(row => parseInt(row[propertie]))
+        .filter(value => !isNaN(value) && value >= 0);
 
     // Handle edge case where all values are the same
     const maxDSLA = Math.max(...dslaValues);
     const minDSLA = Math.min(...dslaValues);
-
-    // If all values are the same or there's an issue with min/max,
-    // return a default color to avoid division by zero
-    if (maxDSLA === minDSLA || maxDSLA === -Infinity || minDSLA === Infinity) {
-        return 'rgb(255, 255, 0)'; // Yellow as default
-    }
 
     // Calculate the normalized position (0 to 1) of this value in the range
     // Invert the position so smaller values (recent attempts) get higher positions (greener)
@@ -76,14 +80,27 @@ function getDslaColor(question_number) {
     // Red-Yellow-Green color scheme
     let red, green, blue = 0;
 
-    if (normalizedPosition <= 0.5) {
-        // First half: Red to Yellow (increase green)
-        red = 255;
-        green = Math.floor(255 * (normalizedPosition * 2));
-    } else {
-        // Second half: Yellow to Green (decrease red)
-        red = Math.floor(255 * ((1 - normalizedPosition) * 2));
-        green = 255;
+    if (greatestIsGreen) {
+        if (normalizedPosition <= 0.5) {
+            // First half: Red to Yellow (increase green)
+            green = 255;
+            red = Math.floor(255 * (normalizedPosition * 2));
+        } else {
+            // Second half: Yellow to Green (decrease red)
+            green = Math.floor(255 * ((1 - normalizedPosition) * 2));
+            red = 255;
+        }
+    }
+    else {
+        if (normalizedPosition <= 0.5) {
+            // First half: Green to Yellow (decrease green)
+            red = 255;
+            green = Math.floor(255 * (normalizedPosition * 2));
+        } else {
+            // Second half: Yellow to Red (increase red)
+            red = Math.floor(255 * ((1 - normalizedPosition) * 2));
+            green = 255;
+        }
     }
 
     return `rgb(${red},${green},${blue})`;
@@ -162,7 +179,7 @@ function calculateAttemptsSummary() {
     }
 }
 
-function calculateMemoryMetrics() {
+function calculateLoMIandLaMI() {
     for (let i = questionsStartRow; i < matrix.length; i++) {
         let memoryIntervals = [];
 
@@ -195,6 +212,6 @@ function calculateMemoryMetrics() {
 
 
         matrix[i]['PMG-D'] = matrix[i]['DSLA'] - matrix[i]['LaMI'];
-        matrix[i]['PMG-%'] = Math.round(matrix[i]['PMG-D'] / matrix[i]['LaMI'] * 100);
+        matrix[i]['PMG-X'] = (matrix[i]['DSLA'] / matrix[i]['LaMI']);
     }
 }
