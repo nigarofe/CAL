@@ -8,7 +8,7 @@ function loadHTMLTable() {
 
         calculateNumberOfDaysSinceLastAttempt();
         calculateAttemptsSummary();
-        calculateLoMIandLaMI();
+        calculateMemoryMetrics();
 
         tableHead = document.createElement('thead');
         for (let i = 0; i < Object.keys(matrix[headersRow]).length; i++) {
@@ -162,7 +162,7 @@ function calculateAttemptsSummary() {
     }
 }
 
-function calculateLoMIandLaMI() {
+function calculateMemoryMetrics() {
     for (let i = questionsStartRow; i < matrix.length; i++) {
         let memoryIntervals = [];
 
@@ -184,18 +184,17 @@ function calculateLoMIandLaMI() {
             }
         }
 
-
         if (memoryIntervals.length > 0) {
             const maxInterval = Math.max(...memoryIntervals);
             matrix[i]['LoMI'] = maxInterval;
-            if (memoryIntervals[memoryIntervals.length - 1] == maxInterval) {
-                matrix[i]['LaMI'] = '=';
-            } else {
-                matrix[i]['LaMI'] = memoryIntervals[memoryIntervals.length - 1];
-            }
+            matrix[i]['LaMI'] = memoryIntervals[memoryIntervals.length - 1];
         } else {
             matrix[i]['LoMI'] = '0'; // Default value if no intervals
             matrix[i]['LaMI'] = '0';
         }
+
+
+        matrix[i]['PMG-D'] = matrix[i]['DSLA'] - matrix[i]['LaMI'];
+        matrix[i]['PMG-%'] = Math.round(matrix[i]['PMG-D'] / matrix[i]['LaMI'] * 100);
     }
 }
