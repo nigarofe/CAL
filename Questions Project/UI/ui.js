@@ -204,7 +204,12 @@ function calculateLoMIandLaMI() {
         if (memoryIntervals.length > 0) {
             const maxInterval = Math.max(...memoryIntervals);
             matrix[i]['LoMI'] = maxInterval;
-            matrix[i]['LaMI'] = memoryIntervals[memoryIntervals.length - 1];
+
+            if (codeVector[codeVector.length - 1] == 1) {
+                matrix[i]['LaMI'] = memoryIntervals[memoryIntervals.length - 1];
+            } else {
+                matrix[i]['LaMI'] = '0';
+            }
         } else {
             matrix[i]['LoMI'] = '0'; // Default value if no intervals
             matrix[i]['LaMI'] = '0';
