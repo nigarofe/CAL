@@ -8,6 +8,7 @@ function loadHTMLTable() {
 
         calculateNumberOfDaysSinceLastAttempt();
         calculateAttemptsSummary();
+        calculateLoMI();
 
         tableHead = document.createElement('thead');
         for (let i = 0; i < Object.keys(matrix[headersRow]).length; i++) {
@@ -158,5 +159,37 @@ function calculateAttemptsSummary() {
         let summary = [totalAttempts, attemptsWithoutHelp, attemptsWithHelp, lastAttemptMessage].join('; ');
 
         matrix[i]['Attempts Summary'] = summary;
+    }
+}
+
+function calculateLoMI() {
+    for (let i = questionsStartRow; i < matrix.length; i++) {
+        let memoryIntervals = [];
+
+        let codeVector = matrix[i]['Code Vector'];
+        if (typeof codeVector === 'number') {
+            codeVector = [codeVector];
+        } else {
+            codeVector = codeVector.replace(/[\[\]]/g, '').split(',').map(Number);
+        }
+
+        let dateStrings = matrix[i]['Date Vector'].replace(/[\[\]]/g, '').split(',');
+
+        // console.log('Code Vector:', codeVector);
+        for (let j = 1; j < codeVector.length; j++) {
+            if (codeVector[j] == 1 && codeVector[j - 1] == 1) {
+                let timeDifferenceInMs = new Date(dateStrings[j]) - new Date(dateStrings[j - 1]);
+                let timeDifferenceInDays = Math.floor(timeDifferenceInMs / (1000 * 60 * 60 * 24));
+                memoryIntervals.push(timeDifferenceInDays);
+            }
+        }
+
+
+        if (memoryIntervals.length > 0) {
+            const maxInterval = Math.max(...memoryIntervals);
+            matrix[i]['LoMI'] = maxInterval;
+        } else {
+            matrix[i]['LoMI'] = '-'; // Default value if no intervals
+        }
     }
 }
