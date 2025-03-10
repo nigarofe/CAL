@@ -36,7 +36,7 @@ function loadHTMLTable() {
                     if (Object.keys(matrix[headersRow])[j] === 'DSLA') {
                         cellData.style.backgroundColor = getCellColor(matrix[i]['#'], 'DSLA', false);
                     } else if (Object.keys(matrix[headersRow])[j] === 'PMG-X') {
-                        cellData.style.backgroundColor = getCellColor(matrix[i]['#'], 'PMG-X', true);
+                        cellData.style.backgroundColor = getCellColor(matrix[i]['#'], 'PMG-X', false);
                     }
 
                     if (Object.keys(matrix[headersRow])[j] === 'Action buttons') {

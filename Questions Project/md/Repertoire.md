@@ -11,9 +11,11 @@ User preferences (autoSaveEnabled, displayOptions, etc) on the .csv
 
 Separate script.js and server.js in a way that the processing of the .csv is made entirely server.js. 
 
+Log of questions attempted
 
+PMG-X probability distribution: what PMG-X I have a chance of k% of improving my LaMI?
 
-
+When my yesterday's attempt was with help, it's probably a good idea to try it again today
 # Design choices
 This application design choices prioritize development simplicity.
 Spending time making this application more secure or performing goes against this project's goals at this moment.
