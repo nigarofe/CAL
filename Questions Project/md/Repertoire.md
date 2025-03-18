@@ -16,6 +16,10 @@ Log of questions attempted
 PMG-X probability distribution: what PMG-X I have a chance of k% of improving my LaMI?
 
 When my yesterday's attempt was with help, it's probably a good idea to try it again today
+
+Questions that I attempted yesterday and could only do with help are of the utmost priority
+
+There are some questions that are pre-requisite to others. Make something to let this be clear, so I don't try to do something before the pre-requisite also being done that day?
 # Design choices
 This application design choices prioritize development simplicity.
 Spending time making this application more secure or performing goes against this project's goals at this moment.
