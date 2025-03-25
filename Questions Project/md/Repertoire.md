@@ -20,6 +20,10 @@ When my yesterday's attempt was with help, it's probably a good idea to try it a
 Questions that I attempted yesterday and could only do with help are of the utmost priority
 
 There are some questions that are pre-requisite to others. Make something to let this be clear, so I don't try to do something before the pre-requisite also being done that day?
+
+
+
+Column of question in latex and llm output. Repeatable adn beautiful
 # Design choices
 This application design choices prioritize development simplicity.
 Spending time making this application more secure or performing goes against this project's goals at this moment.
