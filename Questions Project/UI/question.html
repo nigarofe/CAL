@@ -15,20 +15,18 @@
 
 <body>
     <!-- <div id="math"></div> -->
-    <h1>Questions</h1>
-    <div id="controls"></div>
-    <table id="questionsTable"></table>
+    <h1 id="question-title"></h1>
+
+    <script>
+        const urlParams = new URLSearchParams(window.location.search);
+        const question = urlParams.get('question');
+        document.getElementById('question-title').textContent = `Question ${question}`;
+    </script>
+
 </body>
 
 <script src="../main.js"></script>
 <script src="index.js"></script>
 <script src="../matrixEdit.js"></script>
-
-
-<!-- <script>
-    window.addEventListener("DOMContentLoaded", () => {
-        katex.render("c = \\pm\\sqrt{a^2 + b^2}", document.getElementById("math"));
-    });
-</script> -->
 
 </html>

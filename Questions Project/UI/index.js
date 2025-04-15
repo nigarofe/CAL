@@ -27,20 +27,25 @@ function loadHTMLTable() {
 
         tableBody = document.createElement('tbody');
         for (let i = questionsStartRow; i < matrix.length; i++) {
-            tableRow = document.createElement('tr');
+            commonTableRow = document.createElement('tr');
+
             for (let j = 0; j < Object.keys(matrix[headersRow]).length; j++) {
-                if (matrix[visibilityRow][Object.keys(matrix[headersRow])[j]] == 'TRUE') {
+                let columnSetToVisible = matrix[visibilityRow][Object.keys(matrix[headersRow])[j]]
+
+                if (columnSetToVisible == 'TRUE') {
                     let columnName = Object.keys(matrix[headersRow])[j]
                     let valueOnCsvTable = matrix[i][columnName];
 
                     const cellData = document.createElement('td');
-                    cellData.textContent = valueOnCsvTable;
 
                     if ((columnName === 'Input' || columnName === 'Output') && valueOnCsvTable) {
                         // valueOnCsvTable = valueOnCsvTable.replace(/\\\\/g, '\\');
                         valueOnCsvTable = valueOnCsvTable.replace(/\\n/g, '\\\\n');
                         katex.render(valueOnCsvTable, cellData);
+                    } else {
+                        cellData.textContent = valueOnCsvTable;
                     }
+
 
                     if (columnName === 'DSLA') {
                         cellData.style.backgroundColor = getCellColor(matrix[i]['#'], 'DSLA', false);
@@ -52,10 +57,15 @@ function loadHTMLTable() {
                         addActionButtonsToCellData(cellData, i);
                     }
 
-                    tableRow.appendChild(cellData);
+                    commonTableRow.appendChild(cellData);
                 }
             }
-            tableBody.appendChild(tableRow);
+            commonTableRow.style.cursor = 'pointer'; // Add hand icon to mouse
+            commonTableRow.onclick = function () {
+                const questionNumber = matrix[i]['#'];
+                window.location.href = `question.html?question=${questionNumber}`;
+            };
+            tableBody.appendChild(commonTableRow);
         }
         htmlTable.appendChild(tableBody);
     });
