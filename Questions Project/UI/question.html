@@ -17,16 +17,20 @@
     <!-- <div id="math"></div> -->
     <h1 id="question-title"></h1>
 
-    <script>
-        const urlParams = new URLSearchParams(window.location.search);
-        const question = urlParams.get('question');
-        document.getElementById('question-title').textContent = `Question ${question}`;
-    </script>
+    <a href="index.html" class="home-button">Home</a>
 
+
+    <div>
+        <h2>Input</h2>
+        <div id="input"></div>
+        <h2>Output</h2>
+        <div id="output"></div>
+    </div>
 </body>
 
 <script src="../main.js"></script>
-<script src="index.js"></script>
+<!-- <script src="index.js"></script> -->
+<script src="question.js"></script>
 <script src="../matrixEdit.js"></script>
 
 </html>

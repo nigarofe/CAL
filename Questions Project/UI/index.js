@@ -63,7 +63,7 @@ function loadHTMLTable() {
             commonTableRow.style.cursor = 'pointer'; // Add hand icon to mouse
             commonTableRow.onclick = function () {
                 const questionNumber = matrix[i]['#'];
-                window.location.href = `question.html?question=${questionNumber}`;
+                window.location.href = `question.html?question_number=${questionNumber}`;
             };
             tableBody.appendChild(commonTableRow);
         }

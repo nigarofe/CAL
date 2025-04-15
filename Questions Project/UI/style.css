@@ -91,3 +91,72 @@ button:hover {
 .slider:checked:before {
     transform: translateX(20px);
 }
+
+/* Styling for input and output sections */
+#input,
+#output {
+    font-family: 'Arial', sans-serif;
+    background-color: #fff;
+    border: 2px solid #009879;
+    padding: 20px;
+    margin: 20px 0;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    /* Centers the text inside these containers */
+}
+
+/* Updated h2 styling for titles */
+h2 {
+    margin-top: 0;
+    font-size: 1.75em;
+    text-align: center;
+    /* Centers the heading text */
+    margin-bottom: 10px;
+    color: #009879;
+    font-family: 'Arial', sans-serif;
+    padding-top: 5%;
+    padding-bottom: 5px;
+}
+
+/* General paragraph styling inside the input and output sections */
+#input,
+#output p {
+    font-size: 1em;
+    line-height: 1.5;
+    color: #333;
+    margin: 8px 0;
+}
+
+/* Styling for code snippets inside input and output */
+#input code,
+#output code {
+    font-family: 'Courier New', Courier, monospace;
+    background-color: #f4f4f4;
+    color: #d14;
+    padding: 2px 4px;
+    border-radius: 4px;
+    font-size: 0.95em;
+}
+
+
+.home-button {
+    position: absolute;
+    /* Positions the button relative to the page */
+    top: 20px;
+    /* Adjust the distance from the top */
+    left: 20px;
+    /* Adjust the distance from the left */
+    background-color: #009879;
+    color: white;
+    text-decoration: none;
+    /* Removes underline from the text */
+    padding: 10px 15px;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    transition: background-color 0.3s ease;
+}
+
+.home-button:hover {
+    background-color: #007f67;
+}
