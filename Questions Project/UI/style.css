@@ -140,7 +140,8 @@ h2 {
 }
 
 
-.home-button {
+.home-button,
+.toggle-button {
     position: absolute;
     /* Positions the button relative to the page */
     top: 20px;
@@ -157,6 +158,7 @@ h2 {
     transition: background-color 0.3s ease;
 }
 
-.home-button:hover {
+.home-button:hover,
+.toggle-button:hover {
     background-color: #007f67;
 }

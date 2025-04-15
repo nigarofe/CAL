@@ -2,35 +2,75 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Questions Project</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="style.css" />
     <link rel="icon" type="image/svg+xml"
-        href="https://upload.wikimedia.org/wikipedia/commons/1/1d/Eo_circle_green_letter-q.svg">
-
-    <link rel="stylesheet" href="katex/katex.min.css">
+        href="https://upload.wikimedia.org/wikipedia/commons/1/1d/Eo_circle_green_letter-q.svg" />
+    <link rel="stylesheet" href="katex/katex.min.css" />
     <script defer src="katex/katex.min.js"></script>
+
+    <!-- You can also place extra CSS for the toggle in a <style> block if desired -->
+    <style>
+        /* Ensures the output content is hidden by default */
+        #outputContent {
+            display: none;
+        }
+    </style>
 </head>
 
 <body>
-    <!-- <div id="math"></div> -->
     <h1 id="question-title"></h1>
-
-    <a href="index.html" class="home-button">Home</a>
+    <a href="index.html" class="home-button">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#000000"
+            stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M20 9v11a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V9" />
+            <path d="M9 22V12h6v10M2 10.6L12 2l10 8.6" />
+        </svg>
+    </a>
 
 
     <div>
         <h2>Input</h2>
         <div id="input"></div>
-        <h2>Output</h2>
-        <div id="output"></div>
-    </div>
-</body>
 
-<script src="../main.js"></script>
-<!-- <script src="index.js"></script> -->
-<script src="question.js"></script>
-<script src="../matrixEdit.js"></script>
+        <!-- The Output header now includes an eye icon button -->
+        <h2>
+            Output
+            <button id="toggleBtn" class="toggle-btn" onclick="toggleOutput()">
+                <!-- Inline SVG for an eye icon (you can update this SVG if desired) -->
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                    stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+                    <circle cx="12" cy="12" r="3"></circle>
+                </svg>
+            </button>
+        </h2>
+
+        <!-- Wrap the output content in its own container that is hidden by default -->
+        <div id="outputContent">
+            <div id="output"></div>
+        </div>
+    </div>
+
+    <!-- External JS files -->
+    <script src="../main.js"></script>
+    <script src="question.js"></script>
+    <script src="../matrixEdit.js"></script>
+
+    <!-- Inline JavaScript to toggle the output content -->
+    <script>
+        function toggleOutput() {
+            var outputContainer = document.getElementById("outputContent");
+            // Check the current display style and toggle it
+            if (outputContainer.style.display === "none" || outputContainer.style.display === "") {
+                outputContainer.style.display = "block";
+            } else {
+                outputContainer.style.display = "none";
+            }
+        }
+    </script>
+</body>
 
 </html>
