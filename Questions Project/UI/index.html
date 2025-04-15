@@ -8,9 +8,13 @@
     <link rel="stylesheet" href="style.css">
     <link rel="icon" type="image/svg+xml"
         href="https://upload.wikimedia.org/wikipedia/commons/1/1d/Eo_circle_green_letter-q.svg">
+
+    <link rel="stylesheet" href="katex/katex.min.css">
+    <script defer src="katex/katex.min.js"></script>
 </head>
 
 <body>
+    <!-- <div id="math"></div> -->
     <h1>Questions</h1>
     <div id="controls"></div>
     <table id="questionsTable"></table>
@@ -19,5 +23,12 @@
 <script src="../main.js"></script>
 <script src="ui.js"></script>
 <script src="../matrixEdit.js"></script>
+
+
+<!-- <script>
+    window.addEventListener("DOMContentLoaded", () => {
+        katex.render("c = \\pm\\sqrt{a^2 + b^2}", document.getElementById("math"));
+    });
+</script> -->
 
 </html>

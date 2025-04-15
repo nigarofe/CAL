@@ -30,16 +30,25 @@ function loadHTMLTable() {
             tableRow = document.createElement('tr');
             for (let j = 0; j < Object.keys(matrix[headersRow]).length; j++) {
                 if (matrix[visibilityRow][Object.keys(matrix[headersRow])[j]] == 'TRUE') {
-                    const cellData = document.createElement('td');
-                    cellData.textContent = matrix[i][Object.keys(matrix[headersRow])[j]];
+                    let columnName = Object.keys(matrix[headersRow])[j]
+                    let valueOnCsvTable = matrix[i][columnName];
 
-                    if (Object.keys(matrix[headersRow])[j] === 'DSLA') {
+                    const cellData = document.createElement('td');
+                    cellData.textContent = valueOnCsvTable;
+
+                    if ((columnName === 'Input' || columnName === 'Output') && valueOnCsvTable) {
+                        // valueOnCsvTable = valueOnCsvTable.replace(/\\\\/g, '\\');
+                        valueOnCsvTable = valueOnCsvTable.replace(/\\n/g, '\\\\n');
+                        katex.render(valueOnCsvTable, cellData);
+                    }
+
+                    if (columnName === 'DSLA') {
                         cellData.style.backgroundColor = getCellColor(matrix[i]['#'], 'DSLA', false);
-                    } else if (Object.keys(matrix[headersRow])[j] === 'PMG-X') {
+                    } else if (columnName === 'PMG-X') {
                         cellData.style.backgroundColor = getCellColor(matrix[i]['#'], 'PMG-X', false);
                     }
 
-                    if (Object.keys(matrix[headersRow])[j] === 'Action buttons') {
+                    if (columnName === 'Action buttons') {
                         addActionButtonsToCellData(cellData, i);
                     }
 
