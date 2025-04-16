@@ -1,3 +1,58 @@
+# V3 ideas
+
+## Tech Stack / Requirements
+- npm 10.9.2
+
+- HTML
+- CSS
+	- Bootstrap 5.3.5
+- JavaScript
+	- Node.js 22.14.0
+- Katex 0.16.22
+- csv-stringify 6.5.2
+
+## Useful commands
+- See if is installed correctly
+	- npm -v
+	- node -v
+- Start Node.js project in folder
+	- npm init -y
+- Install 
+	- npm i csv-stringify
+	- npm i bootstrap
+	- npm i katex
+	- npm install express fs path cors
+	- npm install -g nodemon
+- Start server
+	- nodemon server.js
+	- node server.js
+
+# CSV
+- Separator
+	- Tab = \t
+- Encoding
+	- UTF-8
+
+# Interface description
+- There's only one screen
+	- There's a centralized h1 title "Questions"
+	- There's a search bar that search in regex across all table fields
+- Clicking a row of the table opens a modal with the question
+	- Modal structure
+		- The modal header has a centralized h1 title "Question 42"
+		- The model body has the following sections
+			- Question statement
+			- Question resolution by LLM
+			- Question resolution by myself
+			- Question answer
+		- The model footer has a button tray aligned to the center with two buttons, named "0" and "1," , that when hovered display
+			- "0 = I needed help to solve the question" 
+			- "1 = I solved the question without any external help" 
+
+
+
+
+
 # Repertoire of things 
 Make table update smoother
 

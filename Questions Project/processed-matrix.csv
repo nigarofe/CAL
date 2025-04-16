@@ -1,70 +1,79 @@
 #	Discipline	Source	Description	Input	Output	Code Vector	Date Vector	Attempts Summary	DSLA	LoMI	LaMI	PMG-D	PMG-X	Action buttons
 Question number identifier	Subject or field of study	Where this question originated from	Detailed explanation of the question	What the user will see	Where the user should get at	Vector of codes associated with the question	Dates when this question was attempted	Total attempts; Attempts without help; Attempts with help	Days Since Last Attempt: The number of days that have passed since your most recent attempt on the question, irrespective of the method used.	Longest Memory Interval: The maximum number of days between any memory-based attempt and the attempt immediately preceding it (regardless of whether that preceding attempt was solved from memory or with help)	Latest Memory Interval: The number of days between your most recent memory-based attempt and the previous attempt, calculated only if your latest attempt was solved from memory.	Potential Memory Gains in days: The estimated improvement in your Latest Memory Interval, expressed in days, if you successfully answer the question from memory today.	Potential Memory Gain as a multiplier of my LaMI: Proportional increase in your Latest Memory Interval if you answer the question from memory today.	0 = I did the question with help \n 1 = I did the question from memory only
 TRUE	TRUE	TRUE	TRUE	FALSE	FALSE	FALSE	FALSE	TRUE	TRUE	FALSE	TRUE	TRUE	TRUE	TRUE
-1	Eletromag					0, 1, 1,1	2024-11-07, 2025-01-24, 2025-02-20,2025-04-07	4; 3; 1; From memory	0	78	45	-45	0	
-2	C3		-	\left(e^{\gamma t}\right)''	e^{\gamma t} \gamma^2	0, 1, 1,1	2024-11-12, 2025-01-16, 2025-01-17,2025-03-09	4; 3; 1; From memory	29	65	50	-21	0.58	
-3	EDO	Workbook for Dummies	C1 Q5-6	\text{Solve for } y \text{ in this differential equation:} \\ \frac{dy}{dx} = 8x \\ \text{where} \\ y(0) = 4	y = 4x^2 + 4	0,1	2024-11-12, 2025-01-24	2; 1; 1; From memory	73	73	73	0	1	
-4	EDO	Workbook for Dummies	C1 Q9-10	\text{What's } y \text{ in the following equation?} \\ \frac{dy}{dx} = 4y - 8 \\ \text{where} \\ y(0) = 5	y = 2 + 3e^{4x}	0,0,1,0,0,1,1,1,1,1	2024-11-13,2025-01-24,2025-02-06,2025-03-05,2025-03-09,2025-03-10,2025-03-12,2025-03-17,2025-03-24,2025-04-07	10; 6; 4; From memory	0	14	14	-14	0	
-5	EDO	Workbook for Dummies	C1 Q14			0,1	2024-11-13,2025-01-24	2; 1; 1; From memory	73	72	72	1	1.01	
-6	EDO	Workbook for Dummies	C1 p.17	\text{Solve for } y \text{ by using an integrating factor:} \\ \frac{dy}{dx} + 5y = 10 \\ \text{where} \\ y(0) = 6	y = 2 + 4e^{-5x}	0,0,0,0,0,0,1,1,1,1,1	2024-11-13, 2025-01-24,2025-02-06,2025-02-10,2025-03-09,2025-03-10,2025-03-11,2025-03-13,2025-03-17,2025-03-24,2025-04-07	11; 5; 6; From memory	0	14	14	-14	0	
-7	EDO	Workbook for Dummies	C4 p.103			0,0	2024-11-13, 2025-02-06	2; 0; 2; W/H	60	0	0	60		
-8	EDO	Workbook for Dummies	C4 Q10			0,1	2024-11-18,2025-02-06	2; 1; 1; From memory	60	80	80	-20	0.75	
-9	EDO	Workbook for Dummies	C4 p.106			0	2024-11-18	1; 0; 1; W/H	140	0	0	140		
-10	EDO	Workbook for Dummies	C4 p.108			0	2024-11-18	1; 0; 1; W/H	140	0	0	140		
-11	EDO	Workbook for Dummies	C5 p.123			0	2024-11-18	1; 0; 1; W/H	140	0	0	140		
-12	C3	2024-2 Lista 2	L2-Q1			0,0,0,1,1	2024-11-23,2025-01-17,2025-02-06, 2025-02-11,2025-03-12	5; 2; 3; From memory	26	28	28	-2	0.93	
-13	C3	2024-2 Lista 2	L2-Q2			0,0,0,1,1	2024-11-23,2025-01-17,2025-02-06, 2025-02-11,2025-03-12	5; 2; 3; From memory	26	28	28	-2	0.93	
-14	C3	2024-2 Lista 2	L2-Q3			0,1,1,1	2024-11-25,2025-01-22,2025-02-11,2025-03-09	4; 3; 1; From memory	29	58	26	3	1.12	
-15	C3		-			0,0,1,1	2024-11-25,2025-02-06,2025-02-11,2025-03-12	4; 2; 2; From memory	26	29	29	-3	0.9	
-16	C3	2024-2 Lista 2	L2-Q4.1			0,1	2024-11-25,2025-02-10	2; 1; 1; From memory	56	77	77	-21	0.73	
-17	C3	2024-2 Lista 2	L2-Q5			0,0,1,1,1	2024-11-25,2025-03-14,2025-03-17,2025-03-24,2025-04-07	5; 3; 2; From memory	0	14	14	-14	0	
-18	C3	2024-2 Lista 2	L2-Q4.2			0,0,1,1,1,1	2024-11-25,2025-02-19,2025-02-21,2025-03-04,2025-03-17,2025-04-07	6; 4; 2; From memory	0	21	21	-21	0	
-19	C3	2024-2 Lista 2	L2-Q6			0,0,1,1,1,1	2024-11-26,2025-03-17,2025-03-18,2025-03-20,2025-03-24,2025-04-07	6; 4; 2; From memory	0	14	14	-14	0	
-20	C3		-			0,0,1,1,1	2024-12-02,2025-02-10,2025-02-18,2025-03-04,2025-03-20	5; 3; 2; From memory	18	16	16	2	1.13	
-21	C3		-			0,1,1	2024-12-02,2025-02-10,2025-03-04	3; 2; 1; From memory	34	70	22	12	1.55	
-22	C3		-			0,1,1	2024-12-02,2025-02-10,2025-03-04	3; 2; 1; From memory	34	70	22	12	1.55	
+1	Eletromag					0, 1, 1,1	2024-11-07, 2025-01-24, 2025-02-20,2025-04-07	4; 3; 1; From memory	8	78	45	-37	0.18	
+2	C3		-	\left(e^{\gamma t}\right)''	e^{\gamma t} \gamma^2	0, 1, 1,1	2024-11-12, 2025-01-16, 2025-01-17,2025-03-09	4; 3; 1; From memory	37	65	50	-13	0.74	
+3	EDO	Workbook for Dummies	C1 Q5-6	\text{Solve for } y \text{ in this differential equation:} \\ \frac{dy}{dx} = 8x \\ \text{where} \\ y(0) = 4	y = 4x^2 + 4	0,1	2024-11-12, 2025-01-24	2; 1; 1; From memory	81	73	73	8	1.11	
+4	EDO	Workbook for Dummies	C1 Q9-10	\text{What's } y \text{ in the following equation?} \\ \frac{dy}{dx} = 4y - 8 \\ \text{where} \\ y(0) = 5	y = 2 + 3e^{4x}	0,0,1,0,0,1,1,1,1,1	2024-11-13,2025-01-24,2025-02-06,2025-03-05,2025-03-09,2025-03-10,2025-03-12,2025-03-17,2025-03-24,2025-04-07	10; 6; 4; From memory	8	14	14	-6	0.57	
+5	EDO	Workbook for Dummies	C1 Q14			0,1	2024-11-13,2025-01-24	2; 1; 1; From memory	81	72	72	9	1.13	
+6	EDO	Workbook for Dummies	C1 p.17	\text{Solve for } y \text{ by using an integrating factor:} \\ \frac{dy}{dx} + 5y = 10 \\ \text{where} \\ y(0) = 6	y = 2 + 4e^{-5x}	0,0,0,0,0,0,1,1,1,1,1	2024-11-13, 2025-01-24,2025-02-06,2025-02-10,2025-03-09,2025-03-10,2025-03-11,2025-03-13,2025-03-17,2025-03-24,2025-04-07	11; 5; 6; From memory	8	14	14	-6	0.57	
+7	EDO	Workbook for Dummies	C4 p.103			0,0	2024-11-13, 2025-02-06	2; 0; 2; W/H	68	0	0	68		
+8	EDO	Workbook for Dummies	C4 Q10			0,1	2024-11-18,2025-02-06	2; 1; 1; From memory	68	80	80	-12	0.85	
+9	EDO	Workbook for Dummies	C4 p.106			0	2024-11-18	1; 0; 1; W/H	148	0	0	148		
+10	EDO	Workbook for Dummies	C4 p.108			0	2024-11-18	1; 0; 1; W/H	148	0	0	148		
+11	EDO	Workbook for Dummies	C5 p.123			0	2024-11-18	1; 0; 1; W/H	148	0	0	148		
+12	C3	2024-2 Lista 2	L2-Q1	"\text{Calcule a integral de linha} \\ 
+\quad \int_C \sqrt{1 + 4x^2} \, ds, \\ 
+\text{em que } C \text{ é a interseção do cilindro } x^2 + (y - 1)^2 = 1 \text{ com o plano } z = 2y. \\ "	6\pi	0,0,0,1,1,0	2024-11-23,2025-01-17,2025-02-06, 2025-02-11,2025-03-12,2025-04-15	5; 2; 3; From memory	34	28	28	6	1.21	
+13	C3	2024-2 Lista 2	L2-Q2	"\text{Calcule a massa de um pedaço de arame cuja forma é descrita pela curva} \\ 
+\quad \vec{\gamma}(t) = \left\langle 6t^2,\, 4\sqrt{2}t^3,\, 3t^4 \right\rangle; \quad 0 \leq t \leq 1. \\ 
+\text{e a densidade é } \rho(x, y, z) = 6 + |x|."	M=84	0,0,0,1,1	2024-11-23,2025-01-17,2025-02-06, 2025-02-11,2025-03-12	5; 2; 3; From memory	34	28	28	6	1.21	
+14	C3	2024-2 Lista 2	L2-Q3	"\quad \text{Calcule o comprimento da curva} \\ 
+\quad \vec{\gamma}(t) = \left\langle \frac{t^2}{2},\, t^3,\, \sqrt{2}t^2 \right\rangle; \quad 0 \leq t \leq 1."	2\sqrt{2} – 1.	0,1,1,1	2024-11-25,2025-01-22,2025-02-11,2025-03-09	4; 3; 1; From memory	37	58	26	11	1.42	
+15	C3		-	\int \frac{1}{2} \sin(t) \, e^{-\frac{7}{2} - \frac{1}{2} \cos(t)} \, dt \\	e^{-\frac{7}{2} - \frac{1}{2} \cos(t)} + C	0,0,1,1	2024-11-25,2025-02-06,2025-02-11,2025-03-12	4; 2; 2; From memory	34	29	29	5	1.17	
+16	C3	2024-2 Lista 2	L2-Q4.1	"\text{Considere o campo vetorial } \vec{F} = \langle y, -x, e^z \rangle \text{ e a curva } C, \text{ interseção do paraboloide } z = 4 - x^2 - y^2 \\ 
+\text{com o plano } z = 4 - x. \text{ Calcule a integral} \\
+\quad \int_C \vec{F} \cdot d\vec{r}."	-\frac{\pi}{2}	0,1	2024-11-25,2025-02-10	2; 1; 1; From memory	64	77	77	-13	0.83	
+17	C3	2024-2 Lista 2	L2-Q5	"\text{Calcule a integral} \\
+\quad \int_C \left(e^y - x e^x - x^5 e^x\right) dx + \left(x + y^5\right) e^y dy \\
+\text{em que } C \text{ é a parte da curva } y = x^{200} \text{ que liga o ponto } (0,0) \text{ ao ponto } (1,1)"	e – 1	0,0,1,1,1	2024-11-25,2025-03-14,2025-03-17,2025-03-24,2025-04-07	5; 3; 2; From memory	8	14	14	-6	0.57	
+18	C3	2024-2 Lista 2	L2-Q4.2			0,0,1,1,1,1	2024-11-25,2025-02-19,2025-02-21,2025-03-04,2025-03-17,2025-04-07	6; 4; 2; From memory	8	21	21	-13	0.38	
+19	C3	2024-2 Lista 2	L2-Q6			0,0,1,1,1,1	2024-11-26,2025-03-17,2025-03-18,2025-03-20,2025-03-24,2025-04-07	6; 4; 2; From memory	8	14	14	-6	0.57	
+20	C3		-			0,0,1,1,1	2024-12-02,2025-02-10,2025-02-18,2025-03-04,2025-03-20	5; 3; 2; From memory	26	16	16	10	1.63	
+21	C3		-			0,1,1	2024-12-02,2025-02-10,2025-03-04	3; 2; 1; From memory	42	70	22	20	1.91	
+22	C3		-			0,1,1	2024-12-02,2025-02-10,2025-03-04	3; 2; 1; From memory	42	70	22	20	1.91	
 23	C3		-	"\text{Calcule } \iint_S (x^2 + y^2) \, dS \text{ em que } S \text{ é a parte do plano } z = 2x + 2y - 1 \text{ interior ao paraboloide } z = x^2 + y^2.
 "	"\frac{15\pi}{2}
-"	0,1,1	2024-12-02,2025-02-10,2025-03-04	3; 2; 1; From memory	34	70	22	12	1.55	
-24	C3	2024-2 Lista 3	L3-Q1			0,1,1,0,1,1,1,1	2024-12-04,2025-01-12,2025-01-13,2025-03-12,2025-03-13,2025-03-17,2025-03-24,2025-04-07	8; 6; 2; From memory	0	39	14	-14	0	
-25	C3	2024-2 Lista 3	L3-Q2			0,0,0,0,1,1	2025-01-05,2025-01-06,2025-03-18,2025-03-20,2025-03-24,2025-04-07	6; 2; 4; From memory	0	14	14	-14	0	
-26	C3	2024-2 Lista 3	L3-Q3			0,0,1,0,0,1,1	2025-01-06,2025-01-13,2025-01-14,2025-03-20,2025-03-24,2025-03-25,2025-04-07	7; 3; 4; From memory	0	13	13	-13	0	
-27	C3	2024-2 Lista 3	L3-Q4			0,1,1	2025-01-05,2025-01-06,2025-04-07	3; 2; 1; From memory	0	91	91	-91	0	
-28	C3	2022-2 P3	Q3			0,0,0,1,0	2025-01-11,2025-01-12,2025-01-13,2025-01-14,2025-04-07	5; 1; 4; W/H	0	1	0	0		
-29	C3	2024-2 Lista 3	L3-Q9			0,1,0,0,0,1,1,1	2025-01-11,2025-01-14,2025-03-10,2025-03-11,2025-03-12,2025-03-13,2025-03-17,2025-03-24	8; 4; 4; From memory	14	7	7	7	2	
-30	C3	2022-2 P3	Q1			0,1,0	2025-01-12,2025-01-14,2025-04-07	3; 1; 2; W/H	0	2	0	0		
-31	C3	2022-2 P3	Q2			0,1,1	2025-01-13, 2025-01-14,2025-04-07	3; 2; 1; From memory	0	82	82	-82	0	
-32	C3		-			0,0,1,1	2025-01-24,2025-02-18,2025-03-03,2025-03-18	4; 2; 2; From memory	20	15	15	5	1.33	
-33	C3		Prerequisite to q17			0,1,1	2025-02-18,2025-03-03,2025-03-20	3; 2; 1; From memory	18	17	17	1	1.06	
-34	French		Prerequisite to q35 – At the library 1			0,0,0,0,1,1,1,1	2025-02-18, 2025-02-19, 2025-02-21,2025-03-03,2025-03-04,2025-03-09,2025-03-17,2025-03-27	8; 4; 4; From memory	11	10	10	1	1.1	
-35	French		At the library 2			0,0,1,1,1,1	2025-02-21,2025-03-03,2025-03-04,2025-03-09,2025-03-17,2025-03-27	6; 4; 2; From memory	11	10	10	1	1.1	
-36	C3	-	Prerequisite to q19			0,1,1	2025-03-18,2025-03-19,2025-03-24	3; 2; 1; From memory	14	5	5	9	2.8	
-37	EDO	Workbook for Dummies	C2 p.31			0,1	2025-03-20,2025-03-24	2; 1; 1; From memory	14	4	4	10	3.5	
-38	EDO	Workbook for Dummies	C2 p.34			0,1	2025-03-20,2025-03-24	2; 1; 1; From memory	14	4	4	10	3.5	
-39	EDO	Workbook for Dummies	C2 p.39			0,1	2025-03-20,2025-03-24	2; 1; 1; From memory	14	4	4	10	3.5	
-40	FOO	2025-1 Lista 1	L1-Q1			0,1,1,1	2025-03-24,2025-03-25,2025-03-27,2025-03-31	4; 3; 1; From memory	7	4	4	3	1.75	
-41	FOO	2025-1 Lista 1	L1-Q2			0,1,1,1	2025-03-24,2025-03-25,2025-03-27,2025-03-31	4; 3; 1; From memory	7	4	4	3	1.75	
-42	FOO	2025-1 Lista 1	L1-Q3			0,1,1,1	2025-03-24,2025-03-25,2025-03-27,2025-03-31	4; 3; 1; From memory	7	4	4	3	1.75	
-43	FOO	2025-1 Lista 1	L1-Q4			0,1,1,1	2025-03-24,2025-03-25,2025-03-27,2025-04-02	4; 3; 1; From memory	5	6	6	-1	0.83	
-44	FOO	2025-1 Lista 1	L1-Q5			0,1,1	2025-03-25,2025-03-26,2025-04-02	3; 2; 1; From memory	5	7	7	-2	0.71	
-45	FOO	2025-1 Lista 1	L1-Q6			0,1,1	2025-03-26,2025-03-27,2025-04-02	3; 2; 1; From memory	5	6	6	-1	0.83	
-46	FOO	2025-1 Lista 1	L1-Q7			0,1,1	2025-03-26,2025-03-27,2025-04-02	3; 2; 1; From memory	5	6	6	-1	0.83	
-47	FOO	2025-1 Lista 1	L1-Q8			0,1,0	2025-03-26,2025-03-27,2025-04-02	3; 1; 2; W/H	5	1	0	5		
-48	FOO	2025-1 Lista 1	L1-Q9			0,1,1	2025-03-26,2025-03-27,2025-03-31	3; 2; 1; From memory	7	4	4	3	1.75	
-49	FOO	2025-1 Lista 1	L1-Q10			0,1	2025-03-27,2025-03-31	2; 1; 1; From memory	7	4	4	3	1.75	
-50	FOO	2025-1 Lista 1	L1-Q11			0,0	2025-03-27,2025-04-02	2; 0; 2; W/H	5	0	0	5		
-51	FOO	2025-1 Lista 1	L1-Q12			0,0	2025-03-27,2025-04-02	2; 0; 2; W/H	5	0	0	5		
-52	EDO	2025-1 Exercícios para prova	Q1			0,0,1	2025-04-04,2025-04-06,2025-04-07	3; 1; 2; From memory	0	1	1	-1	0	
-53	EDO	2025-1 Exercícios para prova	Q2			0,0,0	2025-04-04,2025-04-06,2025-04-07	3; 0; 3; W/H	0	0	0	0		
-54	EDO	2025-1 Exercícios para prova	Q3			0,0	2025-04-04,2025-04-07	1; 0; 1; W/H	3	0	0	3		
-55	EDO	2025-1 Exercícios para prova	Q4 nf			0	2025-04-04	1; 0; 1; W/H	3	0	0	3		
-56	EDO	2025-1 Exercícios para prova	Q5 nf			0	2025-04-04	1; 0; 1; W/H	3	0	0	3		
-57	EDO	2025-1 Exercícios para prova	Q6 nf			0	2025-04-04	1; 0; 1; W/H	3	0	0	3		
-58	EDO	2025-1 Exercícios para prova	Q7 nf			0	2025-04-04	1; 0; 1; W/H	3	0	0	3		
-59	EDO	2025-1 Exercícios para prova	Q8 nf			0	2025-04-04	1; 0; 1; W/H	3	0	0	3		
-60	MecSol	2025-1 Lista 1	Q1			0	2025-04-09	1; 0; 1; W/H	3	0	0	3		
-61	MecSol	2025-1 Lista 1	Q2			0	2025-04-09	1; 0; 1; W/H	3	0	0	3		
-62	MecSol	2025-1 Lista 1	Q3			0	2025-04-09	1; 0; 1; W/H	3	0	0	3		
-63	MecSol	2025-1 Lista 1	Q4 nf			0	2025-04-04	1; 0; 1; W/H	3	0	0	3		
-64	MecSol	2025-1 Lista 1	Q5 nf			0	2025-04-04	1; 0; 1; W/H	3	0	0	3		
-65	MecSol	2025-1 Lista 1	Q6 nf			0	2025-04-04	1; 0; 1; W/H	3	0	0	3		
+"	0,1,1	2024-12-02,2025-02-10,2025-03-04	3; 2; 1; From memory	42	70	22	20	1.91	
+24	C3	2024-2 Lista 3	L3-Q1			0,1,1,0,1,1,1,1	2024-12-04,2025-01-12,2025-01-13,2025-03-12,2025-03-13,2025-03-17,2025-03-24,2025-04-07	8; 6; 2; From memory	8	39	14	-6	0.57	
+25	C3	2024-2 Lista 3	L3-Q2			0,0,0,0,1,1	2025-01-05,2025-01-06,2025-03-18,2025-03-20,2025-03-24,2025-04-07	6; 2; 4; From memory	8	14	14	-6	0.57	
+26	C3	2024-2 Lista 3	L3-Q3			0,0,1,0,0,1,1	2025-01-06,2025-01-13,2025-01-14,2025-03-20,2025-03-24,2025-03-25,2025-04-07	7; 3; 4; From memory	8	13	13	-5	0.62	
+27	C3	2024-2 Lista 3	L3-Q4			0,1,1	2025-01-05,2025-01-06,2025-04-07	3; 2; 1; From memory	8	91	91	-83	0.09	
+28	C3	2022-2 P3	Q3			0,0,0,1,0	2025-01-11,2025-01-12,2025-01-13,2025-01-14,2025-04-07	5; 1; 4; W/H	8	1	0	8		
+29	C3	2024-2 Lista 3	L3-Q9			0,1,0,0,0,1,1,1	2025-01-11,2025-01-14,2025-03-10,2025-03-11,2025-03-12,2025-03-13,2025-03-17,2025-03-24	8; 4; 4; From memory	22	7	7	15	3.14	
+30	C3	2022-2 P3	Q1			0,1,0	2025-01-12,2025-01-14,2025-04-07	3; 1; 2; W/H	8	2	0	8		
+31	C3	2022-2 P3	Q2			0,1,1	2025-01-13, 2025-01-14,2025-04-07	3; 2; 1; From memory	8	82	82	-74	0.10	
+32	C3		-			0,0,1,1	2025-01-24,2025-02-18,2025-03-03,2025-03-18	4; 2; 2; From memory	28	15	15	13	1.87	
+33	C3		Prerequisite to q17			0,1,1	2025-02-18,2025-03-03,2025-03-20	3; 2; 1; From memory	26	17	17	9	1.53	
+34	French		Prerequisite to q35 – At the library 1			0,0,0,0,1,1,1,1	2025-02-18, 2025-02-19, 2025-02-21,2025-03-03,2025-03-04,2025-03-09,2025-03-17,2025-03-27	8; 4; 4; From memory	19	10	10	9	1.90	
+35	French		At the library 2			0,0,1,1,1,1	2025-02-21,2025-03-03,2025-03-04,2025-03-09,2025-03-17,2025-03-27	6; 4; 2; From memory	19	10	10	9	1.90	
+36	C3	-	Prerequisite to q19			0,1,1	2025-03-18,2025-03-19,2025-03-24	3; 2; 1; From memory	22	5	5	17	4.40	
+37	EDO	Workbook for Dummies	C2 p.31			0,1	2025-03-20,2025-03-24	2; 1; 1; From memory	22	4	4	18	5.50	
+38	EDO	Workbook for Dummies	C2 p.34			0,1	2025-03-20,2025-03-24	2; 1; 1; From memory	22	4	4	18	5.50	
+39	EDO	Workbook for Dummies	C2 p.39			0,1	2025-03-20,2025-03-24	2; 1; 1; From memory	22	4	4	18	5.50	
+40	FOO	2025-1 Lista 1	L1-Q1			0,1,1,1	2025-03-24,2025-03-25,2025-03-27,2025-03-31	4; 3; 1; From memory	15	4	4	11	3.75	
+41	FOO	2025-1 Lista 1	L1-Q2			0,1,1,1	2025-03-24,2025-03-25,2025-03-27,2025-03-31	4; 3; 1; From memory	15	4	4	11	3.75	
+42	FOO	2025-1 Lista 1	L1-Q3			0,1,1,1	2025-03-24,2025-03-25,2025-03-27,2025-03-31	4; 3; 1; From memory	15	4	4	11	3.75	
+43	FOO	2025-1 Lista 1	L1-Q4			0,1,1,1	2025-03-24,2025-03-25,2025-03-27,2025-04-02	4; 3; 1; From memory	13	6	6	7	2.17	
+44	FOO	2025-1 Lista 1	L1-Q5			0,1,1	2025-03-25,2025-03-26,2025-04-02	3; 2; 1; From memory	13	7	7	6	1.86	
+45	FOO	2025-1 Lista 1	L1-Q6			0,1,1	2025-03-26,2025-03-27,2025-04-02	3; 2; 1; From memory	13	6	6	7	2.17	
+46	FOO	2025-1 Lista 1	L1-Q7			0,1,1	2025-03-26,2025-03-27,2025-04-02	3; 2; 1; From memory	13	6	6	7	2.17	
+47	FOO	2025-1 Lista 1	L1-Q8			0,1,0	2025-03-26,2025-03-27,2025-04-02	3; 1; 2; W/H	13	1	0	13		
+48	FOO	2025-1 Lista 1	L1-Q9			0,1,1	2025-03-26,2025-03-27,2025-03-31	3; 2; 1; From memory	15	4	4	11	3.75	
+49	FOO	2025-1 Lista 1	L1-Q10			0,1	2025-03-27,2025-03-31	2; 1; 1; From memory	15	4	4	11	3.75	
+50	FOO	2025-1 Lista 1	L1-Q11			0,0	2025-03-27,2025-04-02	2; 0; 2; W/H	13	0	0	13		
+51	FOO	2025-1 Lista 1	L1-Q12			0,0	2025-03-27,2025-04-02	2; 0; 2; W/H	13	0	0	13		
+52	EDO	2025-1 Exercícios para prova	Q1			0,0,1	2025-04-04,2025-04-06,2025-04-07	3; 1; 2; From memory	8	1	1	7	8.00	
+53	EDO	2025-1 Exercícios para prova	Q2			0,0,0	2025-04-04,2025-04-06,2025-04-07	3; 0; 3; W/H	8	0	0	8		
+54	EDO	2025-1 Exercícios para prova	Q3			0,0	2025-04-04,2025-04-07	2; 0; 2; W/H	8	0	0	8		
+55	EDO	2025-1 Exercícios para prova	Q4 nf			0	2025-04-04	1; 0; 1; W/H	11	0	0	11		
+56	EDO	2025-1 Exercícios para prova	Q5 nf			0	2025-04-04	1; 0; 1; W/H	11	0	0	11		
+57	EDO	2025-1 Exercícios para prova	Q6 nf			0	2025-04-04	1; 0; 1; W/H	11	0	0	11		
+58	EDO	2025-1 Exercícios para prova	Q7 nf			0	2025-04-04	1; 0; 1; W/H	11	0	0	11		
+59	EDO	2025-1 Exercícios para prova	Q8 nf			0	2025-04-04	1; 0; 1; W/H	11	0	0	11		
+60	MecSol	2025-1 Lista 1	Q1			0	2025-04-09	1; 0; 1; W/H	6	0	0	6		
+61	MecSol	2025-1 Lista 1	Q2			0	2025-04-09	1; 0; 1; W/H	6	0	0	6		
+62	MecSol	2025-1 Lista 1	Q3			0	2025-04-09	1; 0; 1; W/H	6	0	0	6		
+63	MecSol	2025-1 Lista 1	Q4 nf			0	2025-04-04	1; 0; 1; W/H	11	0	0	11		
+64	MecSol	2025-1 Lista 1	Q5 nf			0	2025-04-04	1; 0; 1; W/H	11	0	0	11		
+65	MecSol	2025-1 Lista 1	Q6 nf			0	2025-04-04	1; 0; 1; W/H	11	0	0	11		
