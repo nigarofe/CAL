@@ -12,8 +12,8 @@ async function requestMatrixData() {
         const data = await response.json();
 
         if (data.success) {
-            console.log('Processed matrix:', data.matrix);
             matrix = data.matrix;
+            console.log('Console.log(matrix) = ', matrix);
         } else {
             console.error('Error:', data.error);
         }
