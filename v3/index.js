@@ -38,9 +38,11 @@ function openModal(question_number) {
 
     buttonQuestionCode0.onclick = function () {
         registerQuestionAttempt(question_number, 0);
+        myModal.hide();
     }
     buttonQuestionCode1.onclick = function () {
         registerQuestionAttempt(question_number, 1);
+        myModal.hide();
     }
 
     const myModal = bootstrap.Modal.getOrCreateInstance(modalElelement);

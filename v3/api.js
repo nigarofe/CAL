@@ -63,12 +63,16 @@ function registerQuestionAttempt(question_number, code) {
 
         requestToOverwriteCsv(matrix)
             .then(result => {
-                showToast('New server message', 'Question attempt registered successfully!', today);
                 console.log('Save operation completed:', result)
+                if(code === '0') {
+                    showToast(`Done!`, `Question ${question_number} attempt registered successfully!<br>Code: ${code} <br> (I needed help to solve the question)`, today);
+                } else {
+                    showToast(`Done!`, `Question ${question_number} attempt registered successfully!<br>Code: ${code} <br> (I solved the question without any external help)`, today);
+                }
             }
             )
             .catch(error => {
-                showToast('New server message', 'Question attempt failled to save!', today);
+                showToast('Error', 'Question attempt failled to save!', today);
                 console.error('Save operation failed:', error)
             });
         loadHTMLTable();
