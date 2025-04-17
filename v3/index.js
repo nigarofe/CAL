@@ -74,6 +74,7 @@ function loadHTMLTable() {
         tableBody = document.createElement('tbody');
         for (let i = questionsStartRow; i < matrix.length; i++) {
             commonTableRow = document.createElement('tr');
+            // commonTableRow.className = 'opacity-25';
 
             for (let j = 0; j < Object.keys(matrix[headersRow]).length; j++) {
                 let columnSetToVisible = matrix[visibilityRow][Object.keys(matrix[headersRow])[j]]
