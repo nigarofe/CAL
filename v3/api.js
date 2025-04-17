@@ -54,6 +54,8 @@ async function requestToOverwriteCsv() {
 function registerQuestionAttempt(question_number, code) {
     const question = matrix.find(row => row['#'] === question_number);
     const dateVector = question['Date Vector'];
+    console.log('dateVector and codeVector for question', question_number, 'before api request = \n', question['Date Vector'], '\n', question['Code Vector']);
+
     const today = new Date(new Date().getTime() - 3 * 60 * 60 * 1000).toISOString().slice(0, 10);
     if (dateVector.includes(today)) {
         alert('You have already attempted this question today.');
@@ -64,7 +66,7 @@ function registerQuestionAttempt(question_number, code) {
         requestToOverwriteCsv(matrix)
             .then(result => {
                 console.log('Save operation completed:', result)
-                if(code === '0') {
+                if (code === '0') {
                     showToast(`Done!`, `Question ${question_number} attempt registered successfully!<br>Code: ${code} <br> (I needed help to solve the question)`, today);
                 } else {
                     showToast(`Done!`, `Question ${question_number} attempt registered successfully!<br>Code: ${code} <br> (I solved the question without any external help)`, today);
@@ -77,4 +79,5 @@ function registerQuestionAttempt(question_number, code) {
             });
         loadHTMLTable();
     }
+    console.log('dateVector and codeVector for question', question_number, 'after api request = \n', question['Date Vector'], '\n', question['Code Vector']);
 }
