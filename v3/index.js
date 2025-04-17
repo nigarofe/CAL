@@ -1,7 +1,37 @@
-loadHTMLTable();
+window.addEventListener("DOMContentLoaded", () => {
+    loadHTMLTable();
+})
+
+function openModal(question_number) {
+    const modalElelement = document.getElementById('modal');
+    const modalTitle = document.getElementById('modalTitle');
+    modalTitle.textContent = `Question ${question_number}`;
+
+
+    const questionStatementDiv = document.getElementById('questionStatement');
+    valueOnCsvTable = matrix.find(row => row['#'] === question_number)['Input'];
+    valueOnCsvTable = valueOnCsvTable ?? '\\text{Empty: Check the question statement on the CSV file.}';
+    valueOnCsvTable = valueOnCsvTable.replace(/\\n/g, '\\\\n');
+    katex.render(valueOnCsvTable, questionStatementDiv, { displayMode: true });
+
+    const questionAnswerDiv = document.getElementById('questionAnswer');
+    valueOnCsvTable = matrix.find(row => row['#'] === question_number)['Output']
+    valueOnCsvTable = valueOnCsvTable ?? '\\text{Empty: Check the question answer on the CSV file.}';
+    valueOnCsvTable = valueOnCsvTable.replace(/\\n/g, '\\\\n');
+    katex.render(valueOnCsvTable, questionAnswerDiv, { displayMode: true });
+
+
+
+    const myModal = bootstrap.Modal.getOrCreateInstance(modalElelement);
+    myModal.show();
+}
+
+
 
 function loadHTMLTable() {
     requestMatrixData().then(() => {
+        openModal(23);
+
         htmlTable = document.getElementById('questionsTable');
         htmlTable.innerHTML = '';
 
@@ -63,7 +93,7 @@ function loadHTMLTable() {
             commonTableRow.style.cursor = 'pointer'; // Add hand icon to mouse
             commonTableRow.onclick = function () {
                 const questionNumber = matrix[i]['#'];
-                window.location.href = `question.html?question_number=${questionNumber}`;
+                openModal(questionNumber);
             };
             tableBody.appendChild(commonTableRow);
         }
@@ -124,7 +154,6 @@ function getCellColor(question_number, propertie, greatestIsGreen) {
 
     return `rgb(${red},${green},${blue})`;
 }
-
 
 function calculateNumberOfDaysSinceLastAttempt() {
     for (let i = questionsStartRow; i < matrix.length; i++) {
