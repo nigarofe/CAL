@@ -1,9 +1,21 @@
 window.addEventListener("DOMContentLoaded", () => {
+
     loadHTMLTable();
 })
 
+
+const modalElelement = document.getElementById('modal');
+modalElelement.addEventListener('hidden.bs.modal', () => {
+    // grab the third panel’s collapse element
+    const collapseTwoEl = document.getElementById('panelsStayOpen-collapseTwo');
+    const collapseThreeEl = document.getElementById('panelsStayOpen-collapseThree');
+
+    // get (or create) its Collapse instance, then hide it
+    bootstrap.Collapse.getOrCreateInstance(collapseTwoEl).hide();
+    bootstrap.Collapse.getOrCreateInstance(collapseThreeEl).hide();
+});
+
 function openModal(question_number) {
-    const modalElelement = document.getElementById('modal');
     const modalTitle = document.getElementById('modalTitle');
     modalTitle.textContent = `Question ${question_number}`;
 
