@@ -1,6 +1,7 @@
 window.addEventListener("DOMContentLoaded", () => {
 
     loadHTMLTable();
+    showToast("Hello!", "Have a nice day!", ":)");
 })
 
 
@@ -32,17 +33,37 @@ function openModal(question_number) {
     valueOnCsvTable = valueOnCsvTable.replace(/\\n/g, '\\\\n');
     katex.render(valueOnCsvTable, questionAnswerDiv, { displayMode: true });
 
+    let buttonQuestionCode0 = document.getElementById('buttonQuestionCode0');
+    let buttonQuestionCode1 = document.getElementById('buttonQuestionCode1');
 
+    buttonQuestionCode0.onclick = function () {
+        registerQuestionAttempt(question_number, 0);
+    }
+    buttonQuestionCode1.onclick = function () {
+        registerQuestionAttempt(question_number, 1);
+    }
 
     const myModal = bootstrap.Modal.getOrCreateInstance(modalElelement);
     myModal.show();
 }
 
+function showToast(toastTitle, toastMessage, toastTime){
+    const toastLiveExample = document.getElementById('liveToast')
+    const toastBootstrap = bootstrap.Toast.getOrCreateInstance(toastLiveExample)
+    
+    document.getElementById('toastTitle').innerHTML = toastTitle
+    document.getElementById('toastMessage').innerHTML = toastMessage
+    document.getElementById('toastTime').innerHTML = toastTime
+
+    toastBootstrap.show()
+
+
+}
 
 
 function loadHTMLTable() {
     requestMatrixData().then(() => {
-        openModal(23);
+        // openModal(23);
 
         htmlTable = document.getElementById('questionsTable');
         htmlTable.innerHTML = '';

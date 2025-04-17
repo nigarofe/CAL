@@ -23,7 +23,7 @@ async function requestMatrixData() {
     }
 }
 
-async function requestToWriteMatrix() {
+async function requestToOverwriteCsv() {
     matrix.shift();
     try {
         const response = await fetch('http://localhost:3000/api/matrix', {
@@ -48,5 +48,29 @@ async function requestToWriteMatrix() {
     } catch (error) {
         console.error('Fetch error:', error);
         throw error;
+    }
+}
+
+function registerQuestionAttempt(question_number, code) {
+    const question = matrix.find(row => row['#'] === question_number);
+    const dateVector = question['Date Vector'];
+    const today = new Date(new Date().getTime() - 3 * 60 * 60 * 1000).toISOString().slice(0, 10);
+    if (dateVector.includes(today)) {
+        alert('You have already attempted this question today.');
+    } else {
+        question['Date Vector'] = dateVector + ',' + today;
+        question['Code Vector'] = question['Code Vector'] + ',' + code;
+
+        requestToOverwriteCsv(matrix)
+            .then(result => {
+                showToast('New server message', 'Question attempt registered successfully!', today);
+                console.log('Save operation completed:', result)
+            }
+            )
+            .catch(error => {
+                showToast('New server message', 'Question attempt failled to save!', today);
+                console.error('Save operation failed:', error)
+            });
+        loadHTMLTable();
     }
 }

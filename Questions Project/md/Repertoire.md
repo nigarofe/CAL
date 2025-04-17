@@ -3,8 +3,8 @@
 ## Tech Stack / Requirements
 - npm 10.9.2
 
-- HTML
 - CSS
+- HTML
 	- Bootstrap 5.3.5
 - JavaScript
 	- Node.js 22.14.0
@@ -48,6 +48,22 @@
 		- The model footer has a button tray aligned to the center with two buttons, named "0" and "1," , that when hovered display
 			- "0 = I needed help to solve the question" 
 			- "1 = I solved the question without any external help" 
+
+# CSV file
+- Question number
+	- #
+	- 1, 2, 3, ...
+- Question pool status
+	- Too ahead from the content I'm viewing
+	- Never tried to solve
+	- Good to solve
+	- 
+
+
+
+
+
+
 
 
 
