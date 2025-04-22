@@ -1,3 +1,4 @@
+! Close tabs when clicked at the button of opening question
 # V3 ideas
 
 ## Tech Stack / Requirements
