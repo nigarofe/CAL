@@ -14,7 +14,7 @@ TRUE	TRUE	TRUE	TRUE	FALSE	FALSE	FALSE	FALSE	TRUE	TRUE	FALSE	TRUE	TRUE	TRUE
 11	EDO	Workbook for Dummies	C5 p.123	\text{Find the general solution to this differential equation:} \\ y'' - y' - 2y = 10e^{4x} \\	y = c_1 e^{-x} + c_2 e^{2x} + e^{4x} \\	0	2024-11-18	1; 0; 1; W/H	155	0	0	155	
 12	C3	2024-2 Lista 2	L2-Q1	"\text{Calcule a integral de linha} \\ 
 \quad \int_C \sqrt{1 + 4x^2} \, ds, \\ 
-\text{em que } C \text{ é a interseção do cilindro } x^2 + (y - 1)^2 = 1 \text{ com o plano } z = 2y. \\ "	6\pi	0,0,0,1,1,0,1,1	2024-11-23,2025-01-17,2025-02-06, 2025-02-11,2025-03-12,2025-04-15,2025-04-17,2025-04-22	8; 4; 4; From memory	0	28	5	-5	0.00
+\text{em que } C \text{ é a interseção do cilindro } x^2 + (y - 1)^2 = 1 \text{ com o plano } z = 2y. \\ "	6\pi	0,0,0,1,1,0,1,1	2024-11-23,2025-01-17,2025-02-06, 2025-02-11,2025-03-12,2025-04-15,2025-04-17,2025-04-22	8; 4; 4; From memory	0	28	5	-5	0
 13	C3	2024-2 Lista 2	L2-Q2	"\text{Calcule a massa de um pedaço de arame cuja forma é descrita pela curva} \\ 
 \quad \vec{\gamma}(t) = \left\langle 6t^2,\, 4\sqrt{2}t^3,\, 3t^4 \right\rangle; \quad 0 \leq t \leq 1. \\ 
 \text{e a densidade é } \rho(x, y, z) = 6 + |x|."	M=84	0,0,0,1,1,1	2024-11-23,2025-01-17,2025-02-06, 2025-02-11,2025-03-12,2025-04-17	6; 3; 3; From memory	5	36	36	-31	0.14
@@ -30,8 +30,8 @@ TRUE	TRUE	TRUE	TRUE	FALSE	FALSE	FALSE	FALSE	TRUE	TRUE	FALSE	TRUE	TRUE	TRUE
 18	C3	2024-2 Lista 2	L2-Q4.2	\text{Calcule a integral de linha} \\ \int_C e^{2y}\,dx + \left(1 + 2xe^{2y}\right)\,dy \\ \text{em que } C \text{ é a curva parametrizada por } x = te^t,\ y = 1 + \sin\left(\frac{\pi t}{2}\right),\ \text{com } 0 \leq t \leq 1.	1 + e^5	0,0,1,1,1,1	2024-11-25,2025-02-19,2025-02-21,2025-03-04,2025-03-17,2025-04-07	6; 4; 2; From memory	15	21	21	-6	0.71
 19	C3	2024-2 Lista 2	L2-Q6	\text{Calcule a integral} \\ \int_C (1 + \ln x + e^y)\,dx + (xe^y + \sin^3(y))\,dy \\ \text{em que } C \text{ é segmento de reta que liga o ponto } (1, 0) \text{ ao ponto } (e, \pi).	e + e^{\pi + 1} + \frac{1}{3}	0,0,1,1,1,1	2024-11-26,2025-03-17,2025-03-18,2025-03-20,2025-03-24,2025-04-07	6; 4; 2; From memory	15	14	14	1	1.07
 20	C3		-	\int \ln(x)\,dx \\ 	x \ln(x) - x + C \\ 	0,0,1,1,1	2024-12-02,2025-02-10,2025-02-18,2025-03-04,2025-03-20	5; 3; 2; From memory	33	16	16	17	2.06
-21	C3		-	\int x^3 \ln(x)\,dx \\ 	x^4 \left( \frac{\ln(x)}{4} - \frac{1}{16} \right) + C \\ 	0,1,1,1	2024-12-02,2025-02-10,2025-03-04,2025-04-22	4; 3; 1; From memory	0	70	49	-49	0.00
-22	C3		-	\int \sin(x)\cos(x)\,dx \\ 	\frac{\sin^2(x)}{2} + C \\ 	0,1,1,1	2024-12-02,2025-02-10,2025-03-04,2025-04-22	4; 3; 1; From memory	0	70	49	-49	0.00
+21	C3		-	\int x^3 \ln(x)\,dx \\ 	x^4 \left( \frac{\ln(x)}{4} - \frac{1}{16} \right) + C \\ 	0,1,1,1	2024-12-02,2025-02-10,2025-03-04,2025-04-22	4; 3; 1; From memory	0	70	49	-49	0
+22	C3		-	\int \sin(x)\cos(x)\,dx \\ 	\frac{\sin^2(x)}{2} + C \\ 	0,1,1,1	2024-12-02,2025-02-10,2025-03-04,2025-04-22	4; 3; 1; From memory	0	70	49	-49	0
 23	C3		-	"\text{Calcule } \iint_S (x^2 + y^2) \, dS \text{ em que } S \text{ é a parte do plano } z = 2x + 2y - 1 \text{ interior ao paraboloide } z = x^2 + y^2.
 "	"\frac{15\pi}{2}
 "	0,1,1	2024-12-02,2025-02-10,2025-03-04	3; 2; 1; From memory	49	70	22	27	2.23
@@ -45,25 +45,25 @@ TRUE	TRUE	TRUE	TRUE	FALSE	FALSE	FALSE	FALSE	TRUE	TRUE	FALSE	TRUE	TRUE	TRUE
 31	C3	2022-2 P3	Q2			0,1,1	2025-01-13, 2025-01-14,2025-04-07	3; 2; 1; From memory	15	82	82	-67	0.18
 32	C3		-			0,0,1,1	2025-01-24,2025-02-18,2025-03-03,2025-03-18	4; 2; 2; From memory	35	15	15	20	2.33
 33	C3		Prerequisite to q17			0,1,1	2025-02-18,2025-03-03,2025-03-20	3; 2; 1; From memory	33	17	17	16	1.94
-34	French		Prerequisite to q35 – At the library 1			0,0,0,0,1,1,1,1	2025-02-18, 2025-02-19, 2025-02-21,2025-03-03,2025-03-04,2025-03-09,2025-03-17,2025-03-27	8; 4; 4; From memory	26	10	10	16	2.60
-35	French		At the library 2			0,0,1,1,1,1	2025-02-21,2025-03-03,2025-03-04,2025-03-09,2025-03-17,2025-03-27	6; 4; 2; From memory	26	10	10	16	2.60
-36	C3	-	Prerequisite to q19			0,1,1	2025-03-18,2025-03-19,2025-03-24	3; 2; 1; From memory	29	5	5	24	5.80
+34	French		Prerequisite to q35 – At the library 1			0,0,0,0,1,1,1,1	2025-02-18, 2025-02-19, 2025-02-21,2025-03-03,2025-03-04,2025-03-09,2025-03-17,2025-03-27	8; 4; 4; From memory	26	10	10	16	2.6
+35	French		At the library 2			0,0,1,1,1,1	2025-02-21,2025-03-03,2025-03-04,2025-03-09,2025-03-17,2025-03-27	6; 4; 2; From memory	26	10	10	16	2.6
+36	C3	-	Prerequisite to q19			0,1,1	2025-03-18,2025-03-19,2025-03-24	3; 2; 1; From memory	29	5	5	24	5.8
 37	EDO	Workbook for Dummies	C2 p.31			0,1	2025-03-20,2025-03-24	2; 1; 1; From memory	29	4	4	25	7.25
 38	EDO	Workbook for Dummies	C2 p.34			0,1	2025-03-20,2025-03-24	2; 1; 1; From memory	29	4	4	25	7.25
 39	EDO	Workbook for Dummies	C2 p.39			0,1	2025-03-20,2025-03-24	2; 1; 1; From memory	29	4	4	25	7.25
-40	FOO	2025-1 Lista 1	L1-Q1			0,1,1,1	2025-03-24,2025-03-25,2025-03-27,2025-03-31	4; 3; 1; From memory	22	4	4	18	5.50
-41	FOO	2025-1 Lista 1	L1-Q2			0,1,1,1	2025-03-24,2025-03-25,2025-03-27,2025-03-31	4; 3; 1; From memory	22	4	4	18	5.50
-42	FOO	2025-1 Lista 1	L1-Q3			0,1,1,1	2025-03-24,2025-03-25,2025-03-27,2025-03-31	4; 3; 1; From memory	22	4	4	18	5.50
+40	FOO	2025-1 Lista 1	L1-Q1			0,1,1,1	2025-03-24,2025-03-25,2025-03-27,2025-03-31	4; 3; 1; From memory	22	4	4	18	5.5
+41	FOO	2025-1 Lista 1	L1-Q2			0,1,1,1	2025-03-24,2025-03-25,2025-03-27,2025-03-31	4; 3; 1; From memory	22	4	4	18	5.5
+42	FOO	2025-1 Lista 1	L1-Q3			0,1,1,1	2025-03-24,2025-03-25,2025-03-27,2025-03-31	4; 3; 1; From memory	22	4	4	18	5.5
 43	FOO	2025-1 Lista 1	L1-Q4			0,1,1,1	2025-03-24,2025-03-25,2025-03-27,2025-04-02	4; 3; 1; From memory	20	6	6	14	3.33
 44	FOO	2025-1 Lista 1	L1-Q5			0,1,1	2025-03-25,2025-03-26,2025-04-02	3; 2; 1; From memory	20	7	7	13	2.86
 45	FOO	2025-1 Lista 1	L1-Q6			0,1,1	2025-03-26,2025-03-27,2025-04-02	3; 2; 1; From memory	20	6	6	14	3.33
 46	FOO	2025-1 Lista 1	L1-Q7			0,1,1	2025-03-26,2025-03-27,2025-04-02	3; 2; 1; From memory	20	6	6	14	3.33
 47	FOO	2025-1 Lista 1	L1-Q8			0,1,0	2025-03-26,2025-03-27,2025-04-02	3; 1; 2; W/H	20	1	0	20	
-48	FOO	2025-1 Lista 1	L1-Q9			0,1,1	2025-03-26,2025-03-27,2025-03-31	3; 2; 1; From memory	22	4	4	18	5.50
-49	FOO	2025-1 Lista 1	L1-Q10			0,1	2025-03-27,2025-03-31	2; 1; 1; From memory	22	4	4	18	5.50
+48	FOO	2025-1 Lista 1	L1-Q9			0,1,1	2025-03-26,2025-03-27,2025-03-31	3; 2; 1; From memory	22	4	4	18	5.5
+49	FOO	2025-1 Lista 1	L1-Q10			0,1	2025-03-27,2025-03-31	2; 1; 1; From memory	22	4	4	18	5.5
 50	FOO	2025-1 Lista 1	L1-Q11			0,0	2025-03-27,2025-04-02	2; 0; 2; W/H	20	0	0	20	
 51	FOO	2025-1 Lista 1	L1-Q12			0,0	2025-03-27,2025-04-02	2; 0; 2; W/H	20	0	0	20	
-52	EDO	2025-1 Exercícios para prova	Q1			0,0,1	2025-04-04,2025-04-06,2025-04-07	3; 1; 2; From memory	15	1	1	14	15.00
+52	EDO	2025-1 Exercícios para prova	Q1			0,0,1	2025-04-04,2025-04-06,2025-04-07	3; 1; 2; From memory	15	1	1	14	15
 53	EDO	2025-1 Exercícios para prova	Q2			0,0,0	2025-04-04,2025-04-06,2025-04-07	3; 0; 3; W/H	15	0	0	15	
 54	EDO	2025-1 Exercícios para prova	Q3			0,0	2025-04-04,2025-04-07	2; 0; 2; W/H	15	0	0	15	
 55	EDO	2025-1 Exercícios para prova	Q4 nf			0	2025-04-04	1; 0; 1; W/H	18	0	0	18	
@@ -81,3 +81,6 @@ TRUE	TRUE	TRUE	TRUE	FALSE	FALSE	FALSE	FALSE	TRUE	TRUE	FALSE	TRUE	TRUE	TRUE
 "	0	2025-04-17	1; 0; 1; W/H	5	0	0	5	
 67	C3	-		"\displaystyle \int \cos^2(t)\,dt
 "	\frac{1}{2}t + \frac{1}{4}\sin\bigl(2t\bigr) + C	0	2025-04-17	1; 0; 1; W/H	5	0	0	5	
+68	Discursive question	-	nf		"\int_C f(x, y, z)\, ds = \int_{t_a}^{t_b} f(x(t), y(t), z(t)) \|\mathbf{r}'(t)\|\, dt \\
+
+ds = \|\mathbf{r}'(t)\|\, dt, \text{ where } \|\mathbf{r}'(t)\| = \sqrt{ \left( \frac{dx}{dt} \right)^2 + \left( \frac{dy}{dt} \right)^2 + \left( \frac{dz}{dt} \right)^2 }."	0	2025-04-22						

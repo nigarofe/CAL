@@ -2,7 +2,25 @@ window.addEventListener("DOMContentLoaded", () => {
 
     loadHTMLTable();
     showToast("Hello!", "Have a nice day!", ":)");
+    
+    // openModal(64);
+    openObsidianNote(68);
 })
+
+
+
+function openObsidianNote(question_number) {
+    const vault = '1 Obsidian Vault'; // Replace with your vault name
+    const file = `5 git\\PKM\\Questions Project\\Questions .md\\q${question_number}`; // Replace with your file path
+    const encodedFile = encodeURIComponent(file);
+    const uri = `obsidian://open?vault=${vault}&file=${encodedFile}`;
+    // const uri = `obsidian://advanced-uri?vault=${vault}&filepath=${encodedFile}&commandid=obsidian-creases%3Afold-along-creases`;
+  
+    window.location.href = uri;
+  }
+  
+
+
 
 
 const modalElelement = document.getElementById('modal');
@@ -49,10 +67,10 @@ function openModal(question_number) {
     myModal.show();
 }
 
-function showToast(toastTitle, toastMessage, toastTime){
+function showToast(toastTitle, toastMessage, toastTime) {
     const toastLiveExample = document.getElementById('liveToast')
     const toastBootstrap = bootstrap.Toast.getOrCreateInstance(toastLiveExample)
-    
+
     document.getElementById('toastTitle').innerHTML = toastTitle
     document.getElementById('toastMessage').innerHTML = toastMessage
     document.getElementById('toastTime').innerHTML = toastTime
@@ -129,7 +147,8 @@ function loadHTMLTable() {
             commonTableRow.style.cursor = 'pointer'; // Add hand icon to mouse
             commonTableRow.onclick = function () {
                 const questionNumber = matrix[i]['#'];
-                openModal(questionNumber);
+                // openModal(questionNumber);
+                openObsidianNote(questionNumber);
             };
             tableBody.appendChild(commonTableRow);
         }
