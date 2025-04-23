@@ -1,12 +1,9 @@
 window.addEventListener("DOMContentLoaded", () => {
-
     loadHTMLTable();
     showToast("Hello!", "Have a nice day!", ":)");
     
-    // openModal(64);
     openObsidianNote(68);
 })
-
 
 
 function openObsidianNote(question_number) {
@@ -19,54 +16,6 @@ function openObsidianNote(question_number) {
     window.location.href = uri;
   }
   
-
-
-
-
-const modalElelement = document.getElementById('modal');
-modalElelement.addEventListener('hidden.bs.modal', () => {
-    // grab the third panel’s collapse element
-    const collapseTwoEl = document.getElementById('panelsStayOpen-collapseTwo');
-    const collapseThreeEl = document.getElementById('panelsStayOpen-collapseThree');
-
-    // get (or create) its Collapse instance, then hide it
-    bootstrap.Collapse.getOrCreateInstance(collapseTwoEl).hide();
-    bootstrap.Collapse.getOrCreateInstance(collapseThreeEl).hide();
-});
-
-function openModal(question_number) {
-    const modalTitle = document.getElementById('modalTitle');
-    modalTitle.textContent = `Question ${question_number}`;
-
-
-    const questionStatementDiv = document.getElementById('questionStatement');
-    valueOnCsvTable = matrix.find(row => row['#'] === question_number)['Input'];
-    valueOnCsvTable = valueOnCsvTable ?? '\\text{Empty: Check the question statement on the CSV file.}';
-    valueOnCsvTable = valueOnCsvTable.replace(/\\n/g, '\\\\n');
-    katex.render(valueOnCsvTable, questionStatementDiv, { displayMode: true });
-
-    const questionAnswerDiv = document.getElementById('questionAnswer');
-    valueOnCsvTable = matrix.find(row => row['#'] === question_number)['Output']
-    valueOnCsvTable = valueOnCsvTable ?? '\\text{Empty: Check the question answer on the CSV file.}';
-    valueOnCsvTable = valueOnCsvTable.replace(/\\n/g, '\\\\n');
-    katex.render(valueOnCsvTable, questionAnswerDiv, { displayMode: true });
-
-    let buttonQuestionCode0 = document.getElementById('buttonQuestionCode0');
-    let buttonQuestionCode1 = document.getElementById('buttonQuestionCode1');
-
-    buttonQuestionCode0.onclick = function () {
-        registerQuestionAttempt(question_number, 0);
-        myModal.hide();
-    }
-    buttonQuestionCode1.onclick = function () {
-        registerQuestionAttempt(question_number, 1);
-        myModal.hide();
-    }
-
-    const myModal = bootstrap.Modal.getOrCreateInstance(modalElelement);
-    myModal.show();
-}
-
 function showToast(toastTitle, toastMessage, toastTime) {
     const toastLiveExample = document.getElementById('liveToast')
     const toastBootstrap = bootstrap.Toast.getOrCreateInstance(toastLiveExample)
@@ -83,8 +32,6 @@ function showToast(toastTitle, toastMessage, toastTime) {
 
 function loadHTMLTable() {
     requestMatrixData().then(() => {
-        // openModal(23);
-
         htmlTable = document.getElementById('questionsTable');
         htmlTable.innerHTML = '';
 
@@ -141,13 +88,16 @@ function loadHTMLTable() {
                         cellData.style.backgroundColor = getCellColor(matrix[i]['#'], 'PMG-X', false);
                     }
 
+                    if (columnName === 'Action buttons') {
+                        addActionButtonsToCellData(cellData, i);
+                    }
+
                     commonTableRow.appendChild(cellData);
                 }
             }
             commonTableRow.style.cursor = 'pointer'; // Add hand icon to mouse
             commonTableRow.onclick = function () {
                 const questionNumber = matrix[i]['#'];
-                // openModal(questionNumber);
                 openObsidianNote(questionNumber);
             };
             tableBody.appendChild(commonTableRow);
@@ -208,6 +158,30 @@ function getCellColor(question_number, propertie, greatestIsGreen) {
     }
 
     return `rgb(${red},${green},${blue})`;
+}
+
+function addActionButtonsToCellData(cellData, i) {
+    const buttonContainer = document.createElement('div');
+    buttonContainer.style.display = 'flex';
+    buttonContainer.style.justifyContent = 'space-evenly'; // Equal space between and around
+    buttonContainer.style.width = '100%'; // Take full width of the cell
+    buttonContainer.style.padding = '5px 0'; // Add padding top and bottom
+
+    const button0 = document.createElement('button');
+    button0.textContent = '0';
+    button0.onclick = function () {
+        registerQuestionAttempt(matrix[i]['#'], 0);
+    };
+    buttonContainer.appendChild(button0);
+
+    const button1 = document.createElement('button');
+    button1.textContent = '1';
+    button1.onclick = function () {
+        registerQuestionAttempt(matrix[i]['#'], 1);
+    };
+    buttonContainer.appendChild(button1);
+
+    cellData.appendChild(buttonContainer);
 }
 
 function calculateNumberOfDaysSinceLastAttempt() {
