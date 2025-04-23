@@ -1,86 +1,86 @@
-#	Discipline	Source	Description	Input	Output	Code Vector	Date Vector	Attempts Summary	DSLA	LoMI	LaMI	PMG-D	PMG-X
-Question number identifier	Subject or field of study	Where this question originated from	Detailed explanation of the question	What the user will see	Where the user should get at	Vector of codes associated with the question	Dates when this question was attempted	Total attempts; Attempts without help; Attempts with help	Days Since Last Attempt: The number of days that have passed since your most recent attempt on the question, irrespective of the method used.	Longest Memory Interval: The maximum number of days between any memory-based attempt and the attempt immediately preceding it (regardless of whether that preceding attempt was solved from memory or with help)	Latest Memory Interval: The number of days between your most recent memory-based attempt and the previous attempt, calculated only if your latest attempt was solved from memory.	Potential Memory Gains in days: The estimated improvement in your Latest Memory Interval, expressed in days, if you successfully answer the question from memory today.	Potential Memory Gain as a multiplier of my LaMI: Proportional increase in your Latest Memory Interval if you answer the question from memory today.
-TRUE	TRUE	TRUE	TRUE	FALSE	FALSE	FALSE	FALSE	TRUE	TRUE	FALSE	TRUE	TRUE	TRUE
-1	Eletromag			\text{The figure shows five pairs of plates: \textit{A}, \textit{B}, and \textit{D} are charged plastic plates and \textit{C} is an electrically neutral copper plate. The electrostatic forces between the pairs of plates are shown for three of the pairs. For the remaining two pairs, do the plates repel or attract each other?} \\ 	\textit{C} \text{ and } \textit{D} \text{ attract; } \textit{B} \text{ and } \textit{D} \text{ attract} \\ 	0, 1, 1,1	2024-11-07, 2025-01-24, 2025-02-20,2025-04-07	4; 3; 1; From memory	15	78	45	-30	0.33
-2	C3		-	\left(e^{\gamma t}\right)''	e^{\gamma t} \gamma^2	0, 1, 1,1	2024-11-12, 2025-01-16, 2025-01-17,2025-03-09	4; 3; 1; From memory	44	65	50	-6	0.88
-3	EDO	Workbook for Dummies	C1 Q5-6	\text{Solve for } y \text{ in this differential equation:} \\ \frac{dy}{dx} = 8x \\ \text{where} \\ y(0) = 4	y = 4x^2 + 4	0,1,1	2024-11-12, 2025-01-24,2025-04-17	3; 2; 1; From memory	5	82	82	-77	0.06
-4	EDO	Workbook for Dummies	C1 Q9-10	\text{What's } y \text{ in the following equation?} \\ \frac{dy}{dx} = 4y - 8 \\ \text{where} \\ y(0) = 5	y = 2 + 3e^{4x}	0,0,1,0,0,1,1,1,1,1	2024-11-13,2025-01-24,2025-02-06,2025-03-05,2025-03-09,2025-03-10,2025-03-12,2025-03-17,2025-03-24,2025-04-07	10; 6; 4; From memory	15	14	14	1	1.07
-5	EDO	Workbook for Dummies	C1 Q14	\frac{dy}{dx} + 3y = 9 \\ \\ \text{where} \\ y(0) = 7	y = 3 + 4e^{-3x} \\ 	0,1,1	2024-11-13,2025-01-24,2025-04-17	3; 2; 1; From memory	5	83	83	-78	0.06
-6	EDO	Workbook for Dummies	C1 p.17	\text{Solve for } y \text{ by using an integrating factor:} \\ \frac{dy}{dx} + 5y = 10 \\ \text{where} \\ y(0) = 6	y = 2 + 4e^{-5x}	0,0,0,0,0,0,1,1,1,1,1	2024-11-13, 2025-01-24,2025-02-06,2025-02-10,2025-03-09,2025-03-10,2025-03-11,2025-03-13,2025-03-17,2025-03-24,2025-04-07	11; 5; 6; From memory	15	14	14	1	1.07
-7	EDO	Workbook for Dummies	C4 p.103	\text{Solve this differential equation:} \\ \frac{d^2 y}{dx^2} + 3\frac{dy}{dx} + 2y = 0 \\ \text{where} \\ y(0) = 2 \\ y'(0) = -3 \\ 	y = e^{-x} + e^{-2x} \\ 	0,0	2024-11-13, 2025-02-06	2; 0; 2; W/H	75	0	0	75	
-8	EDO	Workbook for Dummies	C4 Q10	\text{What's the solution to this differential equation?} \\ \frac{d^2 y}{dx^2} + 7\frac{dy}{dx} + 6y = 0 \\ \text{where} \\ y(0) = 5 \\ y'(0) = -25 \\ 	y = e^{-x} + 4e^{-6x} \\ 	0,1	2024-11-18,2025-02-06	2; 1; 1; From memory	75	80	80	-5	0.94
-9	EDO	Workbook for Dummies	C4 p.106	\text{Solve this differential equation:} \\ 2y'' + 2y' + y = 0 \\ \text{where} \\ y(0) = 1 \\ \text{and} \\ y'(0) = 0	y(x) = e^{-x/2} \cos\left(\frac{x}{2}\right) + e^{-x/2} \sin\left(\frac{x}{2}\right) \\ 	0	2024-11-18	1; 0; 1; W/H	155	0	0	155	
-10	EDO	Workbook for Dummies	C4 p.108	\text{Solve this differential equation:} \\ y'' + 2y' + y = 0 \\ \text{where} \\ y(0) = 1 \\ \text{and} \\ y'(0) = 1 \\ 	y(x) = 2xe^{-x} + e^{-x} \\	0	2024-11-18	1; 0; 1; W/H	155	0	0	155	
-11	EDO	Workbook for Dummies	C5 p.123	\text{Find the general solution to this differential equation:} \\ y'' - y' - 2y = 10e^{4x} \\	y = c_1 e^{-x} + c_2 e^{2x} + e^{4x} \\	0	2024-11-18	1; 0; 1; W/H	155	0	0	155	
+#	Discipline	Source	Description	Input	Output	Code Vector	Date Vector	Attempts Summary	DSLA	LoMI	LaMI	PMG-D	PMG-X	Action buttons
+Question number identifier	Subject or field of study	Where this question originated from	Detailed explanation of the question	What the user will see	Where the user should get at	Vector of codes associated with the question	Dates when this question was attempted	Total attempts; Attempts without help; Attempts with help	Days Since Last Attempt: The number of days that have passed since your most recent attempt on the question, irrespective of the method used.	Longest Memory Interval: The maximum number of days between any memory-based attempt and the attempt immediately preceding it (regardless of whether that preceding attempt was solved from memory or with help)	Latest Memory Interval: The number of days between your most recent memory-based attempt and the previous attempt, calculated only if your latest attempt was solved from memory.	Potential Memory Gains in days: The estimated improvement in your Latest Memory Interval, expressed in days, if you successfully answer the question from memory today.	Potential Memory Gain as a multiplier of my LaMI: Proportional increase in your Latest Memory Interval if you answer the question from memory today.	0 = I did the question with help \n 1 = I did the question from memory only
+TRUE	TRUE	TRUE	TRUE	FALSE	FALSE	FALSE	FALSE	TRUE	TRUE	FALSE	TRUE	TRUE	TRUE	TRUE
+1	Eletromag			\text{The figure shows five pairs of plates: \textit{A}, \textit{B}, and \textit{D} are charged plastic plates and \textit{C} is an electrically neutral copper plate. The electrostatic forces between the pairs of plates are shown for three of the pairs. For the remaining two pairs, do the plates repel or attract each other?} \\ 	\textit{C} \text{ and } \textit{D} \text{ attract; } \textit{B} \text{ and } \textit{D} \text{ attract} \\ 	0, 1, 1,1	2024-11-07, 2025-01-24, 2025-02-20,2025-04-07	4; 3; 1; From memory	15	78	45	-30	0.33	
+2	C3		-	\left(e^{\gamma t}\right)''	e^{\gamma t} \gamma^2	0, 1, 1,1	2024-11-12, 2025-01-16, 2025-01-17,2025-03-09	4; 3; 1; From memory	44	65	50	-6	0.88	
+3	EDO	Workbook for Dummies	C1 Q5-6	\text{Solve for } y \text{ in this differential equation:} \\ \frac{dy}{dx} = 8x \\ \text{where} \\ y(0) = 4	y = 4x^2 + 4	0,1,1	2024-11-12, 2025-01-24,2025-04-17	3; 2; 1; From memory	5	82	82	-77	0.06	
+4	EDO	Workbook for Dummies	C1 Q9-10	\text{What's } y \text{ in the following equation?} \\ \frac{dy}{dx} = 4y - 8 \\ \text{where} \\ y(0) = 5	y = 2 + 3e^{4x}	0,0,1,0,0,1,1,1,1,1	2024-11-13,2025-01-24,2025-02-06,2025-03-05,2025-03-09,2025-03-10,2025-03-12,2025-03-17,2025-03-24,2025-04-07	10; 6; 4; From memory	15	14	14	1	1.07	
+5	EDO	Workbook for Dummies	C1 Q14	\frac{dy}{dx} + 3y = 9 \\ \\ \text{where} \\ y(0) = 7	y = 3 + 4e^{-3x} \\ 	0,1,1	2024-11-13,2025-01-24,2025-04-17	3; 2; 1; From memory	5	83	83	-78	0.06	
+6	EDO	Workbook for Dummies	C1 p.17	\text{Solve for } y \text{ by using an integrating factor:} \\ \frac{dy}{dx} + 5y = 10 \\ \text{where} \\ y(0) = 6	y = 2 + 4e^{-5x}	0,0,0,0,0,0,1,1,1,1,1	2024-11-13, 2025-01-24,2025-02-06,2025-02-10,2025-03-09,2025-03-10,2025-03-11,2025-03-13,2025-03-17,2025-03-24,2025-04-07	11; 5; 6; From memory	15	14	14	1	1.07	
+7	EDO	Workbook for Dummies	C4 p.103	\text{Solve this differential equation:} \\ \frac{d^2 y}{dx^2} + 3\frac{dy}{dx} + 2y = 0 \\ \text{where} \\ y(0) = 2 \\ y'(0) = -3 \\ 	y = e^{-x} + e^{-2x} \\ 	0,0	2024-11-13, 2025-02-06	2; 0; 2; W/H	75	0	0	75		
+8	EDO	Workbook for Dummies	C4 Q10	\text{What's the solution to this differential equation?} \\ \frac{d^2 y}{dx^2} + 7\frac{dy}{dx} + 6y = 0 \\ \text{where} \\ y(0) = 5 \\ y'(0) = -25 \\ 	y = e^{-x} + 4e^{-6x} \\ 	0,1	2024-11-18,2025-02-06	2; 1; 1; From memory	75	80	80	-5	0.94	
+9	EDO	Workbook for Dummies	C4 p.106	\text{Solve this differential equation:} \\ 2y'' + 2y' + y = 0 \\ \text{where} \\ y(0) = 1 \\ \text{and} \\ y'(0) = 0	y(x) = e^{-x/2} \cos\left(\frac{x}{2}\right) + e^{-x/2} \sin\left(\frac{x}{2}\right) \\ 	0	2024-11-18	1; 0; 1; W/H	155	0	0	155		
+10	EDO	Workbook for Dummies	C4 p.108	\text{Solve this differential equation:} \\ y'' + 2y' + y = 0 \\ \text{where} \\ y(0) = 1 \\ \text{and} \\ y'(0) = 1 \\ 	y(x) = 2xe^{-x} + e^{-x} \\	0	2024-11-18	1; 0; 1; W/H	155	0	0	155		
+11	EDO	Workbook for Dummies	C5 p.123	\text{Find the general solution to this differential equation:} \\ y'' - y' - 2y = 10e^{4x} \\	y = c_1 e^{-x} + c_2 e^{2x} + e^{4x} \\	0	2024-11-18	1; 0; 1; W/H	155	0	0	155		
 12	C3	2024-2 Lista 2	L2-Q1	"\text{Calcule a integral de linha} \\ 
 \quad \int_C \sqrt{1 + 4x^2} \, ds, \\ 
-\text{em que } C \text{ é a interseção do cilindro } x^2 + (y - 1)^2 = 1 \text{ com o plano } z = 2y. \\ "	6\pi	0,0,0,1,1,0,1,1	2024-11-23,2025-01-17,2025-02-06, 2025-02-11,2025-03-12,2025-04-15,2025-04-17,2025-04-22	8; 4; 4; From memory	0	28	5	-5	0
+\text{em que } C \text{ é a interseção do cilindro } x^2 + (y - 1)^2 = 1 \text{ com o plano } z = 2y. \\ "	6\pi	0,0,0,1,1,0,1,1	2024-11-23,2025-01-17,2025-02-06, 2025-02-11,2025-03-12,2025-04-15,2025-04-17,2025-04-22	8; 4; 4; From memory	0	28	5	-5	0	
 13	C3	2024-2 Lista 2	L2-Q2	"\text{Calcule a massa de um pedaço de arame cuja forma é descrita pela curva} \\ 
 \quad \vec{\gamma}(t) = \left\langle 6t^2,\, 4\sqrt{2}t^3,\, 3t^4 \right\rangle; \quad 0 \leq t \leq 1. \\ 
-\text{e a densidade é } \rho(x, y, z) = 6 + |x|."	M=84	0,0,0,1,1,1	2024-11-23,2025-01-17,2025-02-06, 2025-02-11,2025-03-12,2025-04-17	6; 3; 3; From memory	5	36	36	-31	0.14
+\text{e a densidade é } \rho(x, y, z) = 6 + |x|."	M=84	0,0,0,1,1,1	2024-11-23,2025-01-17,2025-02-06, 2025-02-11,2025-03-12,2025-04-17	6; 3; 3; From memory	5	36	36	-31	0.14	
 14	C3	2024-2 Lista 2	L2-Q3	"\quad \text{Calcule o comprimento da curva} \\ 
-\quad \vec{\gamma}(t) = \left\langle \frac{t^2}{2},\, t^3,\, \sqrt{2}t^2 \right\rangle; \quad 0 \leq t \leq 1."	2\sqrt{2} – 1.	0,1,1,1,1	2024-11-25,2025-01-22,2025-02-11,2025-03-09,2025-04-17	5; 4; 1; From memory	5	58	39	-34	0.13
-15	C3		-	\int \frac{1}{2} \sin(t) \, e^{-\frac{7}{2} - \frac{1}{2} \cos(t)} \, dt \\	e^{-\frac{7}{2} - \frac{1}{2} \cos(t)} + C	0,0,1,1,1	2024-11-25,2025-02-06,2025-02-11,2025-03-12,2025-04-17	5; 3; 2; From memory	5	36	36	-31	0.14
+\quad \vec{\gamma}(t) = \left\langle \frac{t^2}{2},\, t^3,\, \sqrt{2}t^2 \right\rangle; \quad 0 \leq t \leq 1."	2\sqrt{2} – 1.	0,1,1,1,1	2024-11-25,2025-01-22,2025-02-11,2025-03-09,2025-04-17	5; 4; 1; From memory	5	58	39	-34	0.13	
+15	C3		-	\int \frac{1}{2} \sin(t) \, e^{-\frac{7}{2} - \frac{1}{2} \cos(t)} \, dt \\	e^{-\frac{7}{2} - \frac{1}{2} \cos(t)} + C	0,0,1,1,1	2024-11-25,2025-02-06,2025-02-11,2025-03-12,2025-04-17	5; 3; 2; From memory	5	36	36	-31	0.14	
 16	C3	2024-2 Lista 2	L2-Q4.1	"\text{Considere o campo vetorial } \vec{F} = \langle y, -x, e^z \rangle \text{ e a curva } C, \text{ interseção do paraboloide } z = 4 - x^2 - y^2 \\ 
 \text{com o plano } z = 4 - x. \text{ Calcule a integral} \\
-\quad \int_C \vec{F} \cdot d\vec{r}."	-\frac{\pi}{2}	0,1	2024-11-25,2025-02-10	2; 1; 1; From memory	71	77	77	-6	0.92
+\quad \int_C \vec{F} \cdot d\vec{r}."	-\frac{\pi}{2}	0,1	2024-11-25,2025-02-10	2; 1; 1; From memory	71	77	77	-6	0.92	
 17	C3	2024-2 Lista 2	L2-Q5	"\text{Calcule a integral} \\
 \quad \int_C \left(e^y - x e^x - x^5 e^x\right) dx + \left(x + y^5\right) e^y dy \\
-\text{em que } C \text{ é a parte da curva } y = x^{200} \text{ que liga o ponto } (0,0) \text{ ao ponto } (1,1)"	e – 1	0,0,1,1,1	2024-11-25,2025-03-14,2025-03-17,2025-03-24,2025-04-07	5; 3; 2; From memory	15	14	14	1	1.07
-18	C3	2024-2 Lista 2	L2-Q4.2	\text{Calcule a integral de linha} \\ \int_C e^{2y}\,dx + \left(1 + 2xe^{2y}\right)\,dy \\ \text{em que } C \text{ é a curva parametrizada por } x = te^t,\ y = 1 + \sin\left(\frac{\pi t}{2}\right),\ \text{com } 0 \leq t \leq 1.	1 + e^5	0,0,1,1,1,1	2024-11-25,2025-02-19,2025-02-21,2025-03-04,2025-03-17,2025-04-07	6; 4; 2; From memory	15	21	21	-6	0.71
-19	C3	2024-2 Lista 2	L2-Q6	\text{Calcule a integral} \\ \int_C (1 + \ln x + e^y)\,dx + (xe^y + \sin^3(y))\,dy \\ \text{em que } C \text{ é segmento de reta que liga o ponto } (1, 0) \text{ ao ponto } (e, \pi).	e + e^{\pi + 1} + \frac{1}{3}	0,0,1,1,1,1	2024-11-26,2025-03-17,2025-03-18,2025-03-20,2025-03-24,2025-04-07	6; 4; 2; From memory	15	14	14	1	1.07
-20	C3		-	\int \ln(x)\,dx \\ 	x \ln(x) - x + C \\ 	0,0,1,1,1	2024-12-02,2025-02-10,2025-02-18,2025-03-04,2025-03-20	5; 3; 2; From memory	33	16	16	17	2.06
-21	C3		-	\int x^3 \ln(x)\,dx \\ 	x^4 \left( \frac{\ln(x)}{4} - \frac{1}{16} \right) + C \\ 	0,1,1,1	2024-12-02,2025-02-10,2025-03-04,2025-04-22	4; 3; 1; From memory	0	70	49	-49	0
-22	C3		-	\int \sin(x)\cos(x)\,dx \\ 	\frac{\sin^2(x)}{2} + C \\ 	0,1,1,1	2024-12-02,2025-02-10,2025-03-04,2025-04-22	4; 3; 1; From memory	0	70	49	-49	0
+\text{em que } C \text{ é a parte da curva } y = x^{200} \text{ que liga o ponto } (0,0) \text{ ao ponto } (1,1)"	e – 1	0,0,1,1,1	2024-11-25,2025-03-14,2025-03-17,2025-03-24,2025-04-07	5; 3; 2; From memory	15	14	14	1	1.07	
+18	C3	2024-2 Lista 2	L2-Q4.2	\text{Calcule a integral de linha} \\ \int_C e^{2y}\,dx + \left(1 + 2xe^{2y}\right)\,dy \\ \text{em que } C \text{ é a curva parametrizada por } x = te^t,\ y = 1 + \sin\left(\frac{\pi t}{2}\right),\ \text{com } 0 \leq t \leq 1.	1 + e^5	0,0,1,1,1,1	2024-11-25,2025-02-19,2025-02-21,2025-03-04,2025-03-17,2025-04-07	6; 4; 2; From memory	15	21	21	-6	0.71	
+19	C3	2024-2 Lista 2	L2-Q6	\text{Calcule a integral} \\ \int_C (1 + \ln x + e^y)\,dx + (xe^y + \sin^3(y))\,dy \\ \text{em que } C \text{ é segmento de reta que liga o ponto } (1, 0) \text{ ao ponto } (e, \pi).	e + e^{\pi + 1} + \frac{1}{3}	0,0,1,1,1,1	2024-11-26,2025-03-17,2025-03-18,2025-03-20,2025-03-24,2025-04-07	6; 4; 2; From memory	15	14	14	1	1.07	
+20	C3		-	\int \ln(x)\,dx \\ 	x \ln(x) - x + C \\ 	0,0,1,1,1	2024-12-02,2025-02-10,2025-02-18,2025-03-04,2025-03-20	5; 3; 2; From memory	33	16	16	17	2.06	
+21	C3		-	\int x^3 \ln(x)\,dx \\ 	x^4 \left( \frac{\ln(x)}{4} - \frac{1}{16} \right) + C \\ 	0,1,1,1	2024-12-02,2025-02-10,2025-03-04,2025-04-22	4; 3; 1; From memory	0	70	49	-49	0	
+22	C3		-	\int \sin(x)\cos(x)\,dx \\ 	\frac{\sin^2(x)}{2} + C \\ 	0,1,1,1	2024-12-02,2025-02-10,2025-03-04,2025-04-22	4; 3; 1; From memory	0	70	49	-49	0	
 23	C3		-	"\text{Calcule } \iint_S (x^2 + y^2) \, dS \text{ em que } S \text{ é a parte do plano } z = 2x + 2y - 1 \text{ interior ao paraboloide } z = x^2 + y^2.
 "	"\frac{15\pi}{2}
-"	0,1,1	2024-12-02,2025-02-10,2025-03-04	3; 2; 1; From memory	49	70	22	27	2.23
-24	C3	2024-2 Lista 3	L3-Q1	\text{Calcule a área da parte do plano } z = 1000 + 3x + 4y \text{ interior ao cilindro} \\ (x - 51)^2 + (y - 13)^2 = 121.	121\sqrt{26}\pi.	0,1,1,0,1,1,1,1,1	2024-12-04,2025-01-12,2025-01-13,2025-03-12,2025-03-13,2025-03-17,2025-03-24,2025-04-07,2025-04-22	8; 6; 2; From memory	15	39	14	1	1.07
-25	C3	2024-2 Lista 3	L3-Q2	\text{Calcule a área da parte da esfera } x^2 + y^2 + z^2 = a^2 \text{ que está acima do plano } z = 1. \\ 	2\pi(a^2 - a). \\ 	0,0,0,0,1,1	2025-01-05,2025-01-06,2025-03-18,2025-03-20,2025-03-24,2025-04-07	6; 2; 4; From memory	15	14	14	1	1.07
-26	C3	2024-2 Lista 3	L3-Q3	\text{Calcule } \iint_S (x^2 + y^2)\,dS \text{ em que } S \text{ é a parte do plano } z = 2x + 2y - 1 \text{ interior ao paraboloide } z = x^2 + y^2.	\frac{15\pi}{2}.	0,0,1,0,0,1,1	2025-01-06,2025-01-13,2025-01-14,2025-03-20,2025-03-24,2025-03-25,2025-04-07	7; 3; 4; From memory	15	13	13	2	1.15
-27	C3	2024-2 Lista 3	L3-Q4	\text{Calcule a área da parte do plano } z = x + y \text{ interior ao cilindro } x^2 + y^2 = 4.	4\pi\sqrt{3}	0,1,1	2025-01-05,2025-01-06,2025-04-07	3; 2; 1; From memory	15	91	91	-76	0.16
-28	C3	2022-2 P3	Q3	\text{3. (12 pontos) Sejam } \\ \vec{F}(x, y, z) = 3xy^2\,\vec{i} + x^6 e^{-x^8}\,\vec{j} + 3x^2 z\,\vec{k} \\ \text{e } S \text{ a superfície do sólido limitado pelo cilindro } x^2 + y^2 = 9 \text{ e os planos } z = 0 \text{ e } z = 2, \text{ com normal apontando para fora.} \\ \text{Calcule o fluxo de } \vec{F} \text{ sobre } S. \\ 	243\pi	0,0,0,1,0	2025-01-11,2025-01-12,2025-01-13,2025-01-14,2025-04-07	5; 1; 4; W/H	15	1	0	15	
-29	C3	2024-2 Lista 3	L3-Q9	\textbf{Utilize o Teorema de Stokes} \text{ para calcular a integral} \\ \int_C y(1 + ze^{xz})\,dx + e^{xz}\,dy + xye^{xz}\,dz \\ \text{em que } C \text{ é a interseção do paraboloide } z = x^2 + y^2 \text{ com o cilindro } x^2 + y^2 = 2x, \text{ orientada no sentido anti-horário quando vista de cima.}	-\pi 	0,1,0,0,0,1,1,1	2025-01-11,2025-01-14,2025-03-10,2025-03-11,2025-03-12,2025-03-13,2025-03-17,2025-03-24	8; 4; 4; From memory	29	7	7	22	4.14
-30	C3	2022-2 P3	Q1	\text{(11 pontos) Seja } S \text{ a parte do plano } 2x + 2y + z = 4 \text{ que está no primeiro octante.} \\ \text{(a) Parametrize } S. \\ \\ \text{(b) Calcule a área de S} \\ 	\text{(a) } \vec{r}(x, y) = \left( x,\ y,\ 4 - 2x - 2y \right),\quad 0 \leq x \leq 2,\ 0 \leq y \leq 2,\ x + y \leq 2 \\ \text{(b) } 6 \\ 	0,1,0	2025-01-12,2025-01-14,2025-04-07	3; 1; 2; W/H	15	2	0	15	
-31	C3	2022-2 P3	Q2			0,1,1	2025-01-13, 2025-01-14,2025-04-07	3; 2; 1; From memory	15	82	82	-67	0.18
-32	C3		-			0,0,1,1	2025-01-24,2025-02-18,2025-03-03,2025-03-18	4; 2; 2; From memory	35	15	15	20	2.33
-33	C3		Prerequisite to q17			0,1,1	2025-02-18,2025-03-03,2025-03-20	3; 2; 1; From memory	33	17	17	16	1.94
-34	French		Prerequisite to q35 – At the library 1			0,0,0,0,1,1,1,1	2025-02-18, 2025-02-19, 2025-02-21,2025-03-03,2025-03-04,2025-03-09,2025-03-17,2025-03-27	8; 4; 4; From memory	26	10	10	16	2.6
-35	French		At the library 2			0,0,1,1,1,1	2025-02-21,2025-03-03,2025-03-04,2025-03-09,2025-03-17,2025-03-27	6; 4; 2; From memory	26	10	10	16	2.6
-36	C3	-	Prerequisite to q19			0,1,1	2025-03-18,2025-03-19,2025-03-24	3; 2; 1; From memory	29	5	5	24	5.8
-37	EDO	Workbook for Dummies	C2 p.31			0,1	2025-03-20,2025-03-24	2; 1; 1; From memory	29	4	4	25	7.25
-38	EDO	Workbook for Dummies	C2 p.34			0,1	2025-03-20,2025-03-24	2; 1; 1; From memory	29	4	4	25	7.25
-39	EDO	Workbook for Dummies	C2 p.39			0,1	2025-03-20,2025-03-24	2; 1; 1; From memory	29	4	4	25	7.25
-40	FOO	2025-1 Lista 1	L1-Q1			0,1,1,1	2025-03-24,2025-03-25,2025-03-27,2025-03-31	4; 3; 1; From memory	22	4	4	18	5.5
-41	FOO	2025-1 Lista 1	L1-Q2			0,1,1,1	2025-03-24,2025-03-25,2025-03-27,2025-03-31	4; 3; 1; From memory	22	4	4	18	5.5
-42	FOO	2025-1 Lista 1	L1-Q3			0,1,1,1	2025-03-24,2025-03-25,2025-03-27,2025-03-31	4; 3; 1; From memory	22	4	4	18	5.5
-43	FOO	2025-1 Lista 1	L1-Q4			0,1,1,1	2025-03-24,2025-03-25,2025-03-27,2025-04-02	4; 3; 1; From memory	20	6	6	14	3.33
-44	FOO	2025-1 Lista 1	L1-Q5			0,1,1	2025-03-25,2025-03-26,2025-04-02	3; 2; 1; From memory	20	7	7	13	2.86
-45	FOO	2025-1 Lista 1	L1-Q6			0,1,1	2025-03-26,2025-03-27,2025-04-02	3; 2; 1; From memory	20	6	6	14	3.33
-46	FOO	2025-1 Lista 1	L1-Q7			0,1,1	2025-03-26,2025-03-27,2025-04-02	3; 2; 1; From memory	20	6	6	14	3.33
-47	FOO	2025-1 Lista 1	L1-Q8			0,1,0	2025-03-26,2025-03-27,2025-04-02	3; 1; 2; W/H	20	1	0	20	
-48	FOO	2025-1 Lista 1	L1-Q9			0,1,1	2025-03-26,2025-03-27,2025-03-31	3; 2; 1; From memory	22	4	4	18	5.5
-49	FOO	2025-1 Lista 1	L1-Q10			0,1	2025-03-27,2025-03-31	2; 1; 1; From memory	22	4	4	18	5.5
-50	FOO	2025-1 Lista 1	L1-Q11			0,0	2025-03-27,2025-04-02	2; 0; 2; W/H	20	0	0	20	
-51	FOO	2025-1 Lista 1	L1-Q12			0,0	2025-03-27,2025-04-02	2; 0; 2; W/H	20	0	0	20	
-52	EDO	2025-1 Exercícios para prova	Q1			0,0,1	2025-04-04,2025-04-06,2025-04-07	3; 1; 2; From memory	15	1	1	14	15
-53	EDO	2025-1 Exercícios para prova	Q2			0,0,0	2025-04-04,2025-04-06,2025-04-07	3; 0; 3; W/H	15	0	0	15	
-54	EDO	2025-1 Exercícios para prova	Q3			0,0	2025-04-04,2025-04-07	2; 0; 2; W/H	15	0	0	15	
-55	EDO	2025-1 Exercícios para prova	Q4 nf			0	2025-04-04	1; 0; 1; W/H	18	0	0	18	
-56	EDO	2025-1 Exercícios para prova	Q5 nf			0	2025-04-04	1; 0; 1; W/H	18	0	0	18	
-57	EDO	2025-1 Exercícios para prova	Q6 nf			0	2025-04-04	1; 0; 1; W/H	18	0	0	18	
-58	EDO	2025-1 Exercícios para prova	Q7 nf			0	2025-04-04	1; 0; 1; W/H	18	0	0	18	
-59	EDO	2025-1 Exercícios para prova	Q8 nf			0	2025-04-04	1; 0; 1; W/H	18	0	0	18	
-60	MecSol	2025-1 Lista 1	Q1	\begin{aligned}Yes—geometrically, the arc‐length formula in 3D is a continuous version of the Pythagorean theorem applied to infinitesimal line segments.\\\text{Let }\mathbf{r}(t)=(x(t),\,y(t),\,z(t)),\,t\in[a,b].\\\text{Partition }[a,b]\colon a=t_0<\cdots<t_n=b.\\\Delta s_i=\|\mathbf{r}(t_i)-\mathbf{r}(t_{i-1})\|=\sqrt{[x(t_i)-x(t_{i-1})]^2+[y(t_i)-y(t_{i-1})]^2+[z(t_i)-z(t_{i-1})]^2}.\\\Delta s_i\approx\sqrt{[x'(t_{i-1})\Delta t_i]^2+[y'(t_{i-1})\Delta t_i]^2+[z'(t_{i-1})\Delta t_i]^2}=\sqrt{(x')^2+(y')^2+(z')^2}\big|_{t_{i-1}}\Delta t_i.\\L=\lim_{n\to\infty}\sum_{i=1}^n\Delta s_i=\int_a^b\sqrt{[x'(t)]^2+[y'(t)]^2+[z'(t)]^2}\,dt=\int_a^b\|\mathbf{r}'(t)\|\,dt.\end{aligned} 		0	2025-04-09	1; 0; 1; W/H	13	0	0	13	
-61	MecSol	2025-1 Lista 1	Q2			0	2025-04-09	1; 0; 1; W/H	13	0	0	13	
-62	MecSol	2025-1 Lista 1	Q3			0	2025-04-09	1; 0; 1; W/H	13	0	0	13	
-63	MecSol	2025-1 Lista 1	Q4 nf			0	2025-04-04	1; 0; 1; W/H	18	0	0	18	
-64	MecSol	2025-1 Lista 1	Q5 nf			0	2025-04-04	1; 0; 1; W/H	18	0	0	18	
-65	MecSol	2025-1 Lista 1	Q6 nf			0	2025-04-04	1; 0; 1; W/H	18	0	0	18	
+"	0,1,1	2024-12-02,2025-02-10,2025-03-04	3; 2; 1; From memory	49	70	22	27	2.23	
+24	C3	2024-2 Lista 3	L3-Q1	\text{Calcule a área da parte do plano } z = 1000 + 3x + 4y \text{ interior ao cilindro} \\ (x - 51)^2 + (y - 13)^2 = 121.	121\sqrt{26}\pi.	0,1,1,0,1,1,1,1,1	2024-12-04,2025-01-12,2025-01-13,2025-03-12,2025-03-13,2025-03-17,2025-03-24,2025-04-07,2025-04-22	8; 6; 2; From memory	15	39	14	1	1.07	
+25	C3	2024-2 Lista 3	L3-Q2	\text{Calcule a área da parte da esfera } x^2 + y^2 + z^2 = a^2 \text{ que está acima do plano } z = 1. \\ 	2\pi(a^2 - a). \\ 	0,0,0,0,1,1	2025-01-05,2025-01-06,2025-03-18,2025-03-20,2025-03-24,2025-04-07	6; 2; 4; From memory	15	14	14	1	1.07	
+26	C3	2024-2 Lista 3	L3-Q3	\text{Calcule } \iint_S (x^2 + y^2)\,dS \text{ em que } S \text{ é a parte do plano } z = 2x + 2y - 1 \text{ interior ao paraboloide } z = x^2 + y^2.	\frac{15\pi}{2}.	0,0,1,0,0,1,1	2025-01-06,2025-01-13,2025-01-14,2025-03-20,2025-03-24,2025-03-25,2025-04-07	7; 3; 4; From memory	15	13	13	2	1.15	
+27	C3	2024-2 Lista 3	L3-Q4	\text{Calcule a área da parte do plano } z = x + y \text{ interior ao cilindro } x^2 + y^2 = 4.	4\pi\sqrt{3}	0,1,1	2025-01-05,2025-01-06,2025-04-07	3; 2; 1; From memory	15	91	91	-76	0.16	
+28	C3	2022-2 P3	Q3	\text{3. (12 pontos) Sejam } \\ \vec{F}(x, y, z) = 3xy^2\,\vec{i} + x^6 e^{-x^8}\,\vec{j} + 3x^2 z\,\vec{k} \\ \text{e } S \text{ a superfície do sólido limitado pelo cilindro } x^2 + y^2 = 9 \text{ e os planos } z = 0 \text{ e } z = 2, \text{ com normal apontando para fora.} \\ \text{Calcule o fluxo de } \vec{F} \text{ sobre } S. \\ 	243\pi	0,0,0,1,0	2025-01-11,2025-01-12,2025-01-13,2025-01-14,2025-04-07	5; 1; 4; W/H	15	1	0	15		
+29	C3	2024-2 Lista 3	L3-Q9	\textbf{Utilize o Teorema de Stokes} \text{ para calcular a integral} \\ \int_C y(1 + ze^{xz})\,dx + e^{xz}\,dy + xye^{xz}\,dz \\ \text{em que } C \text{ é a interseção do paraboloide } z = x^2 + y^2 \text{ com o cilindro } x^2 + y^2 = 2x, \text{ orientada no sentido anti-horário quando vista de cima.}	-\pi 	0,1,0,0,0,1,1,1	2025-01-11,2025-01-14,2025-03-10,2025-03-11,2025-03-12,2025-03-13,2025-03-17,2025-03-24	8; 4; 4; From memory	29	7	7	22	4.14	
+30	C3	2022-2 P3	Q1	\text{(11 pontos) Seja } S \text{ a parte do plano } 2x + 2y + z = 4 \text{ que está no primeiro octante.} \\ \text{(a) Parametrize } S. \\ \\ \text{(b) Calcule a área de S} \\ 	\text{(a) } \vec{r}(x, y) = \left( x,\ y,\ 4 - 2x - 2y \right),\quad 0 \leq x \leq 2,\ 0 \leq y \leq 2,\ x + y \leq 2 \\ \text{(b) } 6 \\ 	0,1,0	2025-01-12,2025-01-14,2025-04-07	3; 1; 2; W/H	15	2	0	15		
+31	C3	2022-2 P3	Q2			0,1,1	2025-01-13, 2025-01-14,2025-04-07	3; 2; 1; From memory	15	82	82	-67	0.18	
+32	C3		-			0,0,1,1	2025-01-24,2025-02-18,2025-03-03,2025-03-18	4; 2; 2; From memory	35	15	15	20	2.33	
+33	C3		Prerequisite to q17			0,1,1	2025-02-18,2025-03-03,2025-03-20	3; 2; 1; From memory	33	17	17	16	1.94	
+34	French		Prerequisite to q35 – At the library 1			0,0,0,0,1,1,1,1	2025-02-18, 2025-02-19, 2025-02-21,2025-03-03,2025-03-04,2025-03-09,2025-03-17,2025-03-27	8; 4; 4; From memory	26	10	10	16	2.6	
+35	French		At the library 2			0,0,1,1,1,1	2025-02-21,2025-03-03,2025-03-04,2025-03-09,2025-03-17,2025-03-27	6; 4; 2; From memory	26	10	10	16	2.6	
+36	C3	-	Prerequisite to q19			0,1,1	2025-03-18,2025-03-19,2025-03-24	3; 2; 1; From memory	29	5	5	24	5.8	
+37	EDO	Workbook for Dummies	C2 p.31			0,1	2025-03-20,2025-03-24	2; 1; 1; From memory	29	4	4	25	7.25	
+38	EDO	Workbook for Dummies	C2 p.34			0,1	2025-03-20,2025-03-24	2; 1; 1; From memory	29	4	4	25	7.25	
+39	EDO	Workbook for Dummies	C2 p.39			0,1	2025-03-20,2025-03-24	2; 1; 1; From memory	29	4	4	25	7.25	
+40	FOO	2025-1 Lista 1	L1-Q1			0,1,1,1	2025-03-24,2025-03-25,2025-03-27,2025-03-31	4; 3; 1; From memory	22	4	4	18	5.5	
+41	FOO	2025-1 Lista 1	L1-Q2			0,1,1,1	2025-03-24,2025-03-25,2025-03-27,2025-03-31	4; 3; 1; From memory	22	4	4	18	5.5	
+42	FOO	2025-1 Lista 1	L1-Q3			0,1,1,1	2025-03-24,2025-03-25,2025-03-27,2025-03-31	4; 3; 1; From memory	22	4	4	18	5.5	
+43	FOO	2025-1 Lista 1	L1-Q4			0,1,1,1	2025-03-24,2025-03-25,2025-03-27,2025-04-02	4; 3; 1; From memory	20	6	6	14	3.33	
+44	FOO	2025-1 Lista 1	L1-Q5			0,1,1	2025-03-25,2025-03-26,2025-04-02	3; 2; 1; From memory	20	7	7	13	2.86	
+45	FOO	2025-1 Lista 1	L1-Q6			0,1,1	2025-03-26,2025-03-27,2025-04-02	3; 2; 1; From memory	20	6	6	14	3.33	
+46	FOO	2025-1 Lista 1	L1-Q7			0,1,1	2025-03-26,2025-03-27,2025-04-02	3; 2; 1; From memory	20	6	6	14	3.33	
+47	FOO	2025-1 Lista 1	L1-Q8			0,1,0	2025-03-26,2025-03-27,2025-04-02	3; 1; 2; W/H	20	1	0	20		
+48	FOO	2025-1 Lista 1	L1-Q9			0,1,1	2025-03-26,2025-03-27,2025-03-31	3; 2; 1; From memory	22	4	4	18	5.5	
+49	FOO	2025-1 Lista 1	L1-Q10			0,1	2025-03-27,2025-03-31	2; 1; 1; From memory	22	4	4	18	5.5	
+50	FOO	2025-1 Lista 1	L1-Q11			0,0	2025-03-27,2025-04-02	2; 0; 2; W/H	20	0	0	20		
+51	FOO	2025-1 Lista 1	L1-Q12			0,0	2025-03-27,2025-04-02	2; 0; 2; W/H	20	0	0	20		
+52	EDO	2025-1 Exercícios para prova	Q1			0,0,1	2025-04-04,2025-04-06,2025-04-07	3; 1; 2; From memory	15	1	1	14	15	
+53	EDO	2025-1 Exercícios para prova	Q2			0,0,0	2025-04-04,2025-04-06,2025-04-07	3; 0; 3; W/H	15	0	0	15		
+54	EDO	2025-1 Exercícios para prova	Q3			0,0	2025-04-04,2025-04-07	2; 0; 2; W/H	15	0	0	15		
+55	EDO	2025-1 Exercícios para prova	Q4 nf			0	2025-04-04	1; 0; 1; W/H	18	0	0	18		
+56	EDO	2025-1 Exercícios para prova	Q5 nf			0	2025-04-04	1; 0; 1; W/H	18	0	0	18		
+57	EDO	2025-1 Exercícios para prova	Q6 nf			0	2025-04-04	1; 0; 1; W/H	18	0	0	18		
+58	EDO	2025-1 Exercícios para prova	Q7 nf			0	2025-04-04	1; 0; 1; W/H	18	0	0	18		
+59	EDO	2025-1 Exercícios para prova	Q8 nf			0	2025-04-04	1; 0; 1; W/H	18	0	0	18		
+60	MecSol	2025-1 Lista 1	Q1	\begin{aligned}Yes—geometrically, the arc‐length formula in 3D is a continuous version of the Pythagorean theorem applied to infinitesimal line segments.\\\text{Let }\mathbf{r}(t)=(x(t),\,y(t),\,z(t)),\,t\in[a,b].\\\text{Partition }[a,b]\colon a=t_0<\cdots<t_n=b.\\\Delta s_i=\|\mathbf{r}(t_i)-\mathbf{r}(t_{i-1})\|=\sqrt{[x(t_i)-x(t_{i-1})]^2+[y(t_i)-y(t_{i-1})]^2+[z(t_i)-z(t_{i-1})]^2}.\\\Delta s_i\approx\sqrt{[x'(t_{i-1})\Delta t_i]^2+[y'(t_{i-1})\Delta t_i]^2+[z'(t_{i-1})\Delta t_i]^2}=\sqrt{(x')^2+(y')^2+(z')^2}\big|_{t_{i-1}}\Delta t_i.\\L=\lim_{n\to\infty}\sum_{i=1}^n\Delta s_i=\int_a^b\sqrt{[x'(t)]^2+[y'(t)]^2+[z'(t)]^2}\,dt=\int_a^b\|\mathbf{r}'(t)\|\,dt.\end{aligned} 		0	2025-04-09	1; 0; 1; W/H	13	0	0	13		
+61	MecSol	2025-1 Lista 1	Q2			0	2025-04-09	1; 0; 1; W/H	13	0	0	13		
+62	MecSol	2025-1 Lista 1	Q3			0	2025-04-09	1; 0; 1; W/H	13	0	0	13		
+63	MecSol	2025-1 Lista 1	Q4 nf			0	2025-04-04	1; 0; 1; W/H	18	0	0	18		
+64	MecSol	2025-1 Lista 1	Q5 nf			0	2025-04-04	1; 0; 1; W/H	18	0	0	18		
+65	MecSol	2025-1 Lista 1	Q6 nf			0	2025-04-04	1; 0; 1; W/H	18	0	0	18		
 66	C3	-		\displaystyle \int \frac{1}{3 – y}\,dy	"-\ln\bigl|3 - y\bigr| + C
-"	0	2025-04-17	1; 0; 1; W/H	5	0	0	5	
+"	0	2025-04-17	1; 0; 1; W/H	5	0	0	5		
 67	C3	-		"\displaystyle \int \cos^2(t)\,dt
-"	\frac{1}{2}t + \frac{1}{4}\sin\bigl(2t\bigr) + C	0	2025-04-17	1; 0; 1; W/H	5	0	0	5	
+"	\frac{1}{2}t + \frac{1}{4}\sin\bigl(2t\bigr) + C	0	2025-04-17	1; 0; 1; W/H	5	0	0	5		
 68	Discursive question	-	nf		"\int_C f(x, y, z)\, ds = \int_{t_a}^{t_b} f(x(t), y(t), z(t)) \|\mathbf{r}'(t)\|\, dt \\
 
-ds = \|\mathbf{r}'(t)\|\, dt, \text{ where } \|\mathbf{r}'(t)\| = \sqrt{ \left( \frac{dx}{dt} \right)^2 + \left( \frac{dy}{dt} \right)^2 + \left( \frac{dz}{dt} \right)^2 }."	0	2025-04-22						
+ds = \|\mathbf{r}'(t)\|\, dt, \text{ where } \|\mathbf{r}'(t)\| = \sqrt{ \left( \frac{dx}{dt} \right)^2 + \left( \frac{dy}{dt} \right)^2 + \left( \frac{dz}{dt} \right)^2 }."	0	2025-04-22							
