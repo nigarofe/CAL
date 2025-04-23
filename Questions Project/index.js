@@ -1,8 +1,8 @@
 window.addEventListener("DOMContentLoaded", () => {
     loadHTMLTable();
     showToast("Hello!", "Have a nice day!", ":)");
-    
-    openObsidianNote(68);
+
+    // openObsidianNote(68);
 })
 
 
@@ -12,10 +12,10 @@ function openObsidianNote(question_number) {
     const encodedFile = encodeURIComponent(file);
     const uri = `obsidian://open?vault=${vault}&file=${encodedFile}`;
     // const uri = `obsidian://advanced-uri?vault=${vault}&filepath=${encodedFile}&commandid=obsidian-creases%3Afold-along-creases`;
-  
+
     window.location.href = uri;
-  }
-  
+}
+
 function showToast(toastTitle, toastMessage, toastTime) {
     const toastLiveExample = document.getElementById('liveToast')
     const toastBootstrap = bootstrap.Toast.getOrCreateInstance(toastLiveExample)
@@ -95,11 +95,12 @@ function loadHTMLTable() {
                     commonTableRow.appendChild(cellData);
                 }
             }
-            commonTableRow.style.cursor = 'pointer'; // Add hand icon to mouse
-            commonTableRow.onclick = function () {
-                const questionNumber = matrix[i]['#'];
-                openObsidianNote(questionNumber);
-            };
+            // commonTableRow.style.cursor = 'pointer'; // Add hand icon to mouse
+
+            // commonTableRow.onclick = function () {
+            //     const questionNumber = matrix[i]['#'];
+            //     openObsidianNote(questionNumber);
+            // };
             tableBody.appendChild(commonTableRow);
         }
         htmlTable.appendChild(tableBody);
@@ -162,12 +163,10 @@ function getCellColor(question_number, propertie, greatestIsGreen) {
 
 function addActionButtonsToCellData(cellData, i) {
     const buttonContainer = document.createElement('div');
-    buttonContainer.style.display = 'flex';
-    buttonContainer.style.justifyContent = 'space-evenly'; // Equal space between and around
-    buttonContainer.style.width = '100%'; // Take full width of the cell
-    buttonContainer.style.padding = '5px 0'; // Add padding top and bottom
+    buttonContainer.className = 'd-flex justify-content-evenly align-items-center w-100 gap-2';
 
     const button0 = document.createElement('button');
+    button0.className = 'btn btn-outline-warning';
     button0.textContent = '0';
     button0.onclick = function () {
         registerQuestionAttempt(matrix[i]['#'], 0);
@@ -175,11 +174,32 @@ function addActionButtonsToCellData(cellData, i) {
     buttonContainer.appendChild(button0);
 
     const button1 = document.createElement('button');
+    button1.className = 'btn btn-outline-success';
     button1.textContent = '1';
     button1.onclick = function () {
         registerQuestionAttempt(matrix[i]['#'], 1);
     };
     buttonContainer.appendChild(button1);
+
+
+    const questionNumber = matrix[i]['#'];
+    const button2 = document.createElement('button');
+    button2.className = 'btn btn-outline-primary';
+
+    const logo = document.createElement('img');
+    logo.src = 'libraries/Obsidian_logo.svg';        // path to your Obsidian logo
+    logo.alt = 'Obsidian';
+    logo.style.width = '16px';                    // adjust size as needed
+    logo.style.height = '16px';
+    logo.style.verticalAlign = 'middle';
+
+    button2.appendChild(logo);
+
+    logo.onclick = function () {
+        openObsidianNote(questionNumber);
+    };
+
+    buttonContainer.appendChild(button2);
 
     cellData.appendChild(buttonContainer);
 }
