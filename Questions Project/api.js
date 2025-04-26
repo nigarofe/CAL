@@ -66,7 +66,7 @@ function registerQuestionAttempt(question_number, code) {
         requestToOverwriteCsv(matrix)
             .then(result => {
                 console.log('Save operation completed:', result)
-                if (code === '0') {
+                if (code == 0) {
                     showToast(`Done!`, `Question ${question_number} attempt registered successfully!<br>Code: ${code} <br> (I needed help to solve the question)`, today);
                 } else {
                     showToast(`Done!`, `Question ${question_number} attempt registered successfully!<br>Code: ${code} <br> (I solved the question without any external help)`, today);

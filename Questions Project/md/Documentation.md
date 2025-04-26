@@ -1,3 +1,46 @@
+# Interface description
+- There's only one screen
+	- There's a centralized h1 title "Questions"
+	- There's a search bar that search in regex across all table fields
+- Clicking a row of the table opens a modal with the question
+	- Modal structure
+		- The modal header has a centralized h1 title "Question 42"
+		- The model body has the following sections
+			- Question statement
+			- Question resolution by LLM
+			- Question resolution by myself
+			- Question answer
+		- The model footer has a button tray aligned to the center with two buttons, named "0" and "1," , that when hovered display
+			- "0 = I needed help to solve the question" 
+			- "1 = I solved the question without any external help" 
+
+
+
+# File structure
+main.js
+questions.csv
+matrixManipulation.js
+
+UI
+    index.html
+    style.css
+    ui.js
+Server
+    server.js
+    other node.js stuff
+
+
+
+# Design choices
+This application design choices prioritize development simplicity.
+Spending time making this application more secure or performing goes against this project's goals at this moment.
+
+# Compartimentalization
+The idea is to create black boxes: I shouldn't need to understand what each file of the code base does. I should actively hide what I'm not going to interact with so it doesn't load on my own working memory.
+
+
+
+
 # Performance Metrics Documentation
 
 ## Introduction
