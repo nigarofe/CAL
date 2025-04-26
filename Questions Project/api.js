@@ -77,8 +77,8 @@ function registerQuestionAttempt(question_number, code) {
                 showToast('Error', 'Question attempt failled to save!', today);
                 console.error('Save operation failed:', error)
             });
-        loadHTMLQuestionsTable();
-        loadHTMLQuestionsTableMini
     }
+    loadHTMLQuestionsTable();
+    loadHTMLQuestionsTableMini()
     console.log('dateVector and codeVector for question', question_number, 'after api request = \n', question['Date Vector'], '\n', question['Code Vector']);
 }

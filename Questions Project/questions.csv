@@ -14,7 +14,7 @@ TRUE	TRUE	TRUE	TRUE	FALSE	FALSE	FALSE	FALSE	TRUE	TRUE	FALSE	TRUE	TRUE	TRUE	TRUE
 11	EDO	Workbook for Dummies	C5 p.123	\text{Find the general solution to this differential equation:} \\ y'' - y' - 2y = 10e^{4x} \\	y = c_1 e^{-x} + c_2 e^{2x} + e^{4x} \\	0	2024-11-18	1; 0; 1; W/H	159	0	0	159		
 12	C3	2024-2 Lista 2	L2-Q1	"\text{Calcule a integral de linha} \\ 
 \quad \int_C \sqrt{1 + 4x^2} \, ds, \\ 
-\text{em que } C \text{ é a interseção do cilindro } x^2 + (y - 1)^2 = 1 \text{ com o plano } z = 2y. \\ "	6\pi	0,0,0,1,1,0,1,1	2024-11-23,2025-01-17,2025-02-06, 2025-02-11,2025-03-12,2025-04-15,2025-04-17,2025-04-22	8; 4; 4; From memory	4	28	5	-1	0.80	
+\text{em que } C \text{ é a interseção do cilindro } x^2 + (y - 1)^2 = 1 \text{ com o plano } z = 2y. \\ "	6\pi	0,0,0,1,1,0,1,1	2024-11-23,2025-01-17,2025-02-06, 2025-02-11,2025-03-12,2025-04-15,2025-04-17,2025-04-22	8; 4; 4; From memory	4	28	5	-1	0.8	
 13	C3	2024-2 Lista 2	L2-Q2	"\text{Calcule a massa de um pedaço de arame cuja forma é descrita pela curva} \\ 
 \quad \vec{\gamma}(t) = \left\langle 6t^2,\, 4\sqrt{2}t^3,\, 3t^4 \right\rangle; \quad 0 \leq t \leq 1. \\ 
 \text{e a densidade é } \rho(x, y, z) = 6 + |x|."	M=84	0,0,0,1,1,1	2024-11-23,2025-01-17,2025-02-06, 2025-02-11,2025-03-12,2025-04-17	6; 3; 3; From memory	9	36	36	-27	0.25	
@@ -27,37 +27,37 @@ TRUE	TRUE	TRUE	TRUE	FALSE	FALSE	FALSE	FALSE	TRUE	TRUE	FALSE	TRUE	TRUE	TRUE	TRUE
 17	C3	2024-2 Lista 2	L2-Q5	"\text{Calcule a integral} \\
 \quad \int_C \left(e^y - x e^x - x^5 e^x\right) dx + \left(x + y^5\right) e^y dy \\
 \text{em que } C \text{ é a parte da curva } y = x^{200} \text{ que liga o ponto } (0,0) \text{ ao ponto } (1,1)"	e – 1	0,0,1,1,1	2024-11-25,2025-03-14,2025-03-17,2025-03-24,2025-04-07	5; 3; 2; From memory	19	14	14	5	1.36	
-18	C3	2024-2 Lista 2	L2-Q4.2	\text{Calcule a integral de linha} \\ \int_C e^{2y}\,dx + \left(1 + 2xe^{2y}\right)\,dy \\ \text{em que } C \text{ é a curva parametrizada por } x = te^t,\ y = 1 + \sin\left(\frac{\pi t}{2}\right),\ \text{com } 0 \leq t \leq 1.	1 + e^5	0,0,1,1,1,1	2024-11-25,2025-02-19,2025-02-21,2025-03-04,2025-03-17,2025-04-07	6; 4; 2; From memory	19	21	21	-2	0.90	
+18	C3	2024-2 Lista 2	L2-Q4.2	\text{Calcule a integral de linha} \\ \int_C e^{2y}\,dx + \left(1 + 2xe^{2y}\right)\,dy \\ \text{em que } C \text{ é a curva parametrizada por } x = te^t,\ y = 1 + \sin\left(\frac{\pi t}{2}\right),\ \text{com } 0 \leq t \leq 1.	1 + e^5	0,0,1,1,1,1	2024-11-25,2025-02-19,2025-02-21,2025-03-04,2025-03-17,2025-04-07	6; 4; 2; From memory	19	21	21	-2	0.9	
 19	C3	2024-2 Lista 2	L2-Q6	\text{Calcule a integral} \\ \int_C (1 + \ln x + e^y)\,dx + (xe^y + \sin^3(y))\,dy \\ \text{em que } C \text{ é segmento de reta que liga o ponto } (1, 0) \text{ ao ponto } (e, \pi).	e + e^{\pi + 1} + \frac{1}{3}	0,0,1,1,1,1	2024-11-26,2025-03-17,2025-03-18,2025-03-20,2025-03-24,2025-04-07	6; 4; 2; From memory	19	14	14	5	1.36	
-20	C3		-	\int \ln(x)\,dx \\ 	x \ln(x) - x + C \\ 	0,0,1,1,1	2024-12-02,2025-02-10,2025-02-18,2025-03-04,2025-03-20	5; 3; 2; From memory	37	16	16	21	2.31	
+20	C3		-	\int \ln(x)\,dx \\ 	x \ln(x) - x + C \\ 	0,0,1,1,1,1	2024-12-02,2025-02-10,2025-02-18,2025-03-04,2025-03-20,2025-04-26	6; 4; 2; From memory	0	37	37	-37	0	
 21	C3		-	\int x^3 \ln(x)\,dx \\ 	x^4 \left( \frac{\ln(x)}{4} - \frac{1}{16} \right) + C \\ 	0,1,1,1	2024-12-02,2025-02-10,2025-03-04,2025-04-22	4; 3; 1; From memory	4	70	49	-45	0.08	
 22	C3		-	\int \sin(x)\cos(x)\,dx \\ 	\frac{\sin^2(x)}{2} + C \\ 	0,1,1,1	2024-12-02,2025-02-10,2025-03-04,2025-04-22	4; 3; 1; From memory	4	70	49	-45	0.08	
 23	C3		-	"\text{Calcule } \iint_S (x^2 + y^2) \, dS \text{ em que } S \text{ é a parte do plano } z = 2x + 2y - 1 \text{ interior ao paraboloide } z = x^2 + y^2.
 "	"\frac{15\pi}{2}
-"	0,1,1	2024-12-02,2025-02-10,2025-03-04	3; 2; 1; From memory	53	70	22	31	2.41	
+"	0,1,1,1	2024-12-02,2025-02-10,2025-03-04,2025-04-26	4; 3; 1; From memory	0	70	53	-53	0	
 24	C3	2024-2 Lista 3	L3-Q1	\text{Calcule a área da parte do plano } z = 1000 + 3x + 4y \text{ interior ao cilindro} \\ (x - 51)^2 + (y - 13)^2 = 121.	121\sqrt{26}\pi.	0,1,1,0,1,1,1,1,1	2024-12-04,2025-01-12,2025-01-13,2025-03-12,2025-03-13,2025-03-17,2025-03-24,2025-04-07,2025-04-22	9; 7; 2; From memory	4	39	15	-11	0.27	
 25	C3	2024-2 Lista 3	L3-Q2	\text{Calcule a área da parte da esfera } x^2 + y^2 + z^2 = a^2 \text{ que está acima do plano } z = 1. \\ 	2\pi(a^2 - a). \\ 	0,0,0,0,1,1	2025-01-05,2025-01-06,2025-03-18,2025-03-20,2025-03-24,2025-04-07	6; 2; 4; From memory	19	14	14	5	1.36	
 26	C3	2024-2 Lista 3	L3-Q3	\text{Calcule } \iint_S (x^2 + y^2)\,dS \text{ em que } S \text{ é a parte do plano } z = 2x + 2y - 1 \text{ interior ao paraboloide } z = x^2 + y^2.	\frac{15\pi}{2}.	0,0,1,0,0,1,1	2025-01-06,2025-01-13,2025-01-14,2025-03-20,2025-03-24,2025-03-25,2025-04-07	7; 3; 4; From memory	19	13	13	6	1.46	
 27	C3	2024-2 Lista 3	L3-Q4	\text{Calcule a área da parte do plano } z = x + y \text{ interior ao cilindro } x^2 + y^2 = 4.	4\pi\sqrt{3}	0,1,1	2025-01-05,2025-01-06,2025-04-07	3; 2; 1; From memory	19	91	91	-72	0.21	
 28	C3	2022-2 P3	Q3	\text{3. (12 pontos) Sejam } \\ \vec{F}(x, y, z) = 3xy^2\,\vec{i} + x^6 e^{-x^8}\,\vec{j} + 3x^2 z\,\vec{k} \\ \text{e } S \text{ a superfície do sólido limitado pelo cilindro } x^2 + y^2 = 9 \text{ e os planos } z = 0 \text{ e } z = 2, \text{ com normal apontando para fora.} \\ \text{Calcule o fluxo de } \vec{F} \text{ sobre } S. \\ 	243\pi	0,0,0,1,0	2025-01-11,2025-01-12,2025-01-13,2025-01-14,2025-04-07	5; 1; 4; W/H	19	1	0	19		
-29	C3	2024-2 Lista 3	L3-Q9	\textbf{Utilize o Teorema de Stokes} \text{ para calcular a integral} \\ \int_C y(1 + ze^{xz})\,dx + e^{xz}\,dy + xye^{xz}\,dz \\ \text{em que } C \text{ é a interseção do paraboloide } z = x^2 + y^2 \text{ com o cilindro } x^2 + y^2 = 2x, \text{ orientada no sentido anti-horário quando vista de cima.}	-\pi 	0,1,0,0,0,1,1,1,0	2025-01-11,2025-01-14,2025-03-10,2025-03-11,2025-03-12,2025-03-13,2025-03-17,2025-03-24,2025-04-26	8; 4; 4; From memory	33	7	7	26	4.71	
+29	C3	2024-2 Lista 3	L3-Q9	\textbf{Utilize o Teorema de Stokes} \text{ para calcular a integral} \\ \int_C y(1 + ze^{xz})\,dx + e^{xz}\,dy + xye^{xz}\,dz \\ \text{em que } C \text{ é a interseção do paraboloide } z = x^2 + y^2 \text{ com o cilindro } x^2 + y^2 = 2x, \text{ orientada no sentido anti-horário quando vista de cima.}	-\pi 	0,1,0,0,0,1,1,1,0	2025-01-11,2025-01-14,2025-03-10,2025-03-11,2025-03-12,2025-03-13,2025-03-17,2025-03-24,2025-04-26	9; 4; 5; W/H	0	7	0	0		
 30	C3	2022-2 P3	Q1	\text{(11 pontos) Seja } S \text{ a parte do plano } 2x + 2y + z = 4 \text{ que está no primeiro octante.} \\ \text{(a) Parametrize } S. \\ \\ \text{(b) Calcule a área de S} \\ 	\text{(a) } \vec{r}(x, y) = \left( x,\ y,\ 4 - 2x - 2y \right),\quad 0 \leq x \leq 2,\ 0 \leq y \leq 2,\ x + y \leq 2 \\ \text{(b) } 6 \\ 	0,1,0	2025-01-12,2025-01-14,2025-04-07	3; 1; 2; W/H	19	2	0	19		
 31	C3	2022-2 P3	Q2			0,1,1	2025-01-13, 2025-01-14,2025-04-07	3; 2; 1; From memory	19	82	82	-63	0.23	
-32	C3		-			0,0,1,1	2025-01-24,2025-02-18,2025-03-03,2025-03-18	4; 2; 2; From memory	39	15	15	24	2.60	
-33	C3		Prerequisite to q17			0,1,1	2025-02-18,2025-03-03,2025-03-20	3; 2; 1; From memory	37	17	17	20	2.18	
+32	C3		-			0,0,1,1,1	2025-01-24,2025-02-18,2025-03-03,2025-03-18,2025-04-26	5; 3; 2; From memory	0	39	39	-39	0	
+33	C3		Prerequisite to q17			0,1,1,1	2025-02-18,2025-03-03,2025-03-20,2025-04-26	3; 2; 1; From memory	37	17	17	20	2.18	
 34	French		Prerequisite to q35 – At the library 1			0,0,0,0,1,1,1,1,1	2025-02-18, 2025-02-19, 2025-02-21,2025-03-03,2025-03-04,2025-03-09,2025-03-17,2025-03-27,2025-04-23	9; 5; 4; From memory	3	27	27	-24	0.11	
 35	French		At the library 2			0,0,1,1,1,1,1	2025-02-21,2025-03-03,2025-03-04,2025-03-09,2025-03-17,2025-03-27,2025-04-23	7; 5; 2; From memory	3	27	27	-24	0.11	
-36	C3	-	Prerequisite to q19			0,1,1,1	2025-03-18,2025-03-19,2025-03-24,2025-04-23	4; 3; 1; From memory	3	30	30	-27	0.10	
-37	EDO	Workbook for Dummies	C2 p.31			0,1,1	2025-03-20,2025-03-24,2025-04-23	3; 2; 1; From memory	3	30	30	-27	0.10	
-38	EDO	Workbook for Dummies	C2 p.34			0,1,1	2025-03-20,2025-03-24,2025-04-23	3; 2; 1; From memory	3	30	30	-27	0.10	
+36	C3	-	Prerequisite to q19			0,1,1,1	2025-03-18,2025-03-19,2025-03-24,2025-04-23	4; 3; 1; From memory	3	30	30	-27	0.1	
+37	EDO	Workbook for Dummies	C2 p.31			0,1,1	2025-03-20,2025-03-24,2025-04-23	3; 2; 1; From memory	3	30	30	-27	0.1	
+38	EDO	Workbook for Dummies	C2 p.34			0,1,1	2025-03-20,2025-03-24,2025-04-23	3; 2; 1; From memory	3	30	30	-27	0.1	
 39	EDO	Workbook for Dummies	C2 p.39			0,1,0	2025-03-20,2025-03-24,2025-04-23	3; 1; 2; W/H	3	4	0	3		
 40	FOO	2025-1 Lista 1	L1-Q1			0,1,1,1,1	2025-03-24,2025-03-25,2025-03-27,2025-03-31,2025-04-23	5; 4; 1; From memory	3	23	23	-20	0.13	
 41	FOO	2025-1 Lista 1	L1-Q2			0,1,1,1,0	2025-03-24,2025-03-25,2025-03-27,2025-03-31,2025-04-23	5; 3; 2; W/H	3	4	0	3		
 42	FOO	2025-1 Lista 1	L1-Q3			0,1,1,1,1	2025-03-24,2025-03-25,2025-03-27,2025-03-31,2025-04-23	5; 4; 1; From memory	3	23	23	-20	0.13	
 43	FOO	2025-1 Lista 1	L1-Q4			0,1,1,1,1	2025-03-24,2025-03-25,2025-03-27,2025-04-02,2025-04-23	5; 4; 1; From memory	3	21	21	-18	0.14	
 44	FOO	2025-1 Lista 1	L1-Q5			0,1,1,1	2025-03-25,2025-03-26,2025-04-02,2025-04-23	4; 3; 1; From memory	3	21	21	-18	0.14	
-45	FOO	2025-1 Lista 1	L1-Q6			0,1,1	2025-03-26,2025-03-27,2025-04-02	3; 2; 1; From memory	24	6	6	18	4.00	
-46	FOO	2025-1 Lista 1	L1-Q7			0,1,1	2025-03-26,2025-03-27,2025-04-02	3; 2; 1; From memory	24	6	6	18	4.00	
+45	FOO	2025-1 Lista 1	L1-Q6			0,1,1,1	2025-03-26,2025-03-27,2025-04-02,2025-04-26	4; 3; 1; From memory	0	24	24	-24	0	
+46	FOO	2025-1 Lista 1	L1-Q7			0,1,1,1	2025-03-26,2025-03-27,2025-04-02,2025-04-26	4; 3; 1; From memory	0	24	24	-24	0	
 47	FOO	2025-1 Lista 1	L1-Q8			0,1,0	2025-03-26,2025-03-27,2025-04-02	3; 1; 2; W/H	24	1	0	24		
 48	FOO	2025-1 Lista 1	L1-Q9			0,1,1,1	2025-03-26,2025-03-27,2025-03-31,2025-04-23	4; 3; 1; From memory	3	23	23	-20	0.13	
 49	FOO	2025-1 Lista 1	L1-Q10			0,1,1	2025-03-27,2025-03-31,2025-04-23	3; 2; 1; From memory	3	23	23	-20	0.13	
@@ -81,6 +81,7 @@ TRUE	TRUE	TRUE	TRUE	FALSE	FALSE	FALSE	FALSE	TRUE	TRUE	FALSE	TRUE	TRUE	TRUE	TRUE
 "	0	2025-04-17	1; 0; 1; W/H	9	0	0	9		
 67	C3	-		"\displaystyle \int \cos^2(t)\,dt
 "	\frac{1}{2}t + \frac{1}{4}\sin\bigl(2t\bigr) + C	0	2025-04-17	1; 0; 1; W/H	9	0	0	9		
-68	C3	Discursive question about line integrals				1,1	2025-04-23,2025-04-26	2; 2; 0; From memory	0	3	3	-3	0.00	
+68	C3	Discursive question about line integrals				1,1	2025-04-23,2025-04-26	2; 2; 0; From memory	0	3	3	-3	0	
 69	C3		Boat question to understand conservative fields nf			0	2025-04-17	1; 0; 1; W/H	9	0	0	9		
-70	C3	Discursive question theorems ….	nf			0	2025-04-17	1; 0; 1; W/H	9	0	0	9		
+70	C3	Discursive question Green's Theorem; Stokes's Theorem; Divergence Theorem	nf			0	2025-04-17	1; 0; 1; W/H	9	0	0	9		
+71	C3	Element of integration in scalar fields and vector fields	nf			0	2025-04-17							
