@@ -185,7 +185,11 @@ function addStyletoCellDataElement(cellDataElement, question_number, metric_name
     }
 
     const maxMetricsValue = Math.max(...allValuesFromMetric);
-    const minMetricsValue = Math.min(...allValuesFromMetric);    
+    const minMetricsValue = Math.min(...allValuesFromMetric);
+
+    if (maxMetricsValue == minMetricsValue) {
+        cellDataElement.style.backgroundColor = 'gray';
+    }
 
     const normalizedPosition = 1 - (specifiQuestionMetricValue - minMetricsValue) / (maxMetricsValue - minMetricsValue);
 
