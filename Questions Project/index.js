@@ -1,5 +1,6 @@
 window.addEventListener("DOMContentLoaded", () => {
-    loadHTMLTable();
+    loadHTMLQuestionsTableMini()
+    loadHTMLQuestionsTable();
     showToast("Hello!", "Have a nice day!", ":)");
 
     // openObsidianNote(68);
@@ -29,24 +30,19 @@ function showToast(toastTitle, toastMessage, toastTime) {
 
 }
 
-
-function loadHTMLTable() {
+function loadHTMLQuestionsTable() {
     requestMatrixData().then(() => {
+        calculateAllMetrics();
+
         htmlTable = document.getElementById('questionsTable');
         htmlTable.innerHTML = '';
-
-        calculateNumberOfDaysSinceLastAttempt();
-        calculateAttemptsSummary();
-        calculateLoMIandLaMI();
 
         tableHead = document.createElement('thead');
         for (let i = 0; i < Object.keys(matrix[headersRow]).length; i++) {
             if (matrix[visibilityRow][Object.keys(matrix[headersRow])[i]] == 'TRUE') {
                 const cellHeader = document.createElement('th');
                 cellHeader.scope = 'col';
-                cellHeader.className = 'bg-success';
-                cellHeader.classList.add('text-light');
-                cellHeader.classList.add('p-2');
+                cellHeader.classList.add('text-light', 'p-2', 'bg-success');
 
                 cellHeader.textContent = matrix[headersRow][Object.keys(matrix[headersRow])[i]];
 
@@ -95,16 +91,112 @@ function loadHTMLTable() {
                     commonTableRow.appendChild(cellData);
                 }
             }
-            // commonTableRow.style.cursor = 'pointer'; // Add hand icon to mouse
-
-            // commonTableRow.onclick = function () {
-            //     const questionNumber = matrix[i]['#'];
-            //     openObsidianNote(questionNumber);
-            // };
             tableBody.appendChild(commonTableRow);
         }
         htmlTable.appendChild(tableBody);
     });
+}
+
+function loadHTMLQuestionsTableMini() {
+    requestMatrixData().then(() => {
+        calculateAllMetrics();
+
+        htmlTableMini = document.getElementById('questionsTableMini');
+        htmlTableMini.innerHTML = '';
+        htmlTableMini.classList.add('w-75', 'mx-auto');
+        htmlTableMini.style.tableLayout = 'fixed';
+
+        const tableHead = document.createElement('thead');
+        const headerRow = document.createElement('tr');
+        headerRow.classList.add('text-light', 'bg-success', 'w-100', 'p-2');
+        headerRow.style.borderBottom = '1px dotted #888';
+
+        const allKeys = Object.keys(matrix[headersRow]);
+        const visibleKeys = allKeys.filter(key => matrix[visibilityRow][key] === 'TRUE');
+
+        const th = document.createElement('th');
+        th.colSpan = visibleKeys.length;
+        th.textContent = '[Metrics name here]';
+        th.style.cursor = 'help';
+        th.style.textAlign = 'center';
+        th.classList.add('text-light', 'bg-success', 'w-100', 'p-2');
+
+        headerRow.appendChild(th);
+        tableHead.appendChild(headerRow);
+        htmlTableMini.appendChild(tableHead);
+
+
+        let numberOfQuestions = matrix.length - questionsStartRow;
+        let numberOfColumns = 10;
+        let numberOfRows = Math.ceil(numberOfQuestions / numberOfColumns);
+
+        console.log('numberOfQuestions', numberOfQuestions);
+
+        tableBody = document.createElement('tbody');
+
+        for (let i = 0; i < numberOfRows; i++) {
+            let commonTableRow = document.createElement('tr');
+            commonTableRow.classList.add('bg-success', 'w-100', 'p-2');
+
+            for(let j = 0; j < numberOfColumns; j++) {
+                let question_number = i * numberOfColumns + j + questionsStartRow;
+                if (question_number < matrix.length) {
+                    const cellData = document.createElement('td');
+                    cellData.classList.add('p-2');
+                    cellData.textContent = matrix[question_number]['#'];
+                    cellData.style.cursor = 'pointer';
+                    cellData.style.border = 'none';
+                    cellData.title = matrix[toolTipsRow][Object.keys(matrix[headersRow])[0]].replace(/\\n/g, '\n');
+                    cellData.onclick = function () {
+                        openObsidianNote(matrix[question_number]['#']);
+                    };
+                    commonTableRow.appendChild(cellData);
+                }
+            }
+            tableBody.appendChild(commonTableRow);
+        }
+
+
+
+
+        for (let i = questionsStartRow; i < matrix.length; i++) {
+            commonTableRow = document.createElement('tr');
+
+            for (let j = 0; j < Object.keys(matrix[headersRow]).length; j++) {
+                let columnSetToVisible = matrix[visibilityRow][Object.keys(matrix[headersRow])[j]]
+
+                if (columnSetToVisible == 'TRUE') {
+                    let columnName = Object.keys(matrix[headersRow])[j]
+                    let valueOnCsvTable = matrix[i][columnName];
+
+                    const cellData = document.createElement('td');
+
+                    if ((columnName === 'Input' || columnName === 'Output') && valueOnCsvTable) {
+                        // valueOnCsvTable = valueOnCsvTable.replace(/\\\\/g, '\\');
+                        valueOnCsvTable = valueOnCsvTable.replace(/\\n/g, '\\\\n');
+                        katex.render(valueOnCsvTable, cellData);
+                    } else {
+                        cellData.textContent = valueOnCsvTable;
+                    }
+
+
+                    if (columnName === 'DSLA') {
+                        cellData.style.backgroundColor = getCellColor(matrix[i]['#'], 'DSLA', false);
+                    } else if (columnName === 'PMG-X') {
+                        cellData.style.backgroundColor = getCellColor(matrix[i]['#'], 'PMG-X', false);
+                    }
+
+                    if (columnName === 'Action buttons') {
+                        addActionButtonsToCellData(cellData, i);
+                    }
+
+                    commonTableRow.appendChild(cellData);
+                }
+            }
+            tableBody.appendChild(commonTableRow);
+        }
+        htmlTableMini.appendChild(tableBody);
+    })
 }
 
 function getCellColor(question_number, propertie, greatestIsGreen) {
@@ -204,94 +296,3 @@ function addActionButtonsToCellData(cellData, i) {
     cellData.appendChild(buttonContainer);
 }
 
-function calculateNumberOfDaysSinceLastAttempt() {
-    for (let i = questionsStartRow; i < matrix.length; i++) {
-        const dateStrings = matrix[i]['Date Vector'].replace(/[\[\]]/g, '').split(',');
-        const lastDate = new Date(dateStrings[dateStrings.length - 1]);
-        const today = new Date(new Date().getTime() - 3 * 60 * 60 * 1000);
-
-        const timeDifferenceInMs = today - lastDate;
-        const timeDifferenceInDays = Math.floor(timeDifferenceInMs / (1000 * 60 * 60 * 24));
-
-        matrix[i]['DSLA'] = timeDifferenceInDays;
-    }
-}
-
-function calculateAttemptsSummary() {
-    for (let i = questionsStartRow; i < matrix.length; i++) {
-        let totalAttempts = 0;
-        let attemptsWithoutHelp = 0;
-        let attemptsWithHelp = 0;
-        let lastAttemptMessage = '';
-
-        let codeVector = matrix[i]['Code Vector'];
-        if (typeof codeVector === 'number') {
-            codeVector = [codeVector];
-        } else {
-            codeVector = codeVector.replace(/[\[\]]/g, '').split(',').map(Number);
-        }
-
-        codeVector.forEach(code => {
-            if (code == 1) {
-                attemptsWithoutHelp++;
-            } else {
-                attemptsWithHelp++;
-            }
-            totalAttempts++;
-        });
-
-        if (codeVector[codeVector.length - 1] != 1) {
-            lastAttemptMessage += 'W/H';
-        } else {
-            lastAttemptMessage += 'From memory';
-        }
-
-        let summary = [totalAttempts, attemptsWithoutHelp, attemptsWithHelp, lastAttemptMessage].join('; ');
-
-        matrix[i]['Attempts Summary'] = summary;
-    }
-}
-
-function calculateLoMIandLaMI() {
-    for (let i = questionsStartRow; i < matrix.length; i++) {
-        let memoryIntervals = [];
-
-        let codeVector = matrix[i]['Code Vector'];
-        if (typeof codeVector === 'number') {
-            codeVector = [codeVector];
-        } else {
-            codeVector = codeVector.replace(/[\[\]]/g, '').split(',').map(Number);
-        }
-
-        let dateStrings = matrix[i]['Date Vector'].replace(/[\[\]]/g, '').split(',');
-
-        // console.log('Code Vector:', codeVector);
-        for (let j = 1; j < codeVector.length; j++) {
-            if (codeVector[j] == 1) {
-                let timeDifferenceInMs = new Date(dateStrings[j]) - new Date(dateStrings[j - 1]);
-                let timeDifferenceInDays = Math.floor(timeDifferenceInMs / (1000 * 60 * 60 * 24));
-                memoryIntervals.push(timeDifferenceInDays);
-            }
-        }
-
-        if (memoryIntervals.length > 0) {
-            const maxInterval = Math.max(...memoryIntervals);
-            matrix[i]['LoMI'] = maxInterval;
-
-            if (codeVector[codeVector.length - 1] == 1) {
-                matrix[i]['LaMI'] = memoryIntervals[memoryIntervals.length - 1];
-            } else {
-                matrix[i]['LaMI'] = '0';
-            }
-        } else {
-            matrix[i]['LoMI'] = '0'; // Default value if no intervals
-            matrix[i]['LaMI'] = '0';
-        }
-
-
-        matrix[i]['PMG-D'] = matrix[i]['DSLA'] - matrix[i]['LaMI'];
-
-        const pmgX = matrix[i]['DSLA'] / matrix[i]['LaMI'];
-        matrix[i]['PMG-X'] = isFinite(pmgX) ? pmgX.toFixed(2) : pmgX;
-    }
-}

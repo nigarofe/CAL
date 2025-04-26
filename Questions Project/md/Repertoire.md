@@ -25,6 +25,7 @@
 - Column of question in latex and llm output. Repeatable adn beautiful
 - Obsidian vault data scraper to use with LLM
 - Create column in the .csv to implement MIG data selection ([[r0 Video Introduction of MIG]])
+- Stop saving calculations on the .csv
 
 
 
