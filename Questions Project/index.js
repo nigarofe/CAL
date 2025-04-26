@@ -120,14 +120,12 @@ function loadHTMLQuestionsTableMini(metrics_name = "PMG-X") {
         let numberOfColumns = 10;
         let numberOfRows = Math.ceil(numberOfQuestions / numberOfColumns);
 
-        console.log('numberOfQuestions', numberOfQuestions);
-
         tableBody = document.getElementById('questionsTableMiniBody');
         tableBody.innerHTML = '';
 
         for (let i = 0; i < numberOfRows; i++) {
             let commonTableRow = document.createElement('tr');
-            commonTableRow.classList.add('bg-success', 'w-100', 'p-2');
+            commonTableRow.classList.add('w-100', 'p-2');
 
             for (let j = 0; j < numberOfColumns; j++) {
                 let question_number = i * numberOfColumns + j + questionsStartRow;
@@ -165,9 +163,11 @@ function addStyletoCellDataElement(cellDataElement, question_number, metric_name
     if (metric_name == 'PMG-X') {
         if (specifiQuestionMetricValue === Infinity) {
             cellDataElement.style.backgroundColor = 'purple';
+            // cellDataElement.style.opacity = '0.8';
             return;
         } else if (specifiQuestionMetricValue <= 1) {
             cellDataElement.style.backgroundColor = 'green';
+            cellDataElement.style.color = 'rgba(0, 0, 0, 0.1)'; // 20 %-opaque black
             return;
         }
     }
@@ -182,11 +182,10 @@ function addStyletoCellDataElement(cellDataElement, question_number, metric_name
     } else if (metric_name == 'PMG-X') {
         greatestIsGreen = false;
         allValuesFromMetric = allValuesFromMetric.filter(value => value > 1).filter(value => value != Infinity);
-        console.log(allValuesFromMetric);
     }
 
     const maxMetricsValue = Math.max(...allValuesFromMetric);
-    const minMetricsValue = Math.min(...allValuesFromMetric);
+    const minMetricsValue = Math.min(...allValuesFromMetric);    
 
     const normalizedPosition = 1 - (specifiQuestionMetricValue - minMetricsValue) / (maxMetricsValue - minMetricsValue);
 
