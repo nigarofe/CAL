@@ -157,30 +157,30 @@ function loadHTMLQuestionsTableMini(metrics_name = "PMG-X") {
     })
 }
 
-function getCellColor(question_number, metrics_name, greatestIsGreen) {
-    const question = matrix.find(row => row['#'] === question_number);
-    const dsla = question[metrics_name];
+function getCellColor(question_number, metric_name, greatestIsGreen) {
+    const specificQuestion = matrix.find(row => row['#'] === question_number);
+    const specifiQuestionMetricValue = specificQuestion[metric_name];
 
-    if (metrics_name === 'PMG-X') {
-        if (dsla === Infinity) {
+    if (metric_name === 'PMG-X') {
+        if (specifiQuestionMetricValue === Infinity) {
             return 'purple';
-        } else if (dsla <= 1) {
+        } else if (specifiQuestionMetricValue <= 1) {
             return 'black';
         }
     }
 
-    const dslaValues = matrix
-        .filter(row => row[metrics_name] !== undefined)
-        .map(row => parseInt(row[metrics_name]))
+    const allValuesFromMetric = matrix
+        .filter(row => row[metric_name] !== undefined)
+        .map(row => parseInt(row[metric_name]))
         .filter(value => !isNaN(value) && value >= 0);
 
     // Handle edge case where all values are the same
-    const maxDSLA = Math.max(...dslaValues);
-    const minDSLA = Math.min(...dslaValues);
+    const maxMetricsValue = Math.max(...allValuesFromMetric);
+    const minMetricsValue = Math.min(...allValuesFromMetric);
 
     // Calculate the normalized position (0 to 1) of this value in the range
     // Invert the position so smaller values (recent attempts) get higher positions (greener)
-    const normalizedPosition = 1 - (dsla - minDSLA) / (maxDSLA - minDSLA);
+    const normalizedPosition = 1 - (specifiQuestionMetricValue - minMetricsValue) / (maxMetricsValue - minMetricsValue);
 
     // Red-Yellow-Green color scheme
     let red, green, blue = 0;
