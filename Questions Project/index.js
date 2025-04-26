@@ -86,12 +86,8 @@ function loadHTMLQuestionsTable() {
                         cellData.textContent = valueOnCsvTable;
                     }
 
+                    addStyletoCellDataElement(cellData, matrix[i]['#'], columnName);
 
-                    if (columnName === 'DSLA') {
-                        cellData.style.backgroundColor = getCellColor(matrix[i]['#'], 'DSLA', false);
-                    } else if (columnName === 'PMG-X') {
-                        cellData.style.backgroundColor = getCellColor(matrix[i]['#'], 'PMG-X', false);
-                    }
 
                     if (columnName === 'Action buttons') {
                         addActionButtonsToCellData(cellData, i);
@@ -144,7 +140,8 @@ function loadHTMLQuestionsTableMini(metrics_name = "PMG-X") {
                     cellData.style.cursor = 'pointer';
                     cellData.style.border = '1px solid black';
                     cellData.title = matrix[toolTipsRow][Object.keys(matrix[headersRow])[0]].replace(/\\n/g, '\n');
-                    cellData.style.backgroundColor = getCellColor(matrix[question_number]['#'], metrics_name, false);
+                    // cellData.style.backgroundColor = getCellColor(matrix[question_number]['#'], metrics_name, false);
+                    addStyletoCellDataElement(cellData, matrix[question_number]['#'], metrics_name);
                     cellData.onclick = function () {
                         openObsidianNote(matrix[question_number]['#']);
                     };
@@ -157,32 +154,42 @@ function loadHTMLQuestionsTableMini(metrics_name = "PMG-X") {
     })
 }
 
-function getCellColor(question_number, metric_name, greatestIsGreen) {
+function addStyletoCellDataElement(cellDataElement, question_number, metric_name) {
+    if (metric_name != 'DSLA' && metric_name != 'PMG-X') {
+        return;
+    }
+
     const specificQuestion = matrix.find(row => row['#'] === question_number);
     const specifiQuestionMetricValue = specificQuestion[metric_name];
 
-    if (metric_name === 'PMG-X') {
+    if (metric_name == 'PMG-X') {
         if (specifiQuestionMetricValue === Infinity) {
-            return 'purple';
+            cellDataElement.style.backgroundColor = 'purple';
+            return;
         } else if (specifiQuestionMetricValue <= 1) {
-            return 'black';
+            cellDataElement.style.backgroundColor = 'green';
+            return;
         }
     }
 
-    const allValuesFromMetric = matrix
+    let allValuesFromMetric = matrix
         .filter(row => row[metric_name] !== undefined)
-        .map(row => parseInt(row[metric_name]))
+        .map(row => parseFloat(row[metric_name]))
         .filter(value => !isNaN(value) && value >= 0);
 
-    // Handle edge case where all values are the same
+    if (metric_name == 'DSLA') {
+        greatestIsGreen = false;
+    } else if (metric_name == 'PMG-X') {
+        greatestIsGreen = false;
+        allValuesFromMetric = allValuesFromMetric.filter(value => value > 1).filter(value => value != Infinity);
+        console.log(allValuesFromMetric);
+    }
+
     const maxMetricsValue = Math.max(...allValuesFromMetric);
     const minMetricsValue = Math.min(...allValuesFromMetric);
 
-    // Calculate the normalized position (0 to 1) of this value in the range
-    // Invert the position so smaller values (recent attempts) get higher positions (greener)
     const normalizedPosition = 1 - (specifiQuestionMetricValue - minMetricsValue) / (maxMetricsValue - minMetricsValue);
 
-    // Red-Yellow-Green color scheme
     let red, green, blue = 0;
 
     if (greatestIsGreen) {
@@ -208,7 +215,8 @@ function getCellColor(question_number, metric_name, greatestIsGreen) {
         }
     }
 
-    return `rgb(${red},${green},${blue})`;
+    cellDataElement.style.backgroundColor = `rgb(${red},${green},${blue})`;
+    // return `rgb(${red},${green},${blue})`;
 }
 
 function addActionButtonsToCellData(cellData, i) {
