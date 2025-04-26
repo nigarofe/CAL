@@ -6,6 +6,15 @@ window.addEventListener("DOMContentLoaded", () => {
     // openObsidianNote(68);
 })
 
+document.querySelectorAll('input[name="metric"]').forEach(radio => {
+    radio.addEventListener('change', () => {
+        const selectedLabel = document.querySelector(`label[for="${radio.id}"]`);
+        selectedLabelTextContent = selectedLabel.textContent
+        loadHTMLQuestionsTableMini(selectedLabelTextContent);
+    });
+});
+
+
 
 function openObsidianNote(question_number) {
     const vault = '1 Obsidian Vault'; // Replace with your vault name
@@ -97,33 +106,18 @@ function loadHTMLQuestionsTable() {
     });
 }
 
-function loadHTMLQuestionsTableMini() {
+function loadHTMLQuestionsTableMini(metrics_name = "PMG-X") {
     requestMatrixData().then(() => {
         calculateAllMetrics();
 
         htmlTableMini = document.getElementById('questionsTableMini');
-        htmlTableMini.innerHTML = '';
-        htmlTableMini.classList.add('w-75', 'mx-auto');
-        htmlTableMini.style.tableLayout = 'fixed';
-
-        const tableHead = document.createElement('thead');
-        const headerRow = document.createElement('tr');
-        headerRow.classList.add('text-light', 'bg-success', 'w-100', 'p-2');
-        headerRow.style.borderBottom = '1px dotted #888';
 
         const allKeys = Object.keys(matrix[headersRow]);
         const visibleKeys = allKeys.filter(key => matrix[visibilityRow][key] === 'TRUE');
 
-        const th = document.createElement('th');
+        const th = document.getElementById('questionsTableMiniTh');
         th.colSpan = visibleKeys.length;
-        th.textContent = '[Metrics name here]';
-        th.style.cursor = 'help';
-        th.style.textAlign = 'center';
-        th.classList.add('text-light', 'bg-success', 'w-100', 'p-2');
-
-        headerRow.appendChild(th);
-        tableHead.appendChild(headerRow);
-        htmlTableMini.appendChild(tableHead);
+        // th.textContent = '[Metrics name here]';
 
 
         let numberOfQuestions = matrix.length - questionsStartRow;
@@ -132,64 +126,28 @@ function loadHTMLQuestionsTableMini() {
 
         console.log('numberOfQuestions', numberOfQuestions);
 
-        tableBody = document.createElement('tbody');
+        tableBody = document.getElementById('questionsTableMiniBody');
+        tableBody.innerHTML = '';
 
         for (let i = 0; i < numberOfRows; i++) {
             let commonTableRow = document.createElement('tr');
             commonTableRow.classList.add('bg-success', 'w-100', 'p-2');
 
-            for(let j = 0; j < numberOfColumns; j++) {
+            for (let j = 0; j < numberOfColumns; j++) {
                 let question_number = i * numberOfColumns + j + questionsStartRow;
                 if (question_number < matrix.length) {
                     const cellData = document.createElement('td');
-                    cellData.classList.add('p-2');
-                    cellData.textContent = matrix[question_number]['#'];
+                    cellData.classList.add('p-2', 'text-center', 'align-middle');
+                    // cellData.textContent = matrix[question_number]['#'];
+                    cellData.innerHTML = 'q' + matrix[question_number]['#'] + '<br>' + matrix[question_number][metrics_name];
+
                     cellData.style.cursor = 'pointer';
-                    cellData.style.border = 'none';
+                    cellData.style.border = '1px solid black';
                     cellData.title = matrix[toolTipsRow][Object.keys(matrix[headersRow])[0]].replace(/\\n/g, '\n');
+                    cellData.style.backgroundColor = getCellColor(matrix[question_number]['#'], metrics_name, false);
                     cellData.onclick = function () {
                         openObsidianNote(matrix[question_number]['#']);
                     };
-                    commonTableRow.appendChild(cellData);
-                }
-            }
-            tableBody.appendChild(commonTableRow);
-        }
-
-
-
-
-        for (let i = questionsStartRow; i < matrix.length; i++) {
-            commonTableRow = document.createElement('tr');
-
-            for (let j = 0; j < Object.keys(matrix[headersRow]).length; j++) {
-                let columnSetToVisible = matrix[visibilityRow][Object.keys(matrix[headersRow])[j]]
-
-                if (columnSetToVisible == 'TRUE') {
-                    let columnName = Object.keys(matrix[headersRow])[j]
-                    let valueOnCsvTable = matrix[i][columnName];
-
-                    const cellData = document.createElement('td');
-
-                    if ((columnName === 'Input' || columnName === 'Output') && valueOnCsvTable) {
-                        // valueOnCsvTable = valueOnCsvTable.replace(/\\\\/g, '\\');
-                        valueOnCsvTable = valueOnCsvTable.replace(/\\n/g, '\\\\n');
-                        katex.render(valueOnCsvTable, cellData);
-                    } else {
-                        cellData.textContent = valueOnCsvTable;
-                    }
-
-
-                    if (columnName === 'DSLA') {
-                        cellData.style.backgroundColor = getCellColor(matrix[i]['#'], 'DSLA', false);
-                    } else if (columnName === 'PMG-X') {
-                        cellData.style.backgroundColor = getCellColor(matrix[i]['#'], 'PMG-X', false);
-                    }
-
-                    if (columnName === 'Action buttons') {
-                        addActionButtonsToCellData(cellData, i);
-                    }
-
                     commonTableRow.appendChild(cellData);
                 }
             }
@@ -199,11 +157,11 @@ function loadHTMLQuestionsTableMini() {
     })
 }
 
-function getCellColor(question_number, propertie, greatestIsGreen) {
+function getCellColor(question_number, metrics_name, greatestIsGreen) {
     const question = matrix.find(row => row['#'] === question_number);
-    const dsla = question[propertie];
+    const dsla = question[metrics_name];
 
-    if (propertie === 'PMG-X') {
+    if (metrics_name === 'PMG-X') {
         if (dsla === Infinity) {
             return 'purple';
         } else if (dsla <= 1) {
@@ -212,8 +170,8 @@ function getCellColor(question_number, propertie, greatestIsGreen) {
     }
 
     const dslaValues = matrix
-        .filter(row => row[propertie] !== undefined)
-        .map(row => parseInt(row[propertie]))
+        .filter(row => row[metrics_name] !== undefined)
+        .map(row => parseInt(row[metrics_name]))
         .filter(value => !isNaN(value) && value >= 0);
 
     // Handle edge case where all values are the same
