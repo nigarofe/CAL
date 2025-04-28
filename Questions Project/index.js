@@ -153,7 +153,7 @@ function loadHTMLQuestionsTableMini(metrics_name = "PMG-X") {
 }
 
 function addStyletoCellDataElement(cellDataElement, question_number, metric_name) {
-    if (metric_name != 'DSLA' && metric_name != 'PMG-X') {
+    if (metric_name != 'PMG-X' && metric_name != 'LaMI') {
         return;
     }
 
@@ -167,7 +167,7 @@ function addStyletoCellDataElement(cellDataElement, question_number, metric_name
             return;
         } else if (specifiQuestionMetricValue <= 1) {
             cellDataElement.style.backgroundColor = 'green';
-            cellDataElement.style.color = 'rgba(0, 0, 0, 0.5)'; // 20 %-opaque black
+            cellDataElement.style.color = 'rgba(0, 0, 0, 0.2)'; // 20 %-opaque black
             return;
         }
     }
@@ -182,6 +182,8 @@ function addStyletoCellDataElement(cellDataElement, question_number, metric_name
     } else if (metric_name == 'PMG-X') {
         greatestIsGreen = false;
         allValuesFromMetric = allValuesFromMetric.filter(value => value > 1).filter(value => value != Infinity);
+    } else if (metric_name == 'LaMI') {
+        greatestIsGreen = true;
     }
 
     const maxMetricsValue = Math.max(...allValuesFromMetric);
