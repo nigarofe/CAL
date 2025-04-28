@@ -52,16 +52,34 @@ async function requestToOverwriteCsv() {
 }
 
 function registerQuestionAttempt(question_number, code) {
+    // need to refactor this, it's kinda messy
     const question = matrix.find(row => row['#'] === question_number);
-    const dateVector = question['Date Vector'];
-    console.log('dateVector and codeVector for question', question_number, 'before api request = \n', question['Date Vector'], '\n', question['Code Vector']);
+    let dateVector = question['Date Vector'];
+
 
     const today = new Date(new Date().getTime() - 3 * 60 * 60 * 1000).toISOString().slice(0, 10);
+
+    dateVector += '';
+    question['Code Vector'] += '';
+
+    // console.log('dateVector and codeVector for question', question_number, 'before api request = \n', question['Date Vector'], '\n', question['Code Vector']);
+    // dateVector = dateVector.replace(/\s+/g, '').replace('null', '');
+    // console.log('avocado = ', dateVector)
+
     if (dateVector.includes(today)) {
         alert('You have already attempted this question today.');
     } else {
-        question['Date Vector'] = dateVector + ',' + today;
-        question['Code Vector'] = question['Code Vector'] + ',' + code;
+        if (dateVector.replace(/\s+/g, '') == 'null') {
+            question['Date Vector'] = today;
+        } else {
+            question['Date Vector'] = dateVector + ',' + today;
+        }
+
+        if (question['Code Vector'].replace(/\s+/g, '') == 'null') {
+            question['Code Vector'] = code;
+        } else {
+            question['Code Vector'] = question['Code Vector'] + ',' + code;
+        }
 
         requestToOverwriteCsv(matrix)
             .then(result => {
