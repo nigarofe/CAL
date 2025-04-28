@@ -258,7 +258,7 @@ function addActionButtonsToCellData(cellData, i) {
 
     button2.appendChild(logo);
 
-    logo.onclick = function () {
+    button2.onclick = function () {
         openObsidianNote(questionNumber);
     };
 
