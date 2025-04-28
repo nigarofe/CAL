@@ -167,7 +167,7 @@ function addStyletoCellDataElement(cellDataElement, question_number, metric_name
             return;
         } else if (specifiQuestionMetricValue <= 1) {
             cellDataElement.style.backgroundColor = 'green';
-            cellDataElement.style.color = 'rgba(0, 0, 0, 0.1)'; // 20 %-opaque black
+            cellDataElement.style.color = 'rgba(0, 0, 0, 0.5)'; // 20 %-opaque black
             return;
         }
     }
