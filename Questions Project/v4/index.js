@@ -49,9 +49,8 @@ function loadHTMLQuestionsTable(matrix) {
 
     tableHead = document.createElement('thead');
     for (let i = 0; i < Object.keys(matrix[headersRow]).length; i++) {
-        console.log(`enter column ${matrix[headersRow][Object.keys(matrix[headersRow])[i]]}  == ${matrix[visibilityRow][Object.keys(matrix[headersRow])[i]]}`);
         if (matrix[visibilityRow][Object.keys(matrix[headersRow])[i]] == 'TRUE') {
-            
+
             const cellHeader = document.createElement('th');
             cellHeader.scope = 'col';
             cellHeader.classList.add('text-light', 'p-2', 'bg-success');
@@ -63,8 +62,6 @@ function loadHTMLQuestionsTable(matrix) {
             cellHeader.style.borderBottom = '1px dotted #888';
 
             tableHead.appendChild(cellHeader);
-        } else {
-            console.log(`didnt enter column ${matrix[headersRow][Object.keys(matrix[headersRow])[i]]}  == ${matrix[visibilityRow][Object.keys(matrix[headersRow])[i]]}`);
         }
     }
     htmlTable.appendChild(tableHead);

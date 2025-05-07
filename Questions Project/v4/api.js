@@ -8,6 +8,7 @@ let requestCount = 0;
 async function getUpdatedMatrix() {
     try {
         const matrix = rawCsvToMatrix(await requestCurrentRawCsv());
+        console.log('matrix:', matrix);
 
         calculateNumberOfDaysSinceLastAttempt(matrix);
         calculateAttemptsSummary(matrix);
@@ -16,7 +17,7 @@ async function getUpdatedMatrix() {
 
         requestToOverwriteCsv(matrixToRawCsv(matrix));
 
-        console.log('matrix:', matrix);
+
 
         return matrix;
     } catch (err) {
@@ -94,7 +95,12 @@ function rawCsvToMatrix(rawCsv) {
 
 
 function matrixToRawCsv(matrix) {
-    return matrix.map(row => row.join('\t')).join('\n') + '\n';
+    return (
+        matrix
+            .map(row => row.join('\t'))   // tab‑separated
+            .join('\r\n')                 // CRLF between rows
+        + '\r\n'                        // final newline (optional, good style)
+    );
 }
 
 
@@ -129,7 +135,7 @@ function registerQuestionAttempt(matrix, question_number, code) {
             question['Code Vector'] = question['Code Vector'] + ',' + code;
         }
 
-        requestToOverwriteCsv(matrix)
+        requestToOverwriteCsv(matrixToRawCsv(matrix))
             .then(result => {
                 console.log('Save operation completed:', result)
                 if (code == 0) {

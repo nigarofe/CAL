@@ -4,8 +4,9 @@ function calculateNumberOfDaysSinceLastAttempt(matrix) {
     for (let i = questionsStartRow; i < matrix.length; i++) {
         let dateStrings = matrix[i]['Date Vector'];
 
-
-        if (dateStrings !== null) {
+        if (dateStrings == null || dateStrings == undefined || dateStrings == '') {
+            matrix[i]['DSLA'] = 'NA';
+        } else {
             dateStrings = dateStrings.replace(/[\[\]]/g, '').split(',');
             const lastDate = new Date(dateStrings[dateStrings.length - 1]);
             const today = new Date(new Date().getTime() - 3 * 60 * 60 * 1000);
@@ -14,8 +15,6 @@ function calculateNumberOfDaysSinceLastAttempt(matrix) {
             const timeDifferenceInDays = Math.floor(timeDifferenceInMs / (1000 * 60 * 60 * 24));
 
             matrix[i]['DSLA'] = timeDifferenceInDays;
-        } else {
-            matrix[i]['DSLA'] = 'NA';
         }
     }
 }
@@ -61,7 +60,7 @@ function calculateLoMIandLaMI(matrix) {
 
         let codeVector = matrix[i]['Code Vector'];
 
-        if (codeVector == '') {
+        if (codeVector == '' || codeVector == null || codeVector == undefined) {
             // console.log('codeVector is empty')
             matrix[i]['PMG-D'] = 'NA';
             matrix[i]['PMG-X'] = 'NA';
