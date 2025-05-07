@@ -28,7 +28,11 @@ function calculateAttemptsSummary(matrix) {
 
         let codeVector = matrix[i]['Code Vector'];
 
-        if (codeVector !== null) {
+
+        if (codeVector == null || codeVector == undefined || codeVector == '') {
+            console.log('codeVector', codeVector);
+            lastAttemptMessage = 'NA';
+        } else {
             codeVector += '';
             codeVector = codeVector.replace(/[\[\]]/g, '').split(',').map(Number);
 

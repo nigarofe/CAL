@@ -1,12 +1,14 @@
 window.addEventListener("DOMContentLoaded", () => {
+    reloadPage();
+})
+
+function reloadPage(){
     getUpdatedMatrix().then((matrix) => {
         loadHTMLQuestionsTable(matrix);
         loadHTMLQuestionsTableMini(matrix)
     })
     showToast("Hello!", "Have a nice day!", ":)");
-
-    // openObsidianNote(68);
-})
+}
 
 document.querySelectorAll('input[name="metric"]').forEach(radio => {
     radio.addEventListener('change', () => {
