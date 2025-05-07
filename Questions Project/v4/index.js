@@ -49,7 +49,9 @@ function loadHTMLQuestionsTable(matrix) {
 
     tableHead = document.createElement('thead');
     for (let i = 0; i < Object.keys(matrix[headersRow]).length; i++) {
+        console.log(`enter column ${matrix[headersRow][Object.keys(matrix[headersRow])[i]]}  == ${matrix[visibilityRow][Object.keys(matrix[headersRow])[i]]}`);
         if (matrix[visibilityRow][Object.keys(matrix[headersRow])[i]] == 'TRUE') {
+            
             const cellHeader = document.createElement('th');
             cellHeader.scope = 'col';
             cellHeader.classList.add('text-light', 'p-2', 'bg-success');
@@ -61,6 +63,8 @@ function loadHTMLQuestionsTable(matrix) {
             cellHeader.style.borderBottom = '1px dotted #888';
 
             tableHead.appendChild(cellHeader);
+        } else {
+            console.log(`didnt enter column ${matrix[headersRow][Object.keys(matrix[headersRow])[i]]}  == ${matrix[visibilityRow][Object.keys(matrix[headersRow])[i]]}`);
         }
     }
     htmlTable.appendChild(tableHead);
@@ -75,18 +79,11 @@ function loadHTMLQuestionsTable(matrix) {
 
             if (columnSetToVisible == 'TRUE') {
                 columnName = matrix[headersRow][j]
-                
+
                 let valueOnCsvTable = matrix[i][columnName];
 
                 const cellData = document.createElement('td');
-
-                if ((columnName === 'Input' || columnName === 'Output') && valueOnCsvTable) {
-                    // valueOnCsvTable = valueOnCsvTable.replace(/\\\\/g, '\\');
-                    valueOnCsvTable = valueOnCsvTable.replace(/\\n/g, '\\\\n');
-                    katex.render(valueOnCsvTable, cellData);
-                } else {
-                    cellData.textContent = valueOnCsvTable;
-                }
+                cellData.textContent = valueOnCsvTable;
 
                 if (columnName == 'PMG-X') {
                     cellData.style.backgroundColor = `rgba(${matrix[i]['PMG-X Cell Color']})`;
@@ -95,9 +92,8 @@ function loadHTMLQuestionsTable(matrix) {
                     }
                 }
 
-
                 if (columnName === 'Action buttons') {
-                    addActionButtonsToCellData(cellData, i);
+                    addActionButtonsToCellData(matrix, cellData, i);
                 }
 
                 commonTableRow.appendChild(cellData);
@@ -143,8 +139,6 @@ function loadHTMLQuestionsTableMini(matrix, metrics_name = "PMG-X") {
                 cellData.style.cursor = 'pointer';
                 cellData.style.border = '1px solid black';
                 cellData.title = matrix[toolTipsRow][Object.keys(matrix[headersRow])[0]].replace(/\\n/g, '\n');
-                // cellData.style.backgroundColor = getCellColor(matrix[question_number]['#'], metrics_name, false);
-                // addStyletoCellDataElement(matrix, cellData, matrix[question_number]['#'], metrics_name);
 
                 if (metrics_name == 'PMG-X') {
                     cellData.style.backgroundColor = `rgba(${matrix[question_number]['PMG-X Cell Color']})`;
@@ -164,80 +158,7 @@ function loadHTMLQuestionsTableMini(matrix, metrics_name = "PMG-X") {
     htmlTableMini.appendChild(tableBody);
 }
 
-function addStyletoCellDataElement(matrix, cellDataElement, question_number, metric_name) {
-
-    if (metric_name != 'PMG-X' && metric_name != 'LaMI') {
-        return;
-    }
-
-    const specificQuestion = matrix.find(row => row['#'] === question_number);
-    const specifiQuestionMetricValue = specificQuestion[metric_name];
-
-    if (metric_name == 'PMG-X') {
-        if (specifiQuestionMetricValue === Infinity) {
-            cellDataElement.style.backgroundColor = 'purple';
-            // cellDataElement.style.opacity = '0.8';
-            return;
-        } else if (specifiQuestionMetricValue <= 1) {
-            cellDataElement.style.backgroundColor = 'green';
-            cellDataElement.style.color = 'rgba(0, 0, 0, 0.2)'; // 20 %-opaque black
-            return;
-        }
-    }
-
-    let allValuesFromMetric = matrix
-        .filter(row => row[metric_name] !== undefined)
-        .map(row => parseFloat(row[metric_name]))
-        .filter(value => !isNaN(value) && value >= 0);
-
-    if (metric_name == 'DSLA') {
-        greatestIsGreen = false;
-    } else if (metric_name == 'PMG-X') {
-        greatestIsGreen = false;
-        allValuesFromMetric = allValuesFromMetric.filter(value => value > 1).filter(value => value != Infinity);
-    } else if (metric_name == 'LaMI') {
-        greatestIsGreen = true;
-    }
-
-    const maxMetricsValue = Math.max(...allValuesFromMetric);
-    const minMetricsValue = Math.min(...allValuesFromMetric);
-
-    if (maxMetricsValue == minMetricsValue) {
-        cellDataElement.style.backgroundColor = 'gray';
-    }
-
-    const normalizedPosition = 1 - (specifiQuestionMetricValue - minMetricsValue) / (maxMetricsValue - minMetricsValue);
-
-    let red, green, blue = 0;
-
-    if (greatestIsGreen) {
-        if (normalizedPosition <= 0.5) {
-            // First half: Red to Yellow (increase green)
-            green = 255;
-            red = Math.floor(255 * (normalizedPosition * 2));
-        } else {
-            // Second half: Yellow to Green (decrease red)
-            green = Math.floor(255 * ((1 - normalizedPosition) * 2));
-            red = 255;
-        }
-    }
-    else {
-        if (normalizedPosition <= 0.5) {
-            // First half: Green to Yellow (decrease green)
-            red = 255;
-            green = Math.floor(255 * (normalizedPosition * 2));
-        } else {
-            // Second half: Yellow to Red (increase red)
-            red = Math.floor(255 * ((1 - normalizedPosition) * 2));
-            green = 255;
-        }
-    }
-
-    cellDataElement.style.backgroundColor = `rgb(${red},${green},${blue})`;
-    // return `rgb(${red},${green},${blue})`;
-}
-
-function addActionButtonsToCellData(cellData, i) {
+function addActionButtonsToCellData(matrix, cellData, i) {
     const buttonContainer = document.createElement('div');
     buttonContainer.className = 'd-flex justify-content-evenly align-items-center w-100 gap-2';
 
@@ -245,7 +166,7 @@ function addActionButtonsToCellData(cellData, i) {
     button0.className = 'btn btn-outline-warning';
     button0.textContent = '0';
     button0.onclick = function () {
-        registerQuestionAttempt(matrix[i]['#'], 0);
+        registerQuestionAttempt(matrix, matrix[i]['#'], 0);
     };
     buttonContainer.appendChild(button0);
 
@@ -253,7 +174,7 @@ function addActionButtonsToCellData(cellData, i) {
     button1.className = 'btn btn-outline-success';
     button1.textContent = '1';
     button1.onclick = function () {
-        registerQuestionAttempt(matrix[i]['#'], 1);
+        registerQuestionAttempt(matrix, matrix[i]['#'], 1);
     };
     buttonContainer.appendChild(button1);
 

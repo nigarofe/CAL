@@ -13,10 +13,10 @@ async function getUpdatedMatrix() {
         calculateAttemptsSummary(matrix);
         calculateLoMIandLaMI(matrix);
         calculatePMG_XCellColor(matrix);
-        
+
         requestToOverwriteCsv(matrixToRawCsv(matrix));
 
-        //chatGPT make a stack‑trace every time something rewrites any cell matrix[i]['LaMI'].
+        console.log('matrix:', matrix);
 
         return matrix;
     } catch (err) {
@@ -63,14 +63,13 @@ async function requestToOverwriteCsv(rawCsv) {
 }
 
 function rawCsvToMatrix(rawCsv) {
-    // 1) Build the plain matrix (exactly as before)
-    const matrix = rawCsv
-        .replace(/\r?\n$/, '')      // trim a trailing newline
-        .split('\n')                // split into rows
-        .map(r => r.split('\t'));   // split each row into cells
+    const rows = rawCsv
+        .trimEnd()               // removes trailing \r\n or \n
+        .split(/\r?\n/);         // handles \n AND \r\n cleanly
 
-    // 2) Attach header‑based accessors to each data row
-    // So I can call both matrix[i][5] and matrix[i]['Date Vector']
+    const matrix = rows.map(r =>
+        r.split('\t').map(cell => cell.trim())   // <‑‑ removes \r, spaces, tabs
+    );
 
     const headers = matrix[headersRow];               // row 0 by convention
     for (let r = questionsStartRow; r < matrix.length; r++) {
@@ -96,4 +95,56 @@ function rawCsvToMatrix(rawCsv) {
 
 function matrixToRawCsv(matrix) {
     return matrix.map(row => row.join('\t')).join('\n') + '\n';
+}
+
+
+
+function registerQuestionAttempt(matrix, question_number, code) {
+    // need to refactor this, it's kinda messy
+    const question = matrix.find(row => row['#'] === question_number);
+    let dateVector = question['Date Vector'];
+
+
+    const today = new Date(new Date().getTime() - 3 * 60 * 60 * 1000).toISOString().slice(0, 10);
+
+    dateVector += '';
+    question['Code Vector'] += '';
+
+    // console.log('dateVector and codeVector for question', question_number, 'before api request = \n', question['Date Vector'], '\n', question['Code Vector']);
+    // dateVector = dateVector.replace(/\s+/g, '').replace('null', '');
+    // console.log('avocado = ', dateVector)
+
+    if (dateVector.includes(today)) {
+        alert('You have already attempted this question today.');
+    } else {
+        if (dateVector.replace(/\s+/g, '') == 'null') {
+            question['Date Vector'] = today;
+        } else {
+            question['Date Vector'] = dateVector + ',' + today;
+        }
+
+        if (question['Code Vector'].replace(/\s+/g, '') == 'null') {
+            question['Code Vector'] = code;
+        } else {
+            question['Code Vector'] = question['Code Vector'] + ',' + code;
+        }
+
+        requestToOverwriteCsv(matrix)
+            .then(result => {
+                console.log('Save operation completed:', result)
+                if (code == 0) {
+                    showToast(`Done!`, `Question ${question_number} attempt registered successfully!<br>Code: ${code} <br> (I needed help to solve the question)`, today);
+                } else {
+                    showToast(`Done!`, `Question ${question_number} attempt registered successfully!<br>Code: ${code} <br> (I solved the question without any external help)`, today);
+                }
+            }
+            )
+            .catch(error => {
+                showToast('Error', 'Question attempt failled to save!', today);
+                console.error('Save operation failed:', error)
+            });
+    }
+    // loadHTMLQuestionsTable();
+    // loadHTMLQuestionsTableMini()
+    // console.log('dateVector and codeVector for question', question_number, 'after api request = \n', question['Date Vector'], '\n', question['Code Vector']);
 }
