@@ -1,6 +1,8 @@
 window.addEventListener("DOMContentLoaded", () => {
-    loadHTMLQuestionsTableMini()
-    loadHTMLQuestionsTable();
+    getUpdatedMatrix().then((matrix) => {
+        loadHTMLQuestionsTable(matrix);
+        loadHTMLQuestionsTableMini(matrix)
+    })
     showToast("Hello!", "Have a nice day!", ":)");
 
     // openObsidianNote(68);
@@ -10,7 +12,9 @@ document.querySelectorAll('input[name="metric"]').forEach(radio => {
     radio.addEventListener('change', () => {
         const selectedLabel = document.querySelector(`label[for="${radio.id}"]`);
         selectedLabelTextContent = selectedLabel.textContent
-        loadHTMLQuestionsTableMini(selectedLabelTextContent);
+        getUpdatedMatrix().then((matrix) => {
+            loadHTMLQuestionsTableMini(matrix, selectedLabelTextContent);
+        });
     });
 });
 
@@ -39,194 +43,188 @@ function showToast(toastTitle, toastMessage, toastTime) {
 
 }
 
-function loadHTMLQuestionsTable() {
-    getUpdatedMatrix().then((matrix) => {
-        calculateAllMetrics();
+function loadHTMLQuestionsTable(matrix) {
 
-        htmlTable = document.getElementById('questionsTable');
-        htmlTable.innerHTML = '';
+    calculateAllMetrics();
 
-        tableHead = document.createElement('thead');
-        for (let i = 0; i < Object.keys(matrix[headersRow]).length; i++) {
-            if (matrix[visibilityRow][Object.keys(matrix[headersRow])[i]] == 'TRUE') {
-                const cellHeader = document.createElement('th');
-                cellHeader.scope = 'col';
-                cellHeader.classList.add('text-light', 'p-2', 'bg-success');
+    htmlTable = document.getElementById('questionsTable');
+    htmlTable.innerHTML = '';
 
-                cellHeader.textContent = matrix[headersRow][Object.keys(matrix[headersRow])[i]];
+    tableHead = document.createElement('thead');
+    for (let i = 0; i < Object.keys(matrix[headersRow]).length; i++) {
+        if (matrix[visibilityRow][Object.keys(matrix[headersRow])[i]] == 'TRUE') {
+            const cellHeader = document.createElement('th');
+            cellHeader.scope = 'col';
+            cellHeader.classList.add('text-light', 'p-2', 'bg-success');
 
-                cellHeader.title = matrix[toolTipsRow][Object.keys(matrix[headersRow])[i]].replace(/\\n/g, '\n');
-                cellHeader.style.cursor = 'help';
-                cellHeader.style.borderBottom = '1px dotted #888';
+            cellHeader.textContent = matrix[headersRow][Object.keys(matrix[headersRow])[i]];
 
-                tableHead.appendChild(cellHeader);
-            }
+            cellHeader.title = matrix[toolTipsRow][Object.keys(matrix[headersRow])[i]].replace(/\\n/g, '\n');
+            cellHeader.style.cursor = 'help';
+            cellHeader.style.borderBottom = '1px dotted #888';
+
+            tableHead.appendChild(cellHeader);
         }
-        htmlTable.appendChild(tableHead);
+    }
+    htmlTable.appendChild(tableHead);
 
-        tableBody = document.createElement('tbody');
-        for (let i = questionsStartRow; i < matrix.length; i++) {
-            commonTableRow = document.createElement('tr');
-            // commonTableRow.className = 'opacity-25';
+    tableBody = document.createElement('tbody');
+    for (let i = questionsStartRow; i < matrix.length; i++) {
+        commonTableRow = document.createElement('tr');
+        // commonTableRow.className = 'opacity-25';
 
-            for (let j = 0; j < Object.keys(matrix[headersRow]).length; j++) {
-                let columnSetToVisible = matrix[visibilityRow][Object.keys(matrix[headersRow])[j]]
+        for (let j = 0; j < Object.keys(matrix[headersRow]).length; j++) {
+            let columnSetToVisible = matrix[visibilityRow][Object.keys(matrix[headersRow])[j]]
 
-                if (columnSetToVisible == 'TRUE') {
-                    let columnName = Object.keys(matrix[headersRow])[j]
-                    let valueOnCsvTable = matrix[i][columnName];
+            if (columnSetToVisible == 'TRUE') {
+                let columnName = Object.keys(matrix[headersRow])[j]
+                let valueOnCsvTable = matrix[i][columnName];
 
-                    const cellData = document.createElement('td');
+                const cellData = document.createElement('td');
 
-                    if ((columnName === 'Input' || columnName === 'Output') && valueOnCsvTable) {
-                        // valueOnCsvTable = valueOnCsvTable.replace(/\\\\/g, '\\');
-                        valueOnCsvTable = valueOnCsvTable.replace(/\\n/g, '\\\\n');
-                        katex.render(valueOnCsvTable, cellData);
-                    } else {
-                        cellData.textContent = valueOnCsvTable;
-                    }
-
-                    addStyletoCellDataElement(cellData, matrix[i]['#'], columnName);
-
-
-                    if (columnName === 'Action buttons') {
-                        addActionButtonsToCellData(cellData, i);
-                    }
-
-                    commonTableRow.appendChild(cellData);
+                if ((columnName === 'Input' || columnName === 'Output') && valueOnCsvTable) {
+                    // valueOnCsvTable = valueOnCsvTable.replace(/\\\\/g, '\\');
+                    valueOnCsvTable = valueOnCsvTable.replace(/\\n/g, '\\\\n');
+                    katex.render(valueOnCsvTable, cellData);
+                } else {
+                    cellData.textContent = valueOnCsvTable;
                 }
+
+                addStyletoCellDataElement(cellData, matrix[i]['#'], columnName);
+
+
+                if (columnName === 'Action buttons') {
+                    addActionButtonsToCellData(cellData, i);
+                }
+
+                commonTableRow.appendChild(cellData);
             }
-            tableBody.appendChild(commonTableRow);
         }
-        htmlTable.appendChild(tableBody);
-    });
+        tableBody.appendChild(commonTableRow);
+    }
+    htmlTable.appendChild(tableBody);
 }
 
-function loadHTMLQuestionsTableMini(metrics_name = "PMG-X") {
-    getUpdatedMatrix().then((matrix) => {
-        calculateAllMetrics();
+function loadHTMLQuestionsTableMini(matrix, metrics_name = "PMG-X") {
 
-        htmlTableMini = document.getElementById('questionsTableMini');
+    calculateAllMetrics();
 
-        const allKeys = Object.keys(matrix[headersRow]);
-        const visibleKeys = allKeys.filter(key => matrix[visibilityRow][key] === 'TRUE');
+    htmlTableMini = document.getElementById('questionsTableMini');
 
-        const th = document.getElementById('questionsTableMiniTh');
-        th.colSpan = visibleKeys.length;
-        // th.textContent = '[Metrics name here]';
+    const allKeys = Object.keys(matrix[headersRow]);
+    const visibleKeys = allKeys.filter(key => matrix[visibilityRow][key] === 'TRUE');
+
+    const th = document.getElementById('questionsTableMiniTh');
+    th.colSpan = visibleKeys.length;
+    // th.textContent = '[Metrics name here]';
 
 
-        let numberOfQuestions = matrix.length - questionsStartRow;
-        let numberOfColumns = 10;
-        let numberOfRows = Math.ceil(numberOfQuestions / numberOfColumns);
+    let numberOfQuestions = matrix.length - questionsStartRow;
+    let numberOfColumns = 10;
+    let numberOfRows = Math.ceil(numberOfQuestions / numberOfColumns);
 
-        tableBody = document.getElementById('questionsTableMiniBody');
-        tableBody.innerHTML = '';
+    tableBody = document.getElementById('questionsTableMiniBody');
+    tableBody.innerHTML = '';
 
-        for (let i = 0; i < numberOfRows; i++) {
-            let commonTableRow = document.createElement('tr');
-            commonTableRow.classList.add('w-100', 'p-2');
+    for (let i = 0; i < numberOfRows; i++) {
+        let commonTableRow = document.createElement('tr');
+        commonTableRow.classList.add('w-100', 'p-2');
 
-            for (let j = 0; j < numberOfColumns; j++) {
-                let question_number = i * numberOfColumns + j + questionsStartRow;
-                if (question_number < matrix.length) {
-                    const cellData = document.createElement('td');
-                    cellData.classList.add('p-2', 'text-center', 'align-middle');
-                    // cellData.textContent = matrix[question_number]['#'];
-                    cellData.innerHTML = 'q' + matrix[question_number]['#'] + '<br>' + matrix[question_number][metrics_name];
+        for (let j = 0; j < numberOfColumns; j++) {
+            let question_number = i * numberOfColumns + j + questionsStartRow;
+            if (question_number < matrix.length) {
+                const cellData = document.createElement('td');
+                cellData.classList.add('p-2', 'text-center', 'align-middle');
+                // cellData.textContent = matrix[question_number]['#'];
+                cellData.innerHTML = 'q' + matrix[question_number]['#'] + '<br>' + matrix[question_number][metrics_name];
 
-                    cellData.style.cursor = 'pointer';
-                    cellData.style.border = '1px solid black';
-                    cellData.title = matrix[toolTipsRow][Object.keys(matrix[headersRow])[0]].replace(/\\n/g, '\n');
-                    // cellData.style.backgroundColor = getCellColor(matrix[question_number]['#'], metrics_name, false);
-                    addStyletoCellDataElement(cellData, matrix[question_number]['#'], metrics_name);
-                    cellData.onclick = function () {
-                        openObsidianNote(matrix[question_number]['#']);
-                    };
-                    commonTableRow.appendChild(cellData);
-                }
+                cellData.style.cursor = 'pointer';
+                cellData.style.border = '1px solid black';
+                cellData.title = matrix[toolTipsRow][Object.keys(matrix[headersRow])[0]].replace(/\\n/g, '\n');
+                // cellData.style.backgroundColor = getCellColor(matrix[question_number]['#'], metrics_name, false);
+                addStyletoCellDataElement(matrix, cellData, matrix[question_number]['#'], metrics_name);
+                cellData.onclick = function () {
+                    openObsidianNote(matrix[question_number]['#']);
+                };
+                commonTableRow.appendChild(cellData);
             }
-            tableBody.appendChild(commonTableRow);
         }
-        htmlTableMini.appendChild(tableBody);
-    })
+        tableBody.appendChild(commonTableRow);
+    }
+    htmlTableMini.appendChild(tableBody);
 }
 
-function addStyletoCellDataElement(cellDataElement, question_number, metric_name) {
-    getUpdatedMatrix().then((matrix) => {
-        if (metric_name != 'PMG-X' && metric_name != 'LaMI') {
+function addStyletoCellDataElement(matrix, cellDataElement, question_number, metric_name) {
+
+    if (metric_name != 'PMG-X' && metric_name != 'LaMI') {
+        return;
+    }
+
+    const specificQuestion = matrix.find(row => row['#'] === question_number);
+    const specifiQuestionMetricValue = specificQuestion[metric_name];
+
+    if (metric_name == 'PMG-X') {
+        if (specifiQuestionMetricValue === Infinity) {
+            cellDataElement.style.backgroundColor = 'purple';
+            // cellDataElement.style.opacity = '0.8';
+            return;
+        } else if (specifiQuestionMetricValue <= 1) {
+            cellDataElement.style.backgroundColor = 'green';
+            cellDataElement.style.color = 'rgba(0, 0, 0, 0.2)'; // 20 %-opaque black
             return;
         }
+    }
 
-        const specificQuestion = matrix.find(row => row['#'] === question_number);
-        const specifiQuestionMetricValue = specificQuestion[metric_name];
+    let allValuesFromMetric = matrix
+        .filter(row => row[metric_name] !== undefined)
+        .map(row => parseFloat(row[metric_name]))
+        .filter(value => !isNaN(value) && value >= 0);
 
-        if (metric_name == 'PMG-X') {
-            if (specifiQuestionMetricValue === Infinity) {
-                cellDataElement.style.backgroundColor = 'purple';
-                // cellDataElement.style.opacity = '0.8';
-                return;
-            } else if (specifiQuestionMetricValue <= 1) {
-                cellDataElement.style.backgroundColor = 'green';
-                cellDataElement.style.color = 'rgba(0, 0, 0, 0.2)'; // 20 %-opaque black
-                return;
-            }
+    if (metric_name == 'DSLA') {
+        greatestIsGreen = false;
+    } else if (metric_name == 'PMG-X') {
+        greatestIsGreen = false;
+        allValuesFromMetric = allValuesFromMetric.filter(value => value > 1).filter(value => value != Infinity);
+    } else if (metric_name == 'LaMI') {
+        greatestIsGreen = true;
+    }
+
+    const maxMetricsValue = Math.max(...allValuesFromMetric);
+    const minMetricsValue = Math.min(...allValuesFromMetric);
+
+    if (maxMetricsValue == minMetricsValue) {
+        cellDataElement.style.backgroundColor = 'gray';
+    }
+
+    const normalizedPosition = 1 - (specifiQuestionMetricValue - minMetricsValue) / (maxMetricsValue - minMetricsValue);
+
+    let red, green, blue = 0;
+
+    if (greatestIsGreen) {
+        if (normalizedPosition <= 0.5) {
+            // First half: Red to Yellow (increase green)
+            green = 255;
+            red = Math.floor(255 * (normalizedPosition * 2));
+        } else {
+            // Second half: Yellow to Green (decrease red)
+            green = Math.floor(255 * ((1 - normalizedPosition) * 2));
+            red = 255;
         }
-
-        let allValuesFromMetric = matrix
-            .filter(row => row[metric_name] !== undefined)
-            .map(row => parseFloat(row[metric_name]))
-            .filter(value => !isNaN(value) && value >= 0);
-
-        if (metric_name == 'DSLA') {
-            greatestIsGreen = false;
-        } else if (metric_name == 'PMG-X') {
-            greatestIsGreen = false;
-            allValuesFromMetric = allValuesFromMetric.filter(value => value > 1).filter(value => value != Infinity);
-        } else if (metric_name == 'LaMI') {
-            greatestIsGreen = true;
+    }
+    else {
+        if (normalizedPosition <= 0.5) {
+            // First half: Green to Yellow (decrease green)
+            red = 255;
+            green = Math.floor(255 * (normalizedPosition * 2));
+        } else {
+            // Second half: Yellow to Red (increase red)
+            red = Math.floor(255 * ((1 - normalizedPosition) * 2));
+            green = 255;
         }
+    }
 
-        const maxMetricsValue = Math.max(...allValuesFromMetric);
-        const minMetricsValue = Math.min(...allValuesFromMetric);
-
-        if (maxMetricsValue == minMetricsValue) {
-            cellDataElement.style.backgroundColor = 'gray';
-        }
-
-        const normalizedPosition = 1 - (specifiQuestionMetricValue - minMetricsValue) / (maxMetricsValue - minMetricsValue);
-
-        let red, green, blue = 0;
-
-        if (greatestIsGreen) {
-            if (normalizedPosition <= 0.5) {
-                // First half: Red to Yellow (increase green)
-                green = 255;
-                red = Math.floor(255 * (normalizedPosition * 2));
-            } else {
-                // Second half: Yellow to Green (decrease red)
-                green = Math.floor(255 * ((1 - normalizedPosition) * 2));
-                red = 255;
-            }
-        }
-        else {
-            if (normalizedPosition <= 0.5) {
-                // First half: Green to Yellow (decrease green)
-                red = 255;
-                green = Math.floor(255 * (normalizedPosition * 2));
-            } else {
-                // Second half: Yellow to Red (increase red)
-                red = Math.floor(255 * ((1 - normalizedPosition) * 2));
-                green = 255;
-            }
-        }
-
-        cellDataElement.style.backgroundColor = `rgb(${red},${green},${blue})`;
-        // return `rgb(${red},${green},${blue})`;
-
-    })
-
-
+    cellDataElement.style.backgroundColor = `rgb(${red},${green},${blue})`;
+    // return `rgb(${red},${green},${blue})`;
 }
 
 function addActionButtonsToCellData(cellData, i) {
