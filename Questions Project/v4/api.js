@@ -8,6 +8,13 @@ let requestCount = 0;
 async function getUpdatedMatrix() {
     try {
         const matrix = rawCsvToMatrix(await requestCurrentRawCsv());
+
+        calculateNumberOfDaysSinceLastAttempt(matrix);
+        calculateAttemptsSummary(matrix);
+        calculateLoMIandLaMI(matrix);
+        
+        requestToOverwriteCsv(matrixToRawCsv(matrix));
+
         return matrix;
     } catch (err) {
         console.error('Error getting matrix:', err);

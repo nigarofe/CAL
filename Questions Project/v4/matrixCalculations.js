@@ -1,12 +1,3 @@
-function calculateAllMetrics() {
-    getUpdatedMatrix().then((matrix) => {
-        calculateNumberOfDaysSinceLastAttempt(matrix);
-        calculateAttemptsSummary(matrix);
-        calculateLoMIandLaMI(matrix);
-    })
-}
-
-
 function calculateNumberOfDaysSinceLastAttempt(matrix) {
     for (let i = questionsStartRow; i < matrix.length; i++) {
         let dateStrings = matrix[i]['Date Vector'];

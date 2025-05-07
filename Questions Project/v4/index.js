@@ -44,9 +44,6 @@ function showToast(toastTitle, toastMessage, toastTime) {
 }
 
 function loadHTMLQuestionsTable(matrix) {
-
-    calculateAllMetrics();
-
     htmlTable = document.getElementById('questionsTable');
     htmlTable.innerHTML = '';
 
@@ -105,10 +102,9 @@ function loadHTMLQuestionsTable(matrix) {
     htmlTable.appendChild(tableBody);
 }
 
+
+
 function loadHTMLQuestionsTableMini(matrix, metrics_name = "PMG-X") {
-
-    calculateAllMetrics();
-
     htmlTableMini = document.getElementById('questionsTableMini');
 
     const allKeys = Object.keys(matrix[headersRow]);
