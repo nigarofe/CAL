@@ -15,6 +15,22 @@
 			- "1 = I solved the question without any external help" 
 
 
+# Data Management
+- To maintain a lightweight architecture while meeting modest performance goals, we persist all records in a single CSV file rather than using a full database.
+- Since browsers cannot write directly to local files for security reasons, a minimal Node.js backend handles every CSV read/write operation. This backend is deliberately kept simple, exposing just two endpoints:
+- GET /data: Reads the CSV file and returns the raw data to the client.
+- POST /data: Receives updated data from the client and writes it back to the CSV file.
+
+This design minimizes server-side complexity and usage, ensures secure file access, and keeps the overall system easy to maintain.
+
+
+
+
+
+
+
+
+
 
 # File structure
 main.js
@@ -37,6 +53,23 @@ Spending time making this application more secure or performing goes against thi
 
 # Compartimentalization
 The idea is to create black boxes: I shouldn't need to understand what each file of the code base does. I should actively hide what I'm not going to interact with so it doesn't load on my own working memory.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
