@@ -29,37 +29,4 @@
 
 
 
-## Tech Stack / Requirements
-- npm 10.9.2
-
-- CSS
-- HTML
-	- Bootstrap 5.3.5
-- JavaScript
-	- Node.js 22.14.0
-- Katex 0.16.22
-- csv-stringify 6.5.2
-
-### Useful commands
-- See if is installed correctly
-	- npm -v
-	- node -v
-- Start Node.js project in folder
-	- npm init -y
-- Install 
-	- npm i csv-stringify
-	- npm i bootstrap
-	- npm i katex
-	- npm install express fs path cors
-	- npm install -g nodemon
-- Start server
-	- nodemon server.js
-	- node server.js
-
-## CSV
-- Separator
-	- Tab = \t
-- Encoding
-	- UTF-8
-
 
