@@ -1,7 +1,9 @@
+
+
 function calculateNumberOfDaysSinceLastAttempt(matrix) {
     for (let i = questionsStartRow; i < matrix.length; i++) {
         let dateStrings = matrix[i]['Date Vector'];
-        
+
 
         if (dateStrings !== null) {
             dateStrings = dateStrings.replace(/[\[\]]/g, '').split(',');
@@ -47,12 +49,6 @@ function calculateAttemptsSummary(matrix) {
             }
         }
 
-
-
-
-
-
-
         let summary = [totalAttempts, attemptsWithoutHelp, attemptsWithHelp, lastAttemptMessage].join('; ');
 
         matrix[i]['Attempts Summary'] = summary;
@@ -64,7 +60,12 @@ function calculateLoMIandLaMI(matrix) {
         let memoryIntervals = [];
 
         let codeVector = matrix[i]['Code Vector'];
-        if (codeVector !== null) {
+
+        if (codeVector == '') {
+            // console.log('codeVector is empty')
+            matrix[i]['PMG-D'] = 'NA';
+            matrix[i]['PMG-X'] = 'NA';
+        } else {
             codeVector += '';
 
             codeVector = codeVector.replace(/[\[\]]/g, '').split(',').map(Number);
@@ -78,6 +79,7 @@ function calculateLoMIandLaMI(matrix) {
                     memoryIntervals.push(timeDifferenceInDays);
                 }
             }
+
 
             if (memoryIntervals.length > 0) {
                 const maxInterval = Math.max(...memoryIntervals);
@@ -96,11 +98,77 @@ function calculateLoMIandLaMI(matrix) {
 
             matrix[i]['PMG-D'] = matrix[i]['DSLA'] - matrix[i]['LaMI'];
 
-            const pmgX = matrix[i]['DSLA'] / matrix[i]['LaMI'];
-            matrix[i]['PMG-X'] = isFinite(pmgX) ? pmgX.toFixed(2) : pmgX;
+
+            if (matrix[i]['LaMI'] == 0) {
+                matrix[i]['PMG-X'] = "LAWH"; //Last Attempt Was With Help
+            } else {
+                const pmgX = matrix[i]['DSLA'] / matrix[i]['LaMI'];
+                matrix[i]['PMG-X'] = pmgX.toFixed(2);
+            }
+
+        }
+    }
+}
+
+
+
+
+
+function calculatePMG_XCellColor(matrix, metric_name = "PMG-X") {
+    for (let i = questionsStartRow; i < matrix.length; i++) {
+        const specificQuestion = matrix[i];
+        const specifiQuestionMetricValue = specificQuestion[metric_name];
+
+        if (specifiQuestionMetricValue === 'LAWH') {
+            matrix[i]['PMG-X Cell Color'] = '128, 0, 128, 1';
+        } else if (specifiQuestionMetricValue === 'NA') {
+            matrix[i]['PMG-X Cell Color'] = '0, 0, 200, 1';
+        } else if (specifiQuestionMetricValue <= 1) {
+            matrix[i]['PMG-X Cell Color'] = '0, 128, 0, 1';    // matrix[i]['PMG-X Cell Color'] = 'd2'
         } else {
-            matrix[i]['PMG-D'] = 'NA';
-            matrix[i]['PMG-X'] = 'NA';
+            let allValuesFromMetric = matrix
+                .filter(row => row[metric_name] !== undefined)
+                .map(row => parseFloat(row[metric_name]))
+                .filter(value => !isNaN(value) && value >= 0);
+
+            if (metric_name == 'PMG-X') {
+                greatestIsGreen = false;
+            }
+
+            const maxMetricsValue = Math.max(...allValuesFromMetric);
+            const minMetricsValue = Math.min(...allValuesFromMetric);
+
+            if (maxMetricsValue == minMetricsValue) {
+                cellDataElement.style.backgroundColor = 'gray';
+            }
+
+            const normalizedPosition = 1 - (specifiQuestionMetricValue - minMetricsValue) / (maxMetricsValue - minMetricsValue);
+
+            let red, green, blue = 0;
+
+            if (greatestIsGreen) {
+                if (normalizedPosition <= 0.5) {
+                    // First half: Red to Yellow (increase green)
+                    green = 255;
+                    red = Math.floor(255 * (normalizedPosition * 2));
+                } else {
+                    // Second half: Yellow to Green (decrease red)
+                    green = Math.floor(255 * ((1 - normalizedPosition) * 2));
+                    red = 255;
+                }
+            }
+            else {
+                if (normalizedPosition <= 0.5) {
+                    // First half: Green to Yellow (decrease green)
+                    red = 255;
+                    green = Math.floor(255 * (normalizedPosition * 2));
+                } else {
+                    // Second half: Yellow to Red (increase red)
+                    red = Math.floor(255 * ((1 - normalizedPosition) * 2));
+                    green = 255;
+                }
+            }
+            matrix[i]['PMG-X Cell Color'] = `${red}, ${green}, ${blue}, 1`;
         }
     }
 }

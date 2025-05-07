@@ -74,7 +74,8 @@ function loadHTMLQuestionsTable(matrix) {
             let columnSetToVisible = matrix[visibilityRow][Object.keys(matrix[headersRow])[j]]
 
             if (columnSetToVisible == 'TRUE') {
-                let columnName = Object.keys(matrix[headersRow])[j]
+                columnName = matrix[headersRow][j]
+                
                 let valueOnCsvTable = matrix[i][columnName];
 
                 const cellData = document.createElement('td');
@@ -87,7 +88,12 @@ function loadHTMLQuestionsTable(matrix) {
                     cellData.textContent = valueOnCsvTable;
                 }
 
-                addStyletoCellDataElement(cellData, matrix[i]['#'], columnName);
+                if (columnName == 'PMG-X') {
+                    cellData.style.backgroundColor = `rgba(${matrix[i]['PMG-X Cell Color']})`;
+                    if (matrix[i]['PMG-X'] <= 1) {
+                        cellData.style.color = 'rgba(0, 0, 0, 0.2)'; // 20 %-opaque black
+                    }
+                }
 
 
                 if (columnName === 'Action buttons') {
@@ -138,7 +144,15 @@ function loadHTMLQuestionsTableMini(matrix, metrics_name = "PMG-X") {
                 cellData.style.border = '1px solid black';
                 cellData.title = matrix[toolTipsRow][Object.keys(matrix[headersRow])[0]].replace(/\\n/g, '\n');
                 // cellData.style.backgroundColor = getCellColor(matrix[question_number]['#'], metrics_name, false);
-                addStyletoCellDataElement(matrix, cellData, matrix[question_number]['#'], metrics_name);
+                // addStyletoCellDataElement(matrix, cellData, matrix[question_number]['#'], metrics_name);
+
+                if (metrics_name == 'PMG-X') {
+                    cellData.style.backgroundColor = `rgba(${matrix[question_number]['PMG-X Cell Color']})`;
+                    if (matrix[question_number]['PMG-X'] <= 1) {
+                        cellData.style.color = 'rgba(0, 0, 0, 0.2)'; // 20 %-opaque black
+                    }
+                }
+
                 cellData.onclick = function () {
                     openObsidianNote(matrix[question_number]['#']);
                 };

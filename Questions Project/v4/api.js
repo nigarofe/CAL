@@ -12,8 +12,11 @@ async function getUpdatedMatrix() {
         calculateNumberOfDaysSinceLastAttempt(matrix);
         calculateAttemptsSummary(matrix);
         calculateLoMIandLaMI(matrix);
+        calculatePMG_XCellColor(matrix);
         
         requestToOverwriteCsv(matrixToRawCsv(matrix));
+
+        //chatGPT make a stack‑trace every time something rewrites any cell matrix[i]['LaMI'].
 
         return matrix;
     } catch (err) {
