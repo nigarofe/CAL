@@ -1,160 +1,89 @@
-const fs = require('fs');
-const csv = require('csv-parser');
-const { stringify } = require('csv-stringify/sync');
-const path = require('path');
-const http = require('http');
+// server.js
+// Lightweight CSV persistence Node.js backend
+// --------------------------------------------
+// Exposes two endpoints:
+//   GET  /data  – returns the contents of data.csv
+//   POST /data  – accepts updated CSV (or JSON array) and overwrites data.csv
+//
+// Environment variables (all optional):
+//   PORT       – port to listen on (defaults to 3000)
+//   DATA_FILE  – absolute or relative path to the CSV file (defaults to ./data.csv)
+//
+// Usage:
+//   npm install express cors dotenv
+//   node server.js
 
-const DEFAULT_FOLDER_DIRECTORY = '../';
-const DEFAULT_FILE_PATH = path.join(DEFAULT_FOLDER_DIRECTORY, 'questions.csv');
+require("dotenv").config();
+const fs = require("fs");
+const path = require("path");
+const express = require("express");
+const cors = require("cors");
 
-async function getCsvFileContent() {
-    try {
-        if (!fs.existsSync(DEFAULT_FILE_PATH)) {
-            throw new Error(`File not found: ${DEFAULT_FILE_PATH}`);
-        }
-
-        const fileContent = fs.readFileSync(DEFAULT_FILE_PATH, 'utf8');
-        const lines = fileContent.split('\n');
-
-        let headers = [];
-        if (lines.length > 0) {
-            headers = lines[0].split('\t').map(header => header.trim());
-        }
-
-        const headerRow = {};
-        headers.forEach(header => {
-            headerRow[header] = header;
-        });
-
-        const matrix = [headerRow];
-
-        await new Promise((resolve, reject) => {
-            fs.createReadStream(DEFAULT_FILE_PATH)
-                .pipe(csv({
-                    separator: '\t'
-                }))
-                .on('data', (row) => {
-                    const processedRow = {};
-                    Object.keys(row).forEach(key => {
-                        const value = row[key];
-                        processedRow[key] = isNaN(value) ? value : parseFloat(value);
-                    });
-                    matrix.push(processedRow);
-                })
-                .on('end', () => resolve())
-                .on('error', (error) => reject(error));
-        });
-
-        console.log("Matrix requested and delivered successfully");
-        return matrix;
-    } catch (error) {
-        console.error('Error reading and processing matrix:', error);
-        throw error;
-    }
-}
-
-async function writeMatrixToCsv(matrix) {
-    try {
-        const columns = matrix.length > 0 ? Object.keys(matrix[0]) : [];
-
-        const csvContent = stringify(matrix, {
-            header: true,
-            columns: columns,
-            delimiter: '\t'
-        });
-
-        fs.writeFileSync(DEFAULT_FILE_PATH, csvContent);
-        console.log(`Matrix successfully written to: ${DEFAULT_FILE_PATH}`);
-
-        return { success: true, path: DEFAULT_FILE_PATH };
-    } catch (error) {
-        console.error('Error writing matrix to CSV:', error);
-        throw error;
-    }
-}
-
-const server = http.createServer(async (req, res) => {
-    res.setHeader('Access-Control-Allow-Origin', '*');
-    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
-    res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
-
-    if (req.method === 'OPTIONS') {
-        res.writeHead(204);
-        res.end();
-        return;
-    }
-
-    try {
-        const url = new URL(req.url, `http://${req.headers.host}`);
-        const pathname = url.pathname;
-
-        // GET endpoint to retrieve processed matrix
-        if (req.method === 'GET' && pathname === '/api/matrix') {
-            const matrix = await getCsvFileContent(DEFAULT_FILE_PATH);
-            res.writeHead(200, { 'Content-Type': 'application/json' });
-            res.end(JSON.stringify({ success: true, matrix }));
-        }
-        // POST endpoint to write processed matrix
-        else if (req.method === 'POST' && pathname === '/api/matrix') {
-            let body = '';
-            req.on('data', chunk => {
-                body += chunk.toString();
-            });
-
-            req.on('end', async () => {
-                try {
-                    const { matrix, DEFAULT_FILE_PATH, createBackup } = JSON.parse(body);
-                    if (!matrix || !Array.isArray(matrix)) {
-                        res.writeHead(400, { 'Content-Type': 'application/json' });
-                        res.end(JSON.stringify({ success: false, error: 'Valid matrix array is required' }));
-                        return;
-                    }
-
-                    const outputPath = DEFAULT_FILE_PATH || DEFAULT_FILE_PATH;
-                    const result = await writeMatrixToCsv(matrix, outputPath, createBackup);
-
-                    res.writeHead(200, { 'Content-Type': 'application/json' });
-                    res.end(JSON.stringify({
-                        success: true,
-                        message: 'Matrix successfully written',
-                        path: result.path
-                    }));
-                } catch (error) {
-                    res.writeHead(500, { 'Content-Type': 'application/json' });
-                    res.end(JSON.stringify({ success: false, error: error.message }));
-                }
-            });
-        } else {
-            res.writeHead(404, { 'Content-Type': 'application/json' });
-            res.end(JSON.stringify({ success: false, error: 'Endpoint not found' }));
-        }
-    } catch (error) {
-        res.writeHead(500, { 'Content-Type': 'application/json' });
-        res.end(JSON.stringify({ success: false, error: error.message }));
-    }
-});
-
+const app = express();
 const PORT = process.env.PORT || 3000;
-server.listen(PORT, () => {
-    console.log(`Server is running on port ${PORT}`);
-    console.log(`Matrix API endpoints:`);
-    console.log(`- GET /api/matrix?DEFAULT_FILE_PATH=./path/to/file.csv (default: ${DEFAULT_FILE_PATH})`);
-    console.log(`- POST /api/matrix (with JSON body, default output: ${DEFAULT_FILE_PATH})`);
+const DATA_FILE = process.env.DATA_FILE || path.join(__dirname, "questions.csv");
+
+// ────────────────────────────────────────────────────────────────
+// Middleware
+// ────────────────────────────────────────────────────────────────
+app.use(cors()); // enable CORS for all origins (customize as needed)
+app.use(express.text({ type: "text/csv" })); // capture raw CSV bodies
+app.use(express.json()); // fallback: allow JSON bodies
+
+// Ensure the CSV file exists so GET /data never 404s
+if (!fs.existsSync(DATA_FILE)) {
+  fs.writeFileSync(DATA_FILE, "", "utf8");
+}
+
+// ────────────────────────────────────────────────────────────────
+// Routes
+// ────────────────────────────────────────────────────────────────
+
+// GET /data → stream raw CSV back to client
+app.get("/data", (req, res) => {
+  fs.readFile(DATA_FILE, "utf8", (err, data) => {
+    if (err) {
+      console.error("[GET /data] Read error:", err);
+      return res.status(500).json({ error: "Failed to read data file" });
+    }
+    res.type("text/csv").send(data);
+  });
 });
 
-server.on('error', (error) => {
-    console.error('Server error:', error);
+// POST /data → overwrite CSV with body from client
+app.post("/data", (req, res) => {
+  let csv = "";
+
+  if (req.is("text/csv")) {
+    // Body already raw CSV
+    csv = req.body;
+  } else if (Array.isArray(req.body)) {
+    // Body is JSON → convert array of objects to CSV
+    const rows = req.body;
+    if (!rows.length) {
+      return res.status(400).json({ error: "No data provided" });
+    }
+    const headers = Object.keys(rows[0]);
+    const escape = (value) => `"${String(value).replace(/"/g, '""')}"`;
+    const lines = rows.map((row) => headers.map((h) => escape(row[h] ?? "")).join(","));
+    csv = `${headers.join(",")}\n${lines.join("\n")}`;
+  } else {
+    return res.status(400).json({ error: "Unsupported content type" });
+  }
+
+  fs.writeFile(DATA_FILE, csv, "utf8", (err) => {
+    if (err) {
+      console.error("[POST /data] Write error:", err);
+      return res.status(500).json({ error: "Failed to write data file" });
+    }
+    res.status(204).end(); // Success, no content
+  });
 });
 
-process.on('SIGINT', () => {
-    console.log('Server is shutting down...');
-    server.close(() => {
-        console.log('Server closed');
-        process.exit(0);
-    });
+// ────────────────────────────────────────────────────────────────
+// Start server
+// ────────────────────────────────────────────────────────────────
+app.listen(PORT, () => {
+  console.log(`CSV server listening at http://localhost:${PORT}`);
+  console.log(`Using data file: ${DATA_FILE}`);
 });
-
-module.exports = {
-    getCsvFileContent,
-    writeMatrixToCsv
-};

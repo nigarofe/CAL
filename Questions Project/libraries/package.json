@@ -1,18 +1,15 @@
 {
-  "name": "libraries",
+  "name": "v4",
   "version": "1.0.0",
-  "main": "server.js",
+  "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node server.js"
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "description": "",
   "dependencies": {
-    "bootstrap": "^5.3.5",
-    "csv-stringify": "^6.5.2",
-    "katex": "^0.16.22"
+    "bootstrap": "^5.3.6"
   }
 }

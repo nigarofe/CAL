@@ -1,102 +1,102 @@
-let matrix;
-headersRow = 0;
-toolTipsRow = 1;
-visibilityRow = 2;
-questionsStartRow = 3;
+let headersRow = 0;
+let toolTipsRow = 1;
+let visibilityRow = 2;
+let questionsStartRow = 3;
 
-requestMatrixData();
+let matrix = [];
+let last_matrix_update = 'never';
 
-async function requestMatrixData() {
+let requestCount = 0;
+
+async function updateMatrixVariable() {
     try {
-        const response = await fetch('http://localhost:3000/api/matrix');
-        const data = await response.json();
+        matrix = rawCsvToMatrix(await requestCurrentRawCsv());
+        console.log('matrix:', matrix);
 
-        if (data.success) {
-            matrix = data.matrix;
-            console.log('Console.log(matrix) = ', matrix);
-        } else {
-            console.error('Error:', data.error);
-        }
-    } catch (error) {
-        console.error('Fetch error:', error);
-        alert('Check if server is running');
+        calculateNumberOfDaysSinceLastAttempt();
+        calculateAttemptsSummary();
+        calculateLoMIandLaMI();
+        calculatePMG_XCellColor();
+
+        requestToOverwriteCsv(matrixToRawCsv(matrix));
+    } catch (err) {
+        console.error('Error getting matrix:', err);
     }
 }
 
-async function requestToOverwriteCsv() {
-    matrix.shift();
+async function requestCurrentRawCsv() {
     try {
-        const response = await fetch('http://localhost:3000/api/matrix', {
+        const res = await fetch('http://localhost:3000/data');
+
+        if (!res.ok) {
+            throw new Error(`Server responded with ${res.status}`);
+        }
+
+        requestCount++
+        // console.log(requestCount)
+        return await res.text();
+    } catch (err) {
+        console.error('Fetch error:', err);
+        alert('Could not reach the CSV server – is it running?');
+    }
+}
+
+async function requestToOverwriteCsv(rawCsv) {
+    try {
+        const res = await fetch('http://localhost:3000/data', {
             method: 'POST',
             headers: {
-                'Content-Type': 'application/json'
+                'Content-Type': 'text/csv'
             },
-            body: JSON.stringify({
-                matrix: matrix
-            })
+            body: rawCsv
         });
 
-        const data = await response.json();
-
-        if (data.success) {
-            console.log('Matrix saved successfully at:', data.path);
-            return data;
+        if (res.ok) {
+            console.log(`CSV overwritten successfully with status: ${res.status}`);
         } else {
-            console.error('Error saving matrix:', data.error);
-            throw new Error(data.error);
+            throw new Error(`Server responded with ${res.status}`);
         }
-    } catch (error) {
-        console.error('Fetch error:', error);
-        throw error;
+    } catch (err) {
+        console.error('Upload error:', err);
+        alert('Could not write to the CSV server – is it running?');
     }
 }
 
-function registerQuestionAttempt(question_number, code) {
-    // need to refactor this, it's kinda messy
-    const question = matrix.find(row => row['#'] === question_number);
-    let dateVector = question['Date Vector'];
+function rawCsvToMatrix(rawCsv) {
+    const rows = rawCsv
+        .trimEnd()               // removes trailing \r\n or \n
+        .split(/\r?\n/);         // handles \n AND \r\n cleanly
 
+    const matrix = rows.map(r =>
+        r.split('\t').map(cell => cell.trim())   // <‑‑ removes \r, spaces, tabs
+    );
 
-    const today = new Date(new Date().getTime() - 3 * 60 * 60 * 1000).toISOString().slice(0, 10);
+    const headers = matrix[headersRow];               // row 0 by convention
+    for (let r = questionsStartRow; r < matrix.length; r++) {
+        const row = matrix[r];
 
-    dateVector += '';
-    question['Code Vector'] += '';
+        headers.forEach((header, c) => {
+            if (!header || header.trim() === '') return;   // ignore blank headers
+            if (Object.prototype.hasOwnProperty.call(row, header)) return; // don’t overwrite
 
-    // console.log('dateVector and codeVector for question', question_number, 'before api request = \n', question['Date Vector'], '\n', question['Code Vector']);
-    // dateVector = dateVector.replace(/\s+/g, '').replace('null', '');
-    // console.log('avocado = ', dateVector)
-
-    if (dateVector.includes(today)) {
-        alert('You have already attempted this question today.');
-    } else {
-        if (dateVector.replace(/\s+/g, '') == 'null') {
-            question['Date Vector'] = today;
-        } else {
-            question['Date Vector'] = dateVector + ',' + today;
-        }
-
-        if (question['Code Vector'].replace(/\s+/g, '') == 'null') {
-            question['Code Vector'] = code;
-        } else {
-            question['Code Vector'] = question['Code Vector'] + ',' + code;
-        }
-
-        requestToOverwriteCsv(matrix)
-            .then(result => {
-                console.log('Save operation completed:', result)
-                if (code == 0) {
-                    showToast(`Done!`, `Question ${question_number} attempt registered successfully!<br>Code: ${code} <br> (I needed help to solve the question)`, today);
-                } else {
-                    showToast(`Done!`, `Question ${question_number} attempt registered successfully!<br>Code: ${code} <br> (I solved the question without any external help)`, today);
-                }
-            }
-            )
-            .catch(error => {
-                showToast('Error', 'Question attempt failled to save!', today);
-                console.error('Save operation failed:', error)
+            Object.defineProperty(row, header, {
+                get() { return this[c]; },
+                set(v) { this[c] = v; },
+                enumerable: false,      // keeps console.log(row) tidy
+                configurable: false
             });
+        });
     }
-    loadHTMLQuestionsTable();
-    loadHTMLQuestionsTableMini()
-    console.log('dateVector and codeVector for question', question_number, 'after api request = \n', question['Date Vector'], '\n', question['Code Vector']);
+
+    return matrix;
 }
+
+function matrixToRawCsv(matrix) {
+    return (
+        matrix
+            .map(row => row.join('\t'))   // tab‑separated
+            .join('\r\n')                 // CRLF between rows
+        + '\r\n'                        // final newline (optional, good style)
+    );
+}
+
