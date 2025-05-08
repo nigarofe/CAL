@@ -1,13 +1,12 @@
 window.addEventListener("DOMContentLoaded", () => {
     reloadPage();
+    showToast("Hello!", "Have a nice day!", ":)");
 })
 
 async function reloadPage() {
     await updateMatrixVariable();
     loadHTMLQuestionsTable();
     loadHTMLQuestionsTableMini()
-
-    showToast("Hello!", "Have a nice day!", ":)");
 }
 
 document.querySelectorAll('input[name="metric"]').forEach(radio => {
@@ -196,10 +195,16 @@ function addActionButtonsToCellData(cellData, i) {
 }
 
 function registerQuestionAttempt(question_number, code) {
-    const question = matrix.find(row => row['#'] === question_number);
+    const questionRow = matrix.findIndex(row => row['#'] === question_number);
+    const question = matrix[questionRow];
+
     let qdv = question['Date Vector'];
     let qcv = question['Code Vector'];
-    console.log('dateVector and codeVector for question', question_number, 'before api request = \n', qdv, '\n', qcv);
+
+    console.log(`question_number = ${question_number}    code = ${code}    questionRow = ${questionRow}`);
+    console.log(`question = ${question}`);
+    console.log(`matrix[questionRow]['Date Vector'] = ${matrix[questionRow]['Date Vector']}`);
+    console.log(`matrix[questionRow]['Code Vector'] = ${matrix[questionRow]['Code Vector']}`);
 
     const today = new Date(new Date().getTime() - 3 * 60 * 60 * 1000).toISOString().slice(0, 10);
     if (qdv == null || qdv == undefined || qdv == '') {
@@ -207,6 +212,7 @@ function registerQuestionAttempt(question_number, code) {
         qdv = today;
     } else if (qdv.includes(today)) {
         alert('You have already attempted this question today.');
+        return;
     } else {
         qdv += ',' + today;
     }
@@ -218,8 +224,8 @@ function registerQuestionAttempt(question_number, code) {
         qcv += ',' + code;
     }
 
-    matrix[question_number]['Date Vector'] = qdv;
-    matrix[question_number]['Code Vector'] = qcv;
+    matrix[questionRow]['Date Vector'] = qdv;
+    matrix[questionRow]['Code Vector'] = qcv;
 
     requestToOverwriteCsv(matrixToRawCsv(matrix))
         .then(result => {
@@ -229,13 +235,14 @@ function registerQuestionAttempt(question_number, code) {
             } else {
                 showToast(`Done!`, `Question ${question_number} attempt registered successfully!<br>Code: ${code} <br> (I solved the question without any external help)`, today);
             }
+
+            console.log(`matrix[questionRow]['Date Vector'] = ${matrix[questionRow]['Date Vector']}`);
+            console.log(`matrix[questionRow]['Code Vector'] = ${matrix[questionRow]['Code Vector']}`);
+            reloadPage();
         }
         )
         .catch(error => {
             showToast('Error', 'Question attempt failled to save!', today);
             console.error('Save operation failed:', error)
         });
-
-    console.log('dateVector and codeVector for question', question_number, 'after api request = \n', qdv, '\n', qcv);
-    reloadPage();
 }

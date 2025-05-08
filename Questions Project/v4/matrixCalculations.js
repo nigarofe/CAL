@@ -30,7 +30,7 @@ function calculateAttemptsSummary() {
         if (codeVector == null || codeVector == undefined || codeVector == '') {
             lastAttemptMessage = 'NA';
         } else {
-            codeVector += '';
+            // console.log(`Question ${matrix[i]['#']}: ${codeVector}`);
             codeVector = codeVector.replace(/[\[\]]/g, '').split(',').map(Number);
 
             codeVector.forEach(code => {
@@ -60,6 +60,8 @@ function calculateLoMIandLaMI() {
         let memoryIntervals = [];
 
         let codeVector = matrix[i]['Code Vector'];
+        let numberOfAttempts = codeVector.length;
+        let lasAttemptCode = codeVector[numberOfAttempts - 1];
 
         if (codeVector == '' || codeVector == null || codeVector == undefined) {
             // console.log('codeVector is empty')
@@ -99,8 +101,10 @@ function calculateLoMIandLaMI() {
             matrix[i]['PMG-D'] = matrix[i]['DSLA'] - matrix[i]['LaMI'];
 
 
-            if (matrix[i]['LaMI'] == 0) {
-                matrix[i]['PMG-X'] = "LAWH"; //Last Attempt Was With Help
+            if (lasAttemptCode == 1 && numberOfAttempts == 1) {
+                matrix[i]['PMG-X'] = 'SA'; // Single Attempt
+            } else if (matrix[i]['LaMI'] == 0) {
+                matrix[i]['PMG-X'] = 'W/H'; // Last Attempt was With Help
             } else {
                 const pmgX = matrix[i]['DSLA'] / matrix[i]['LaMI'];
                 matrix[i]['PMG-X'] = pmgX.toFixed(2);
@@ -115,7 +119,9 @@ function calculatePMG_XCellColor(metric_name = "PMG-X") {
         const specificQuestion = matrix[i];
         const specifiQuestionMetricValue = specificQuestion[metric_name];
 
-        if (specifiQuestionMetricValue === 'LAWH') {
+        if (specifiQuestionMetricValue === 'SA') {
+            matrix[i]['PMG-X Cell Color'] = '128, 128, 0, 1';
+        } else if (specifiQuestionMetricValue === 'W/H') {
             matrix[i]['PMG-X Cell Color'] = '128, 0, 128, 1';
         } else if (specifiQuestionMetricValue === 'NA') {
             matrix[i]['PMG-X Cell Color'] = '0, 0, 200, 1';
