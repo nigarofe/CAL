@@ -13,9 +13,7 @@ document.querySelectorAll('input[name="metric"]').forEach(radio => {
     radio.addEventListener('change', () => {
         const selectedLabel = document.querySelector(`label[for="${radio.id}"]`);
         selectedLabelTextContent = selectedLabel.textContent
-        getUpdatedMatrix().then((matrix) => {
-            loadHTMLQuestionsTableMini(matrix, selectedLabelTextContent);
-        });
+        loadHTMLQuestionsTableMini(selectedLabelTextContent);
     });
 });
 
@@ -52,7 +50,7 @@ function loadHTMLQuestionsTable() {
 
             const cellHeader = document.createElement('th');
             cellHeader.scope = 'col';
-            cellHeader.classList.add('text-light', 'p-2', 'bg-success');
+            cellHeader.classList.add('text-light', 'p-2', 'bg-success', 'text-center', 'align-middle');
 
             cellHeader.textContent = matrix[headersRow][Object.keys(matrix[headersRow])[i]];
 

@@ -2,7 +2,7 @@
 Question number identifier	Subject or field of study	Where this question originated from	Detailed explanation of the question	Vector of codes associated with the question	Dates when this question was attempted	Total attempts; Attempts without help; Attempts with help	Days Since Last Attempt: The number of days that have passed since your most recent attempt on the question, irrespective of the method used.	Longest Memory Interval: The maximum number of days between any memory-based attempt and the attempt immediately preceding it (regardless of whether that preceding attempt was solved from memory or with help)	Latest Memory Interval: The number of days between your most recent memory-based attempt and the previous attempt, calculated only if your latest attempt was solved from memory.	Potential Memory Gains in days: The estimated improvement in your Latest Memory Interval, expressed in days, if you successfully answer the question from memory today.	Potential Memory Gain as a multiplier of my LaMI: Proportional increase in your Latest Memory Interval if you answer the question from memory today.	0 = I did the question with help \n 1 = I did the question from memory only
 TRUE	TRUE	TRUE	TRUE	FALSE	FALSE	TRUE	TRUE	FALSE	TRUE	TRUE	TRUE	TRUE
 1	Eletromag			0,1,1,1	2024-11-07, 2025-01-24, 2025-02-20,2025-04-07	4; 3; 1; From memory	31	78	45	-14	0.69	
-2	C3		-	0,1,1,1	2024-11-12, 2025-01-16, 2025-01-17,2025-03-09	4; 3; 1; From memory	60	65	50	10	1.2	
+2	C3		-	0,1,1,1	2024-11-12, 2025-01-16, 2025-01-17,2025-03-09	4; 3; 1; From memory	60	65	50	10	1.20	
 3	EDO	Workbook for Dummies	C1 Q5-6	0,1,1	2024-11-12, 2025-01-24,2025-04-17	3; 2; 1; From memory	21	82	82	-61	0.26	
 4	EDO	Workbook for Dummies	C1 Q9-10	0,0,1,0,0,1,1,1,1,1,1	2024-11-13,2025-01-24,2025-02-06,2025-03-05,2025-03-09,2025-03-10,2025-03-12,2025-03-17,2025-03-24,2025-04-07,2025-05-06	11; 7; 4; From memory	2	29	29	-27	0.07	
 5	EDO	Workbook for Dummies	C1 Q14	0,1,1	2024-11-13,2025-01-24,2025-04-17	3; 2; 1; From memory	21	83	83	-62	0.25	
@@ -29,24 +29,24 @@ TRUE	TRUE	TRUE	TRUE	FALSE	FALSE	TRUE	TRUE	FALSE	TRUE	TRUE	TRUE	TRUE
 26	C3	2024-2 Lista 3	L3-Q3	0,0,1,0,0,1,1,0,1,1	2025-01-06,2025-01-13,2025-01-14,2025-03-20,2025-03-24,2025-03-25,2025-04-07,2025-04-26,2025-04-29,2025-05-06	10; 5; 5; From memory	2	13	7	-5	0.29	
 27	C3	2024-2 Lista 3	L3-Q4	0,1,1	2025-01-05,2025-01-06,2025-04-07	3; 2; 1; From memory	31	91	91	-60	0.34	
 28	C3	2022-2 P3	Q3	0,0,0,1,0,0	2025-01-11,2025-01-12,2025-01-13,2025-01-14,2025-04-07,2025-05-06	6; 1; 5; W/H	2	1	0	2	W/H	
-29	C3	2024-2 Lista 3	L3-Q9	0,1,0,0,0,1,1,1,0,1	2025-01-11,2025-01-14,2025-03-10,2025-03-11,2025-03-12,2025-03-13,2025-03-17,2025-03-24,2025-04-26,2025-05-06	10; 5; 5; From memory	2	10	10	-8	0.2	
+29	C3	2024-2 Lista 3	L3-Q9	0,1,0,0,0,1,1,1,0,1	2025-01-11,2025-01-14,2025-03-10,2025-03-11,2025-03-12,2025-03-13,2025-03-17,2025-03-24,2025-04-26,2025-05-06	10; 5; 5; From memory	2	10	10	-8	0.20	
 30	C3	2022-2 P3	Q1	0,1,0	2025-01-12,2025-01-14,2025-04-07	3; 1; 2; W/H	31	2	0	31	W/H	
 31	C3	2022-2 P3	Q2	0,1,1	2025-01-13, 2025-01-14,2025-04-07	3; 2; 1; From memory	31	82	82	-51	0.38	
 32	C3		-	0,0,1,1,1	2025-01-24,2025-02-18,2025-03-03,2025-03-18,2025-04-26	5; 3; 2; From memory	12	39	39	-27	0.31	
 33	C3		Prerequisite to q17	0,1,1,1	2025-02-18,2025-03-03,2025-03-20,2025-04-26	4; 3; 1; From memory	12	37	37	-25	0.32	
 34	French		Prerequisite to q35 – At the library 1	0,0,0,0,1,1,1,1,1	2025-02-18, 2025-02-19, 2025-02-21,2025-03-03,2025-03-04,2025-03-09,2025-03-17,2025-03-27,2025-04-23	9; 5; 4; From memory	15	27	27	-12	0.56	
 35	French		At the library 2	0,0,1,1,1,1,1	2025-02-21,2025-03-03,2025-03-04,2025-03-09,2025-03-17,2025-03-27,2025-04-23	7; 5; 2; From memory	15	27	27	-12	0.56	
-36	C3	-	Prerequisite to q19	0,1,1,1	2025-03-18,2025-03-19,2025-03-24,2025-04-23	4; 3; 1; From memory	15	30	30	-15	0.5	
-37	EDO	Workbook for Dummies	C2 p.31	0,1,1	2025-03-20,2025-03-24,2025-04-23	3; 2; 1; From memory	15	30	30	-15	0.5	
-38	EDO	Workbook for Dummies	C2 p.34	0,1,1	2025-03-20,2025-03-24,2025-04-23	3; 2; 1; From memory	15	30	30	-15	0.5	
+36	C3	-	Prerequisite to q19	0,1,1,1	2025-03-18,2025-03-19,2025-03-24,2025-04-23	4; 3; 1; From memory	15	30	30	-15	0.50	
+37	EDO	Workbook for Dummies	C2 p.31	0,1,1	2025-03-20,2025-03-24,2025-04-23	3; 2; 1; From memory	15	30	30	-15	0.50	
+38	EDO	Workbook for Dummies	C2 p.34	0,1,1	2025-03-20,2025-03-24,2025-04-23	3; 2; 1; From memory	15	30	30	-15	0.50	
 39	EDO	Workbook for Dummies	C2 p.39	0,1,0	2025-03-20,2025-03-24,2025-04-23	3; 1; 2; W/H	15	4	0	15	W/H	
 40	FOO	2025-1 Lista 1	L1-Q1	0,1,1,1,1	2025-03-24,2025-03-25,2025-03-27,2025-03-31,2025-04-23	5; 4; 1; From memory	15	23	23	-8	0.65	
 41	FOO	2025-1 Lista 1	L1-Q2	0,1,1,1,0	2025-03-24,2025-03-25,2025-03-27,2025-03-31,2025-04-23	5; 3; 2; W/H	15	4	0	15	W/H	
 42	FOO	2025-1 Lista 1	L1-Q3	0,1,1,1,1	2025-03-24,2025-03-25,2025-03-27,2025-03-31,2025-04-23	5; 4; 1; From memory	15	23	23	-8	0.65	
 43	FOO	2025-1 Lista 1	L1-Q4	0,1,1,1,1	2025-03-24,2025-03-25,2025-03-27,2025-04-02,2025-04-23	5; 4; 1; From memory	15	21	21	-6	0.71	
 44	FOO	2025-1 Lista 1	L1-Q5	0,1,1,1	2025-03-25,2025-03-26,2025-04-02,2025-04-23	4; 3; 1; From memory	15	21	21	-6	0.71	
-45	FOO	2025-1 Lista 1	L1-Q6	0,1,1,1	2025-03-26,2025-03-27,2025-04-02,2025-04-26	4; 3; 1; From memory	12	24	24	-12	0.5	
-46	FOO	2025-1 Lista 1	L1-Q7	0,1,1,1	2025-03-26,2025-03-27,2025-04-02,2025-04-26	4; 3; 1; From memory	12	24	24	-12	0.5	
+45	FOO	2025-1 Lista 1	L1-Q6	0,1,1,1	2025-03-26,2025-03-27,2025-04-02,2025-04-26	4; 3; 1; From memory	12	24	24	-12	0.50	
+46	FOO	2025-1 Lista 1	L1-Q7	0,1,1,1	2025-03-26,2025-03-27,2025-04-02,2025-04-26	4; 3; 1; From memory	12	24	24	-12	0.50	
 47	FOO	2025-1 Lista 1	L1-Q8	0,1,0	2025-03-26,2025-03-27,2025-04-02	3; 1; 2; W/H	36	1	0	36	W/H	
 48	FOO	2025-1 Lista 1	L1-Q9	0,1,1,1	2025-03-26,2025-03-27,2025-03-31,2025-04-23	4; 3; 1; From memory	15	23	23	-8	0.65	
 49	FOO	2025-1 Lista 1	L1-Q10	0,1,1	2025-03-27,2025-03-31,2025-04-23	3; 2; 1; From memory	15	23	23	-8	0.65	
@@ -68,7 +68,7 @@ TRUE	TRUE	TRUE	TRUE	FALSE	FALSE	TRUE	TRUE	FALSE	TRUE	TRUE	TRUE	TRUE
 65	MecSol	2025-1 Lista 1	Q6	0	2025-04-10	1; 0; 1; W/H	28	0	0	28	W/H	
 66	C3	-		0	2025-04-17	1; 0; 1; W/H	21	0	0	21	W/H	
 67	C3	-		0	2025-04-17	1; 0; 1; W/H	21	0	0	21	W/H	
-68	C3	Discursive questions	Line integrals	1,1	2025-04-23,2025-04-26	2; 2; 0; From memory	12	3	3	9	4	
+68	C3	Discursive questions	Line integrals	1,1	2025-04-23,2025-04-26	2; 2; 0; From memory	12	3	3	9	4.00	
 69	C3		Boat question to understand conservative fields			0; 0; 0; NA	NA	0	0	NA	NA	
 70	C3	Discursive questions	Green's Theorem; Stokes's Theorem; Divergence Theorem			0; 0; 0; NA	NA	0	0	NA	NA	
 71	C3	Discursive questions	Element of integration in scalar fields and vector fields			0; 0; 0; NA	NA	0	0	NA	NA	
@@ -76,14 +76,14 @@ TRUE	TRUE	TRUE	TRUE	FALSE	FALSE	TRUE	TRUE	FALSE	TRUE	TRUE	TRUE	TRUE
 73	EDO	Marco Antonio - Aula 10		1,1,1,1	2025-04-28,2025-04-29,2025-05-01,2025-05-05	4; 4; 0; From memory	3	4	4	-1	0.75	
 74	EDO	Marco Antonio - Aula 10		0,1,1,1	2025-04-28,2025-04-29,2025-05-01,2025-05-05	4; 3; 1; From memory	3	4	4	-1	0.75	
 75	EDO	Marco Antonio - Aula 10		1,1,1,1	2025-04-28,2025-04-29,2025-05-01,2025-05-05	4; 4; 0; From memory	3	4	4	-1	0.75	
-76	EDO	Marco Antonio - Aula 10		0,1,1,1	2025-04-28,2025-04-29,2025-05-01,2025-05-06	4; 3; 1; From memory	2	5	5	-3	0.4	
-77	EDO	Marco Antonio - Aula 10		0,1,1,1	2025-04-28,2025-04-29,2025-05-01,2025-05-06	4; 3; 1; From memory	2	5	5	-3	0.4	
-78	EDO	Marco Antonio - Aula 11		0,1,1,1	2025-04-28,2025-04-29,2025-05-01,2025-05-06	4; 3; 1; From memory	2	5	5	-3	0.4	
+76	EDO	Marco Antonio - Aula 10		0,1,1,1	2025-04-28,2025-04-29,2025-05-01,2025-05-06	4; 3; 1; From memory	2	5	5	-3	0.40	
+77	EDO	Marco Antonio - Aula 10		0,1,1,1	2025-04-28,2025-04-29,2025-05-01,2025-05-06	4; 3; 1; From memory	2	5	5	-3	0.40	
+78	EDO	Marco Antonio - Aula 11		0,1,1,1	2025-04-28,2025-04-29,2025-05-01,2025-05-06	4; 3; 1; From memory	2	5	5	-3	0.40	
 79	EDO	Marco Antonio - Aula 11				0; 0; 0; NA	NA	0	0	NA	NA	
 80	EDO	Marco Antonio - Aula 12				0; 0; 0; NA	NA	0	0	NA	NA	
 81	EDO	Marco Antonio - Aula 12				0; 0; 0; NA	NA	NaN	NaN	NA	NA	
 82	EDO	Marco Antonio - Aula 12				0; 0; 0; NA	NA	0	0	NA	NA	
-83	EDO	Marco Antonio - Aula 12				1; 1; 0; From memory	0	0	0	0	SA	
-84	EDO	Marco Antonio - Aula 12				1; 1; 0; From memory	0	0	0	0	SA	
-85	EDO	Marco Antonio - Aula 12				1; 0; 1; W/H	0	0	0	0	W/H	
-86	C3	Discursive questions	Table of elements of integrations in different integral and field types			0; 0; 0; NA	NA	0	0	NA	NA	
+83	EDO	Marco Antonio - Aula 12				0; 0; 0; NA	NA	0	0	NA	NA	
+84	EDO	Marco Antonio - Aula 12				0; 0; 0; NA	NA	0	0	NA	NA	
+85	EDO	Marco Antonio - Aula 12				0; 0; 0; NA	NA	0	0	NA	NA	
+86	C3	Discursive questions	Table of elements of integrations in different integral and field types			0; 0; 0; NA	NA	0	0	NA	NA
