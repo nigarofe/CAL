@@ -30,7 +30,6 @@ function calculateAttemptsSummary(matrix) {
 
 
         if (codeVector == null || codeVector == undefined || codeVector == '') {
-            console.log('codeVector', codeVector);
             lastAttemptMessage = 'NA';
         } else {
             codeVector += '';
