@@ -1,25 +1,24 @@
-headersRow = 0;
-toolTipsRow = 1;
-visibilityRow = 2;
-questionsStartRow = 3;
+let headersRow = 0;
+let toolTipsRow = 1;
+let visibilityRow = 2;
+let questionsStartRow = 3;
+
+let matrix = [];
+let last_matrix_update = 'never';
 
 let requestCount = 0;
 
-async function getUpdatedMatrix() {
+async function updateMatrixVariable() {
     try {
-        const matrix = rawCsvToMatrix(await requestCurrentRawCsv());
+        matrix = rawCsvToMatrix(await requestCurrentRawCsv());
         console.log('matrix:', matrix);
 
-        calculateNumberOfDaysSinceLastAttempt(matrix);
-        calculateAttemptsSummary(matrix);
-        calculateLoMIandLaMI(matrix);
-        calculatePMG_XCellColor(matrix);
+        calculateNumberOfDaysSinceLastAttempt();
+        calculateAttemptsSummary();
+        calculateLoMIandLaMI();
+        calculatePMG_XCellColor();
 
         requestToOverwriteCsv(matrixToRawCsv(matrix));
-
-
-
-        return matrix;
     } catch (err) {
         console.error('Error getting matrix:', err);
     }
@@ -92,8 +91,6 @@ function rawCsvToMatrix(rawCsv) {
     return matrix;
 }
 
-
-
 function matrixToRawCsv(matrix) {
     return (
         matrix
@@ -103,46 +100,3 @@ function matrixToRawCsv(matrix) {
     );
 }
 
-
-
-function registerQuestionAttempt(matrix, question_number, code) {
-    const question = matrix.find(row => row['#'] === question_number);
-    let qdv = question['Date Vector'];
-    let qcv = question['Code Vector'];
-    console.log('dateVector and codeVector for question', question_number, 'before api request = \n', qdv, '\n', qcv);
-
-    const today = new Date(new Date().getTime() - 3 * 60 * 60 * 1000).toISOString().slice(0, 10);
-    if (qdv == null || qdv == undefined || qdv == '') {
-        // console.log('dateVector was null')
-        qdv = today;
-    } else if (qdv.includes(today)) {
-        alert('You have already attempted this question today.');
-    } else {
-        qdv += ',' + today;
-    }
-
-    if (qcv == null || qcv == undefined || qcv == '') {
-        // console.log('codeVector was null')
-        qcv = code;
-    } else {
-        qcv += ',' + code;
-    }
-
-    requestToOverwriteCsv(matrixToRawCsv(matrix))
-        .then(result => {
-            console.log('Save operation completed:', result)
-            if (code == 0) {
-                showToast(`Done!`, `Question ${question_number} attempt registered successfully!<br>Code: ${code} <br> (I needed help to solve the question)`, today);
-            } else {
-                showToast(`Done!`, `Question ${question_number} attempt registered successfully!<br>Code: ${code} <br> (I solved the question without any external help)`, today);
-            }
-        }
-        )
-        .catch(error => {
-            showToast('Error', 'Question attempt failled to save!', today);
-            console.error('Save operation failed:', error)
-        });
-
-    console.log('dateVector and codeVector for question', question_number, 'after api request = \n', qdv, '\n', qcv);
-    reloadPage();
-}

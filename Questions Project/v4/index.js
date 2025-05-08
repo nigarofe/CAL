@@ -2,11 +2,11 @@ window.addEventListener("DOMContentLoaded", () => {
     reloadPage();
 })
 
-function reloadPage(){
-    getUpdatedMatrix().then((matrix) => {
-        loadHTMLQuestionsTable(matrix);
-        loadHTMLQuestionsTableMini(matrix)
-    })
+async function reloadPage() {
+    await updateMatrixVariable();
+    loadHTMLQuestionsTable();
+    loadHTMLQuestionsTableMini()
+
     showToast("Hello!", "Have a nice day!", ":)");
 }
 
@@ -19,8 +19,6 @@ document.querySelectorAll('input[name="metric"]').forEach(radio => {
         });
     });
 });
-
-
 
 function openObsidianNote(question_number) {
     const vault = '1 Obsidian Vault'; // Replace with your vault name
@@ -45,7 +43,7 @@ function showToast(toastTitle, toastMessage, toastTime) {
 
 }
 
-function loadHTMLQuestionsTable(matrix) {
+function loadHTMLQuestionsTable() {
     htmlTable = document.getElementById('questionsTable');
     htmlTable.innerHTML = '';
 
@@ -92,7 +90,7 @@ function loadHTMLQuestionsTable(matrix) {
                 }
 
                 if (columnName === 'Action buttons') {
-                    addActionButtonsToCellData(matrix, cellData, i);
+                    addActionButtonsToCellData(cellData, i);
                 }
 
                 commonTableRow.appendChild(cellData);
@@ -103,9 +101,7 @@ function loadHTMLQuestionsTable(matrix) {
     htmlTable.appendChild(tableBody);
 }
 
-
-
-function loadHTMLQuestionsTableMini(matrix, metrics_name = "PMG-X") {
+function loadHTMLQuestionsTableMini(metrics_name = "PMG-X") {
     htmlTableMini = document.getElementById('questionsTableMini');
 
     const allKeys = Object.keys(matrix[headersRow]);
@@ -157,7 +153,7 @@ function loadHTMLQuestionsTableMini(matrix, metrics_name = "PMG-X") {
     htmlTableMini.appendChild(tableBody);
 }
 
-function addActionButtonsToCellData(matrix, cellData, i) {
+function addActionButtonsToCellData(cellData, i) {
     const buttonContainer = document.createElement('div');
     buttonContainer.className = 'd-flex justify-content-evenly align-items-center w-100 gap-2';
 
@@ -165,7 +161,7 @@ function addActionButtonsToCellData(matrix, cellData, i) {
     button0.className = 'btn btn-outline-warning';
     button0.textContent = '0';
     button0.onclick = function () {
-        registerQuestionAttempt(matrix, matrix[i]['#'], 0);
+        registerQuestionAttempt(matrix[i]['#'], 0);
     };
     buttonContainer.appendChild(button0);
 
@@ -173,10 +169,9 @@ function addActionButtonsToCellData(matrix, cellData, i) {
     button1.className = 'btn btn-outline-success';
     button1.textContent = '1';
     button1.onclick = function () {
-        registerQuestionAttempt(matrix, matrix[i]['#'], 1);
+        registerQuestionAttempt(matrix[i]['#'], 1);
     };
     buttonContainer.appendChild(button1);
-
 
     const questionNumber = matrix[i]['#'];
     const button2 = document.createElement('button');
@@ -200,3 +195,47 @@ function addActionButtonsToCellData(matrix, cellData, i) {
     cellData.appendChild(buttonContainer);
 }
 
+function registerQuestionAttempt(question_number, code) {
+    const question = matrix.find(row => row['#'] === question_number);
+    let qdv = question['Date Vector'];
+    let qcv = question['Code Vector'];
+    console.log('dateVector and codeVector for question', question_number, 'before api request = \n', qdv, '\n', qcv);
+
+    const today = new Date(new Date().getTime() - 3 * 60 * 60 * 1000).toISOString().slice(0, 10);
+    if (qdv == null || qdv == undefined || qdv == '') {
+        // console.log('dateVector was null')
+        qdv = today;
+    } else if (qdv.includes(today)) {
+        alert('You have already attempted this question today.');
+    } else {
+        qdv += ',' + today;
+    }
+
+    if (qcv == null || qcv == undefined || qcv == '') {
+        // console.log('codeVector was null')
+        qcv = code;
+    } else {
+        qcv += ',' + code;
+    }
+
+    matrix[question_number]['Date Vector'] = qdv;
+    matrix[question_number]['Code Vector'] = qcv;
+
+    requestToOverwriteCsv(matrixToRawCsv(matrix))
+        .then(result => {
+            console.log('Save operation completed:', result)
+            if (code == 0) {
+                showToast(`Done!`, `Question ${question_number} attempt registered successfully!<br>Code: ${code} <br> (I needed help to solve the question)`, today);
+            } else {
+                showToast(`Done!`, `Question ${question_number} attempt registered successfully!<br>Code: ${code} <br> (I solved the question without any external help)`, today);
+            }
+        }
+        )
+        .catch(error => {
+            showToast('Error', 'Question attempt failled to save!', today);
+            console.error('Save operation failed:', error)
+        });
+
+    console.log('dateVector and codeVector for question', question_number, 'after api request = \n', qdv, '\n', qcv);
+    reloadPage();
+}

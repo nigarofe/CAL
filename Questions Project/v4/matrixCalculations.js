@@ -1,6 +1,4 @@
-
-
-function calculateNumberOfDaysSinceLastAttempt(matrix) {
+function calculateNumberOfDaysSinceLastAttempt() {
     for (let i = questionsStartRow; i < matrix.length; i++) {
         let dateStrings = matrix[i]['Date Vector'];
 
@@ -19,7 +17,7 @@ function calculateNumberOfDaysSinceLastAttempt(matrix) {
     }
 }
 
-function calculateAttemptsSummary(matrix) {
+function calculateAttemptsSummary() {
     for (let i = questionsStartRow; i < matrix.length; i++) {
         let totalAttempts = 0;
         let attemptsWithoutHelp = 0;
@@ -57,7 +55,7 @@ function calculateAttemptsSummary(matrix) {
     }
 }
 
-function calculateLoMIandLaMI(matrix) {
+function calculateLoMIandLaMI() {
     for (let i = questionsStartRow; i < matrix.length; i++) {
         let memoryIntervals = [];
 
@@ -112,11 +110,7 @@ function calculateLoMIandLaMI(matrix) {
     }
 }
 
-
-
-
-
-function calculatePMG_XCellColor(matrix, metric_name = "PMG-X") {
+function calculatePMG_XCellColor(metric_name = "PMG-X") {
     for (let i = questionsStartRow; i < matrix.length; i++) {
         const specificQuestion = matrix[i];
         const specifiQuestionMetricValue = specificQuestion[metric_name];
