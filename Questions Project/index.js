@@ -101,17 +101,12 @@ function loadHTMLQuestionsTable() {
 function loadHTMLQuestionsTableMini(metrics_name = "PMG-X") {
     htmlTableMini = document.getElementById('questionsTableMini');
 
-    const allKeys = Object.keys(matrix[headersRow]);
-    const visibleKeys = allKeys.filter(key => matrix[visibilityRow][key] === 'TRUE');
+    let numberOfColumns = 15;
+    let numberOfQuestions = matrix.length - questionsStartRow;
+    let numberOfRows = Math.ceil(numberOfQuestions / numberOfColumns);
 
     const th = document.getElementById('questionsTableMiniTh');
-    th.colSpan = visibleKeys.length;
-    // th.textContent = '[Metrics name here]';
-
-
-    let numberOfQuestions = matrix.length - questionsStartRow;
-    let numberOfColumns = 10;
-    let numberOfRows = Math.ceil(numberOfQuestions / numberOfColumns);
+    c = numberOfColumns;
 
     tableBody = document.getElementById('questionsTableMiniBody');
     tableBody.innerHTML = '';
