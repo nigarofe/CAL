@@ -106,7 +106,7 @@ function loadHTMLQuestionsTableMini(metrics_name = "PMG-X") {
     let numberOfRows = Math.ceil(numberOfQuestions / numberOfColumns);
 
     const th = document.getElementById('questionsTableMiniTh');
-    c = numberOfColumns;
+    th.colSpan = numberOfColumns;
 
     tableBody = document.getElementById('questionsTableMiniBody');
     tableBody.innerHTML = '';
