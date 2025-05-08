@@ -60,14 +60,15 @@ function calculateLoMIandLaMI() {
         let memoryIntervals = [];
 
         let codeVector = matrix[i]['Code Vector'];
-        let numberOfAttempts = codeVector.length;
-        let lasAttemptCode = codeVector[numberOfAttempts - 1];
 
         if (codeVector == '' || codeVector == null || codeVector == undefined) {
             // console.log('codeVector is empty')
             matrix[i]['PMG-D'] = 'NA';
             matrix[i]['PMG-X'] = 'NA';
         } else {
+            let numberOfAttempts = codeVector.length;
+            let lasAttemptCode = codeVector[numberOfAttempts - 1];
+
             codeVector += '';
 
             codeVector = codeVector.replace(/[\[\]]/g, '').split(',').map(Number);
