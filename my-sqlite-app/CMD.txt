@@ -1,0 +1,16 @@
+See if is installed correctly
+	npm -v
+	node -v
+
+
+npm init -y
+npm install express sqlite3
+npm install express fs path cors
+npm install -g nodemon
+
+npm install -g ngrok
+ngrok http 3000
+
+
+Here’s how to expose your Express/SQLite app so other devices on your network—or even out on the Internet—can reach it.
+
