@@ -1,7 +1,11 @@
+loadItems();
+
+
+
+
 const form = document.getElementById('itemForm');
 const list = document.getElementById('items');
 
-// Fetch and render all items
 function loadItems() {
     fetch('/api/items')
         .then(res => res.json())
@@ -15,7 +19,6 @@ function loadItems() {
         });
 }
 
-// Handle form submit
 form.addEventListener('submit', e => {
     e.preventDefault();
     const name = document.getElementById('name').value.trim();
@@ -31,6 +34,3 @@ form.addEventListener('submit', e => {
             loadItems();
         });
 });
-
-// Initial load
-loadItems();
