@@ -134,6 +134,13 @@ function loadHTMLQuestionsTable() {
             const td = document.createElement('td');
             td.textContent = questions[i][col] !== undefined ? questions[i][col] : '';
             commonTableRow.appendChild(td);
+
+            if (col == 'potential_memory_gain_multiplier') {
+                td.style.backgroundColor = `rgba(${questions[i]['PMG-X Cell Color']})`;
+                if (questions[i]['potential_memory_gain_multiplier'] <= 1) {
+                    td.style.color = 'rgba(0, 0, 0, 0.2)'; // 20 %-opaque black
+                }
+            }
         });
 
         // Action buttons column (if needed)
@@ -143,12 +150,7 @@ function loadHTMLQuestionsTable() {
         commonTableRow.appendChild(actionTd);
 
 
-        // if (columnName == 'PMG-X') {
-        //     cellData.style.backgroundColor = `rgba(${questions[i]['PMG-X Cell Color']})`;
-        //     if (questions[i]['PMG-X'] <= 1) {
-        //         cellData.style.color = 'rgba(0, 0, 0, 0.2)'; // 20 %-opaque black
-        //     }
-        // }
+
 
         // if (columnName === 'Action buttons') {
         //     // addActionButtonsToCellData(cellData, i);

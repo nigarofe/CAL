@@ -121,23 +121,25 @@ GROUP BY q.question_number
         if (err) return res.status(500).json({ error: err.message });
 
         const enriched = rows.map(row => {
-            const code_vector = JSON.parse(row.code_vec_json);   // 0 = with help; 1 = without
+            const code_vector = JSON.parse(row.code_vec_json);
             const date_vector = JSON.parse(row.date_vec_json);
 
+            // Days since last attempt
             const days_since_last_attempt = date_vector.length
                 ? Math.floor(
-                    (Date.now() -
-                        new Date(
-                            new Date(date_vector[date_vector.length - 1])
-                                .toLocaleString('en-US', { timeZone: 'America/Sao_Paulo' })
-                        ).getTime()) / (1000 * 60 * 60 * 24)
+                    (Date.now() - new Date(
+                        new Date(date_vector[date_vector.length - 1])
+                            .toLocaleString('en-US', { timeZone: 'America/Sao_Paulo' })
+                    ).getTime()) / (1000 * 60 * 60 * 24)
                 )
                 : null;
 
+            // Memory intervals and PMG calculations
+            let latest_memory_interval = 0;
             let potential_memory_gain_in_days = 'bug';
-            let potential_memory_gain_multiplier = 'bug'
+            let potential_memory_gain_multiplier = 'bug';
 
-            if (date_vector == null || date_vector == undefined || date_vector == '') {
+            if (!date_vector || date_vector.length === 0) {
                 potential_memory_gain_multiplier = 'NA';
                 potential_memory_gain_in_days = 'NA';
             } else {
@@ -151,21 +153,13 @@ GROUP BY q.question_number
                         );
                     }
                 }
-
-
-
                 const lastCode = code_vector[code_vector.length - 1];
+                latest_memory_interval = lastCode === 0 || memoryIntervals.length === 0
+                    ? 0
+                    : memoryIntervals[memoryIntervals.length - 1];
 
-                if (lastCode === 0) {
-                    latest_memory_interval = 0;
-                } else {
-                    latest_memory_interval =
-                        memoryIntervals.length ? memoryIntervals[memoryIntervals.length - 1] : 0;
-                }
-
-                potential_memory_gain_in_days = days_since_last_attempt - latest_memory_interval;
-
-                potential_memory_gain_multiplier;
+                potential_memory_gain_in_days =
+                    days_since_last_attempt - latest_memory_interval;
 
                 if (lastCode === 1 && code_vector.length === 1) {
                     potential_memory_gain_multiplier = 'SA';
@@ -178,21 +172,41 @@ GROUP BY q.question_number
                 }
             }
 
+            // Attempts summary (total; without help; with help; last attempt message)
+            const totalAttempts = code_vector.length;
+            const attemptsWithoutHelp = code_vector.filter(x => x === 1).length;
+            const attemptsWithHelp = code_vector.filter(x => x === 0).length;
+            let lastAttemptMessage;
+            if (!code_vector || code_vector.length === 0) {
+                lastAttemptMessage = 'NA';
+            } else {
+                lastAttemptMessage = code_vector[code_vector.length - 1] !== 1
+                    ? 'W/H'
+                    : 'From memory';
+            }
+            const attempts_summary = [
+                totalAttempts,
+                attemptsWithoutHelp,
+                attemptsWithHelp,
+                lastAttemptMessage
+            ].join('; ');
+
             return {
                 ...row,
                 code_vector,
                 date_vector,
-                number_of_attempts: code_vector.length,
-                number_of_attempts_with_help: code_vector.filter(x => x === 0).length,
-                number_of_attempts_without_help: code_vector.filter(x => x === 1).length,
+                number_of_attempts: totalAttempts,
+                number_of_attempts_with_help: attemptsWithHelp,
+                number_of_attempts_without_help: attemptsWithoutHelp,
                 days_since_last_attempt,
                 latest_memory_interval,
                 potential_memory_gain_in_days,
-                potential_memory_gain_multiplier
+                potential_memory_gain_multiplier,
+                attempts_summary
             };
         });
 
-        // NEW: assign colours in-place
+        // Assign PMG-X cell colours
         applyPMG_XCellColor(enriched, 'potential_memory_gain_multiplier');
 
         res.json(enriched);
