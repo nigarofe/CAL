@@ -8,7 +8,9 @@ function loadQuestions() {
         .then(questions => {
             questionsTable.innerHTML = '';
             questions.forEach(item => {
-                console.log(`Question JSON: ${JSON.stringify(item)}`);
+                const pre = document.createElement('pre');
+                pre.textContent = JSON.stringify(item, null, 2);
+                questionsTable.appendChild(pre);
 
                 const li = document.createElement('li');
                 li.textContent = item.description;

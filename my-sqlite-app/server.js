@@ -39,24 +39,23 @@ app.use(express.static('public'));      // serve ./public on /
 
 app.get('/api/questions', (req, res) => {
     const sql = `
-    SELECT
-      q.*,
-      COALESCE(GROUP_CONCAT(a.code), '') AS codes_csv
-    FROM questions AS q
-    LEFT JOIN attempts AS a
-      ON a.question_number = q.question_number
-    GROUP BY q.question_number
-  `;
+  SELECT
+    q.*,
+    COALESCE(json_group_array(a.code), '[]')            AS code_vec_json,
+    COALESCE(json_group_array(a.attempt_datetime), '[]') AS date_vec_json
+  FROM questions AS q
+  LEFT JOIN attempts AS a
+    ON a.question_number = q.question_number
+  GROUP BY q.question_number
+`;
 
     db.all(sql, (err, rows) => {
         if (err) return res.status(500).json({ error: err.message });
 
         const enriched = rows.map(row => ({
             ...row,
-            // split the comma-list into an array of numbers
-            code_vector: row.codes_csv
-                ? row.codes_csv.split(',').map(c => Number(c))
-                : []
+            code_vector: JSON.parse(row.code_vec_json),
+            date_vector: JSON.parse(row.date_vec_json)
         }));
 
         res.json(enriched);
