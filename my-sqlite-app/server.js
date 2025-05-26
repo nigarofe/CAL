@@ -270,9 +270,6 @@ app.post('/api/questions/create', (req, res) => {
 
 app.post('/api/questions/attempt', (req, res) => {
     const { question_number, code } = req.body;
-    if (!question_number || !code) {
-        return res.status(400).json({ error: 'question_number and code are required' });
-    }
 
     const sql = `
         INSERT INTO attempts (question_number, code)

@@ -36,7 +36,6 @@ function loadHTMLQuestionsTableMini(metrics_name = "potential_memory_gain_multip
 
     let numberOfColumns = 15;
     let numberOfQuestions = questions.length;
-    console.log('Number of questions:', numberOfQuestions);
     let numberOfRows = Math.ceil(numberOfQuestions / numberOfColumns);
 
     const th = document.getElementById('questionsTableMiniTh');
@@ -144,7 +143,7 @@ function loadHTMLQuestionsTable() {
         });
 
         const actionTd = document.createElement('td');
-        addActionButtonsToCellData(actionTd, i);
+        addActionButtonsToCellData(actionTd, i+1);
         commonTableRow.appendChild(actionTd);
 
         tableBody.appendChild(commonTableRow);
@@ -207,11 +206,6 @@ attemptForm.addEventListener('submit', () => {
 });
 
 function postAttempt(question_number, code) {
-    if (!question_number || !code) {
-        alert('Both fields are required!');
-        return;
-    }
-
     fetch('/api/questions/attempt', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -222,7 +216,8 @@ function postAttempt(question_number, code) {
             if (data.error) {
                 alert(data.error);
             } else {
-                alert(`Attempt recorded with ID: ${data.id}`);
+                console.log(`Attempt recorded with ID: ${data.id}`);
+                reloadPage();
             }
         })
         .catch(err => console.error('Error:', err));
@@ -250,7 +245,7 @@ function addActionButtonsToCellData(cellData, question_number) {
     button0.className = 'btn btn-outline-warning';
     button0.textContent = '0';
     button0.onclick = function () {
-        registerQuestionAttempt(matrix[i]['#'], 0);
+        postAttempt(question_number, 0);
     };
     buttonContainer.appendChild(button0);
 
@@ -258,7 +253,7 @@ function addActionButtonsToCellData(cellData, question_number) {
     button1.className = 'btn btn-outline-success';
     button1.textContent = '1';
     button1.onclick = function () {
-        registerQuestionAttempt(questionNumber, 1);
+        postAttempt(question_number, 1);
     };
     buttonContainer.appendChild(button1);
 
