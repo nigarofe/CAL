@@ -40,8 +40,14 @@ app.use(express.static('public'));      // serve ./public on /
 app.get('/api/questions', (req, res) => {
     db.all('SELECT * FROM questions', (err, rows) => {
         if (err) return res.status(500).json({ error: err.message });
+        
+        rows = rows.map(row => ({
+            ...row,
+            dummy_variable: 'dummy_value',
+        }));
+        
         res.json(rows);
-        console.log(rows);
+        // console.log(rows);
     });
 });
 
