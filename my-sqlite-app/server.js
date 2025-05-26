@@ -19,7 +19,7 @@ db.serialize(() => {
       id               INTEGER PRIMARY KEY AUTOINCREMENT,
       question_number  INTEGER NOT NULL,
       code             INTEGER NOT NULL,
-      attempt_time     DATETIME DEFAULT CURRENT_TIMESTAMP,
+      attempt_datetime     DATETIME DEFAULT CURRENT_TIMESTAMP,
       FOREIGN KEY (question_number)
         REFERENCES questions(question_number)
         ON DELETE CASCADE
@@ -38,18 +38,31 @@ app.use(express.json());                // parse JSON bodies
 app.use(express.static('public'));      // serve ./public on /
 
 app.get('/api/questions', (req, res) => {
-    db.all('SELECT * FROM questions', (err, rows) => {
+    const sql = `
+    SELECT
+      q.*,
+      COALESCE(GROUP_CONCAT(a.code), '') AS codes_csv
+    FROM questions AS q
+    LEFT JOIN attempts AS a
+      ON a.question_number = q.question_number
+    GROUP BY q.question_number
+  `;
+
+    db.all(sql, (err, rows) => {
         if (err) return res.status(500).json({ error: err.message });
-        
-        rows = rows.map(row => ({
+
+        const enriched = rows.map(row => ({
             ...row,
-            dummy_variable: 'dummy_value',
+            // split the comma-list into an array of numbers
+            code_vector: row.codes_csv
+                ? row.codes_csv.split(',').map(c => Number(c))
+                : []
         }));
-        
-        res.json(rows);
-        // console.log(rows);
+
+        res.json(enriched);
     });
 });
+
 
 
 
@@ -76,11 +89,11 @@ app.post('/api/questions/create', (req, res) => {
         INSERT INTO questions (discipline, source, description)
         VALUES (?, ?, ?)
     `;
-    db.run(sql, [discipline, source, description], function(err) {
+    db.run(sql, [discipline, source, description], function (err) {
         if (err) return res.status(500).json({ error: err.message });
-        res.status(201).json({ 
-            message: 'Question created', 
-            question_number: this.lastID 
+        res.status(201).json({
+            message: 'Question created',
+            question_number: this.lastID
         });
     });
 });
@@ -95,11 +108,11 @@ app.post('/api/questions/attempt', (req, res) => {
         INSERT INTO attempts (question_number, code)
         VALUES (?, ?)
     `;
-    db.run(sql, [question_number, code], function(err) {
+    db.run(sql, [question_number, code], function (err) {
         if (err) return res.status(500).json({ error: err.message });
-        res.status(201).json({ 
-            message: 'Attempt recorded', 
-            id: this.lastID 
+        res.status(201).json({
+            message: 'Attempt recorded',
+            id: this.lastID
         });
     });
 });
