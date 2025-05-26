@@ -29,7 +29,6 @@ db.serialize(() => {
 
 
 
-
 const app = express();
 const PORT = process.env.PORT || 3000;
 
@@ -49,52 +48,104 @@ app.get('/api/questions', (req, res) => {
     GROUP BY q.question_number
   `;
 
+    function applyPMG_XCellColor(records, metric_name = 'potential_memory_gain_multiplier') {
+        // Collect all *numeric* values that belong to the chosen metric
+        const numericValues = records
+            .map(r => parseFloat(r[metric_name]))
+            .filter(v => !isNaN(v) && v >= 0);
+
+        const maxVal = Math.max(...numericValues);
+        const minVal = Math.min(...numericValues);
+        const greatestIsGreen = false;     //  ←- the “PMG-X” rule
+
+        records.forEach(r => {
+            const v = r[metric_name];
+
+            let colour;                     // r,g,b,a  (no “rgba( … )” wrapper – easier to use later)
+
+            if (v === 'SA') colour = '128, 128, 0, 1';   // Single Attempt (no-help)
+            else if (v === 'W/H') colour = '128, 0, 128, 1';   // last round With Help
+            else if (v === 'NA') colour = '0, 0, 200, 1';     // not applicable / not attempted
+            else if (!isNaN(v) && v <= 1) colour = '0, 128, 0, 1';        // gain ≤ 1 → solid green
+            else if (!isNaN(v)) {
+                // numeric and > 1  → gradient
+                if (maxVal === minVal) {                 // degenerate case: all the same
+                    colour = '128, 128, 128, 1';
+                } else {
+                    const normalized = 1 - (v - minVal) / (maxVal - minVal);   // 0-->high, 1-->low
+                    let red, green; const blue = 0;
+
+                    if (greatestIsGreen) {
+                        if (normalized <= 0.5) {          // red → yellow
+                            green = 255;
+                            red = Math.floor(255 * (normalized * 2));
+                        } else {                          // yellow → green
+                            green = Math.floor(255 * ((1 - normalized) * 2));
+                            red = 255;
+                        }
+                    } else {
+                        if (normalized <= 0.5) {          // green → yellow
+                            red = 255;
+                            green = Math.floor(255 * (normalized * 2));
+                        } else {                          // yellow → red
+                            red = Math.floor(255 * ((1 - normalized) * 2));
+                            green = 255;
+                        }
+                    }
+                    colour = `${red}, ${green}, ${blue}, 1`;
+                }
+            } else {
+                colour = '128, 128, 128, 1';              // fallback / corrupt value
+            }
+
+            r['PMG-X Cell Color'] = colour;               // attach to the current record
+        });
+    }
+
+
     db.all(sql, (err, rows) => {
         if (err) return res.status(500).json({ error: err.message });
 
         const enriched = rows.map(row => {
-            const code_vector = JSON.parse(row.code_vec_json);      // 0=with help, 1=without help
+            const code_vector = JSON.parse(row.code_vec_json);   // 0 = with help; 1 = without
             const date_vector = JSON.parse(row.date_vec_json);
 
-            // days since last attempt (in São Paulo timezone)
             const days_since_last_attempt = date_vector.length
                 ? Math.floor(
                     (Date.now() -
                         new Date(
                             new Date(date_vector[date_vector.length - 1])
                                 .toLocaleString('en-US', { timeZone: 'America/Sao_Paulo' })
-                        ).getTime()) /
-                    (1000 * 60 * 60 * 24)
+                        ).getTime()) / (1000 * 60 * 60 * 24)
                 )
                 : null;
 
-            // build array of “memory intervals” (days between consecutive without-help attempts)
             const memoryIntervals = [];
             for (let j = 1; j < code_vector.length; j++) {
                 if (code_vector[j] === 1) {
                     const prev = new Date(date_vector[j - 1]);
                     const curr = new Date(date_vector[j]);
-                    const diffDays = Math.floor(
-                        (curr.getTime() - prev.getTime()) / (1000 * 60 * 60 * 24)
+                    memoryIntervals.push(
+                        Math.floor((curr - prev) / (1000 * 60 * 60 * 24))
                     );
-                    memoryIntervals.push(diffDays);
                 }
             }
 
             const latest_memory_interval =
-                memoryIntervals.length > 0 ? memoryIntervals[memoryIntervals.length - 1] : 0;
+                memoryIntervals.length ? memoryIntervals[memoryIntervals.length - 1] : 0;
 
             const potential_memory_gain_in_days = days_since_last_attempt - latest_memory_interval;
 
-            // PMG-X classification / ratio
             let potential_memory_gain_multiplier;
             const lastCode = code_vector[code_vector.length - 1];
             if (lastCode === 1 && code_vector.length === 1) {
-                potential_memory_gain_multiplier = 'SA';      // Single Attempt without help
+                potential_memory_gain_multiplier = 'SA';
             } else if (latest_memory_interval === 0) {
-                potential_memory_gain_multiplier = 'W/H';     // Last interval was with help (or no prior without-help interval)
+                potential_memory_gain_multiplier = 'W/H';
             } else {
-                potential_memory_gain_multiplier = (days_since_last_attempt / latest_memory_interval).toFixed(2);
+                potential_memory_gain_multiplier = (
+                    days_since_last_attempt / latest_memory_interval
+                ).toFixed(2);
             }
 
             return {
@@ -110,6 +161,9 @@ app.get('/api/questions', (req, res) => {
                 potential_memory_gain_multiplier
             };
         });
+
+        // NEW: assign colours in-place
+        applyPMG_XCellColor(enriched, 'potential_memory_gain_multiplier');
 
         res.json(enriched);
     });
