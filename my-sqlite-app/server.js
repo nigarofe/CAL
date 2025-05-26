@@ -78,8 +78,8 @@ GROUP BY q.question_number
             let colour;                     // r,g,b,a  (no “rgba( … )” wrapper – easier to use later)
 
             if (v === 'SA') colour = '128, 128, 0, 1';   // Single Attempt (no-help)
-            else if (v === 'W/H') colour = '128, 0, 128, 1';   // last round With Help
-            else if (v === 'NA') colour = '0, 0, 200, 1';     // not applicable / not attempted
+            else if (v === 'W/H') colour = '128, 0, 128, 1';   // Last round With Help
+            else if (v === 'NA') colour = '0, 0, 200, 1';     // Never attempted
             else if (!isNaN(v) && v <= 1) colour = '0, 128, 0, 1';        // gain ≤ 1 → solid green
             else if (!isNaN(v)) {
                 // numeric and > 1  → gradient

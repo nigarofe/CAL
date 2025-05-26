@@ -64,7 +64,7 @@ function loadHTMLQuestionsTableMini(metrics_name = "potential_memory_gain_multip
 
                 if (metrics_name == 'potential_memory_gain_multiplier') {
                     cellData.style.backgroundColor = `rgba(${questions[question_number]['PMG-X Cell Color']})`;
-                    if (questions[question_number]['PMG-X'] <= 1) {
+                    if (questions[question_number]['potential_memory_gain_multiplier'] <= 1) {
                         cellData.style.color = 'rgba(0, 0, 0, 0.2)'; // 20 %-opaque black
                     }
                 }
