@@ -17,20 +17,16 @@ app.get('/api/items', (req, res) => {
     });
 });
 
-app.post('/api/items', (req, res) => {
-    const { name } = req.body;
-    if (!name) return res.status(400).json({ error: 'Name is required' });
+app.post('/api/sql', (req, res) => {
+    const { SQL } = req.body;
+    console.log(`Executing SQL: ${SQL}`);
+    if (!SQL) return res.status(400).json({ error: 'SQL is required' });
 
-    db.run(
-        'INSERT INTO items(name) VALUES(?)',
-        [name],
-        function (err) {
-            if (err) return res.status(500).json({ error: err.message });
-            res.status(201).json({ id: this.lastID, name });
-        }
-    );
+    db.run(SQL, function (err) {
+        if (err) return res.status(500).json({ error: err.message });
+        res.status(201).json({ message: 'SQL executed', changes: this.changes });
+    });
 });
-
 
 
 

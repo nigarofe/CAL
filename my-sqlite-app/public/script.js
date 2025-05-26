@@ -1,8 +1,6 @@
 loadItems();
 
 
-
-
 const form = document.getElementById('itemForm');
 const list = document.getElementById('items');
 
@@ -21,12 +19,14 @@ function loadItems() {
 
 form.addEventListener('submit', e => {
     e.preventDefault();
-    const name = document.getElementById('name').value.trim();
-    if (!name) return;
-    fetch('/api/items', {
+    const SQL = document.getElementById('name').value.trim();
+    console.log(`SQL: `, JSON.stringify({ SQL }));
+    
+    if (!SQL) return;
+    fetch('/api/sql', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ name })
+        body: JSON.stringify({ SQL })
     })
         .then(res => res.json())
         .then(() => {
@@ -34,3 +34,6 @@ form.addEventListener('submit', e => {
             loadItems();
         });
 });
+
+
+// INSERT INTO items(name) VALUES('abaa')
