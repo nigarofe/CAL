@@ -9,12 +9,18 @@
 
 <body>
     <h1>Item List</h1>
-    <form id="itemForm">
-        <input type="text" id="name" placeholder="Enter item name" required>
-        <button type="submit">Add</button>
+    <form id="questionForm">
+        <input type="text" id="discipline" placeholder="Enter question discipline" required>
+        <input type="text" id="source" placeholder="Enter question source" required>
+        <input type="text" id="description" placeholder="Enter question description" required>
+        <button type="submit" id="createQuestion">Create question</button>
     </form>
 
-    <ul id="items"></ul>
+
+    <ul id="questionsTable"></ul>
+
+
+
 
     <script src="script.js"></script>
 </body>

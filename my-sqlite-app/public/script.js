@@ -1,42 +1,48 @@
-loadItems();
+loadQuestions();
 
+const questionsTable = document.getElementById('questionsTable');
 
-const form = document.getElementById('itemForm');
-const list = document.getElementById('items');
-
-function loadItems() {
-    fetch('/api/items')
+function loadQuestions() {
+    fetch('/api/questions')
         .then(res => res.json())
-        .then(items => {
-            list.innerHTML = '';
-            items.forEach(item => {
+        .then(questions => {
+            questionsTable.innerHTML = '';
+            questions.forEach(item => {
+                console.log(`Question JSON: ${JSON.stringify(item)}`);
+                
                 const li = document.createElement('li');
-                li.textContent = item.name;
-                list.appendChild(li);
+                li.textContent = item.description;
+                questionsTable.appendChild(li);
             });
         });
 }
 
-form.addEventListener('submit', e => {
-    e.preventDefault();
-    const SQL = document.getElementById('name').value.trim();
-    console.log(`SQL: `, JSON.stringify({ SQL }));
 
-    if (!SQL) return;
+const form = document.getElementById('questionForm');
 
-    fetch('/api/sql', {
+form.addEventListener('submit', () => {
+    const discipline = document.getElementById('discipline').value;
+    const source = document.getElementById('source').value;
+    const description = document.getElementById('description').value;
+
+    if (!discipline || !source || !description) {
+        alert('All fields are required!');
+        return;
+    }
+
+    fetch('/api/questions/create', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ SQL })
+        body: JSON.stringify({ discipline, source, description })
     })
-        .then(response => {
-            console.log('Response:', response);
-            console.log(response.json(rows));
-            form.reset();
-            loadItems();
-        }
-        );
+        .then(res => res.json())
+        .then(data => {
+            if (data.error) {
+                alert(data.error);
+            } else {
+                alert(`Question created with ID: ${data.question_number}`);
+                loadQuestions();
+            }
+        })
+        .catch(err => console.error('Error:', err));
 });
-
-
-// INSERT INTO items(name) VALUES('abaa')
