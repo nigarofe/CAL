@@ -19,7 +19,6 @@ app.get('/api/items', (req, res) => {
 
 app.post('/api/sql', (req, res) => {
     const { SQL } = req.body;
-    console.log(`Executing SQL: ${SQL}`);
     if (!SQL) return res.status(400).json({ error: 'SQL is required' });
 
     db.run(SQL, function (err) {
