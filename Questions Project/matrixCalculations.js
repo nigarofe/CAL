@@ -17,43 +17,124 @@ function calculateNumberOfDaysSinceLastAttempt() {
     }
 }
 
-function calculateAttemptsSummary() {
-    for (let i = questionsStartRow; i < matrix.length; i++) {
-        let totalAttempts = 0;
-        let attemptsWithoutHelp = 0;
-        let attemptsWithHelp = 0;
-        let lastAttemptMessage = '';
+app.get('/api/questions', (req, res) => {
+    const sql = `
+    SELECT
+      q.*,
+      COALESCE(
+        json_group_array(a.code        ORDER BY a.attempt_datetime),
+        '[]'
+      ) AS code_vec_json,
+      COALESCE(
+        json_group_array(a.attempt_datetime ORDER BY a.attempt_datetime),
+        '[]'
+      ) AS date_vec_json
+    FROM questions AS q
+    LEFT JOIN attempts AS a
+      ON a.question_number = q.question_number
+    GROUP BY q.question_number
+    `;
 
-        let codeVector = matrix[i]['Code Vector'];
-
-
-        if (codeVector == null || codeVector == undefined || codeVector == '') {
-            lastAttemptMessage = 'NA';
-        } else {
-            // console.log(`Question ${matrix[i]['#']}: ${codeVector}`);
-            codeVector = codeVector.replace(/[\[\]]/g, '').split(',').map(Number);
-
-            codeVector.forEach(code => {
-                if (code == 1) {
-                    attemptsWithoutHelp++;
-                } else {
-                    attemptsWithHelp++;
-                }
-                totalAttempts++;
-            });
-
-            if (codeVector[codeVector.length - 1] != 1) {
-                lastAttemptMessage += 'W/H';
-            } else {
-                lastAttemptMessage += 'From memory';
-            }
-        }
-
-        let summary = [totalAttempts, attemptsWithoutHelp, attemptsWithHelp, lastAttemptMessage].join('; ');
-
-        matrix[i]['Attempts Summary'] = summary;
+    function applyPMG_XCellColor(records, metric_name = 'potential_memory_gain_multiplier') {
+        // ... existing color assignment logic ...
     }
-}
+
+    db.all(sql, (err, rows) => {
+        if (err) return res.status(500).json({ error: err.message });
+
+        const enriched = rows.map(row => {
+            const code_vector = JSON.parse(row.code_vec_json);
+            const date_vector = JSON.parse(row.date_vec_json);
+
+            // Days since last attempt
+            const days_since_last_attempt = date_vector.length
+                ? Math.floor(
+                    (Date.now() - new Date(
+                        new Date(date_vector[date_vector.length - 1])
+                            .toLocaleString('en-US', { timeZone: 'America/Sao_Paulo' })
+                    ).getTime()) / (1000 * 60 * 60 * 24)
+                )
+                : null;
+
+            // Memory intervals and PMG calculations
+            let latest_memory_interval = 0;
+            let potential_memory_gain_in_days = 'bug';
+            let potential_memory_gain_multiplier = 'bug';
+
+            if (!date_vector || date_vector.length === 0) {
+                potential_memory_gain_multiplier = 'NA';
+                potential_memory_gain_in_days = 'NA';
+            } else {
+                const memoryIntervals = [];
+                for (let j = 1; j < code_vector.length; j++) {
+                    if (code_vector[j] === 1) {
+                        const prev = new Date(date_vector[j - 1]);
+                        const curr = new Date(date_vector[j]);
+                        memoryIntervals.push(
+                            Math.floor((curr - prev) / (1000 * 60 * 60 * 24))
+                        );
+                    }
+                }
+                const lastCode = code_vector[code_vector.length - 1];
+                latest_memory_interval = lastCode === 0 || memoryIntervals.length === 0
+                    ? 0
+                    : memoryIntervals[memoryIntervals.length - 1];
+
+                potential_memory_gain_in_days =
+                    days_since_last_attempt - latest_memory_interval;
+
+                if (lastCode === 1 && code_vector.length === 1) {
+                    potential_memory_gain_multiplier = 'SA';
+                } else if (latest_memory_interval === 0) {
+                    potential_memory_gain_multiplier = 'W/H';
+                } else {
+                    potential_memory_gain_multiplier = (
+                        days_since_last_attempt / latest_memory_interval
+                    ).toFixed(2);
+                }
+            }
+
+            // Attempts summary (total; without help; with help; last attempt message)
+            const totalAttempts = code_vector.length;
+            const attemptsWithoutHelp = code_vector.filter(x => x === 1).length;
+            const attemptsWithHelp = code_vector.filter(x => x === 0).length;
+            let lastAttemptMessage;
+            if (!code_vector || code_vector.length === 0) {
+                lastAttemptMessage = 'NA';
+            } else {
+                lastAttemptMessage = code_vector[code_vector.length - 1] !== 1
+                    ? 'W/H'
+                    : 'From memory';
+            }
+            const attempts_summary = [
+                totalAttempts,
+                attemptsWithoutHelp,
+                attemptsWithHelp,
+                lastAttemptMessage
+            ].join('; ');
+
+            return {
+                ...row,
+                code_vector,
+                date_vector,
+                number_of_attempts: totalAttempts,
+                number_of_attempts_with_help: attemptsWithHelp,
+                number_of_attempts_without_help: attemptsWithoutHelp,
+                days_since_last_attempt,
+                latest_memory_interval,
+                potential_memory_gain_in_days,
+                potential_memory_gain_multiplier,
+                attempts_summary
+            };
+        });
+
+        // Assign PMG-X cell colours
+        applyPMG_XCellColor(enriched, 'potential_memory_gain_multiplier');
+
+        res.json(enriched);
+    });
+});
+
 
 function calculateLoMIandLaMI() {
     for (let i = questionsStartRow; i < matrix.length; i++) {

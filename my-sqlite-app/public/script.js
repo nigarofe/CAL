@@ -8,7 +8,7 @@ window.addEventListener("DOMContentLoaded", () => {
 
 async function reloadPage() {
     await loadQuestions();
-    // loadHTMLQuestionsTable();
+    loadHTMLQuestionsTable();
     loadHTMLQuestionsTableMini();
 }
 
@@ -29,7 +29,6 @@ function loadQuestions() {
             return fetchedQuestions;
         });
 }
-
 
 
 function loadHTMLQuestionsTableMini(metrics_name = "potential_memory_gain_multiplier") {
@@ -79,6 +78,93 @@ function loadHTMLQuestionsTableMini(metrics_name = "potential_memory_gain_multip
     }
     htmlTableMini.appendChild(tableBody);
 }
+
+
+
+function loadHTMLQuestionsTable() {
+    htmlTable = document.getElementById('questionsTable');
+    htmlTable.innerHTML = '';
+
+    let tableHeaders = [
+        '#',
+        'Discipline',
+        'Source',
+        'Description',
+        'Attempts Summary',
+        'DSLA',
+        'LaMI',
+        'PMG-D',
+        'PMG-X',
+        'Action buttons'
+    ]
+
+    tableHead = document.createElement('thead');
+    for (let i = 0; i < tableHeaders.length; i++) {
+        const cellHeader = document.createElement('th');
+        cellHeader.scope = 'col';
+        cellHeader.classList.add('text-light', 'p-2', 'bg-success', 'text-center', 'align-middle');
+
+        cellHeader.textContent = tableHeaders[i];
+
+        cellHeader.style.cursor = 'help';
+        cellHeader.style.borderBottom = '1px dotted #888';
+
+        tableHead.appendChild(cellHeader);
+    }
+    htmlTable.appendChild(tableHead);
+
+
+    tableBody = document.createElement('tbody');
+    for (let i = 0; i < questions.length; i++) {
+        commonTableRow = document.createElement('tr');
+        const columns = [
+            'question_number',
+            'discipline',
+            'source',
+            'description',
+            'attempts_summary',
+            'days_since_last_attempt',
+            'latest_memory_interval',
+            'potential_memory_gain_in_days',
+            'potential_memory_gain_multiplier',
+            // 'Action buttons' will be handled separately
+        ];
+
+        columns.forEach(col => {
+            const td = document.createElement('td');
+            td.textContent = questions[i][col] !== undefined ? questions[i][col] : '';
+            commonTableRow.appendChild(td);
+        });
+
+        // Action buttons column (if needed)
+        const actionTd = document.createElement('td');
+        // Add your action buttons here, e.g.:
+        // actionTd.innerHTML = '<button>Edit</button> <button>Delete</button>';
+        commonTableRow.appendChild(actionTd);
+
+
+        // if (columnName == 'PMG-X') {
+        //     cellData.style.backgroundColor = `rgba(${questions[i]['PMG-X Cell Color']})`;
+        //     if (questions[i]['PMG-X'] <= 1) {
+        //         cellData.style.color = 'rgba(0, 0, 0, 0.2)'; // 20 %-opaque black
+        //     }
+        // }
+
+        // if (columnName === 'Action buttons') {
+        //     // addActionButtonsToCellData(cellData, i);
+        // }
+
+
+
+
+        tableBody.appendChild(commonTableRow);
+    }
+    htmlTable.appendChild(tableBody);
+}
+
+
+
+
 
 
 
@@ -151,9 +237,6 @@ function postAttempt(question_number, code) {
         })
         .catch(err => console.error('Error:', err));
 }
-
-
-
 
 
 function showToast(toastTitle, toastMessage, toastTime) {
