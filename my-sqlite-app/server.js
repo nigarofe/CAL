@@ -124,25 +124,40 @@ GROUP BY q.question_number
             const code_vector = JSON.parse(row.code_vec_json);
             const date_vector = JSON.parse(row.date_vec_json);
 
-            // Days since last attempt
-            const days_since_last_attempt = date_vector.length
-                ? Math.floor(
-                    (Date.now() - new Date(
-                        new Date(date_vector[date_vector.length - 1])
-                            .toLocaleString('en-US', { timeZone: 'America/Sao_Paulo' })
-                    ).getTime()) / (1000 * 60 * 60 * 24)
-                )
-                : null;
+
 
             // Memory intervals and PMG calculations
-            let latest_memory_interval = 0;
+            let latest_memory_interval = 'bug';
             let potential_memory_gain_in_days = 'bug';
             let potential_memory_gain_multiplier = 'bug';
+            let days_since_last_attempt = 'bug';
+            let attempts_summary = 'bug';
+            let totalAttempts = 'bug';
+            let attemptsWithoutHelp = 'bug';
+            let attemptsWithHelp = 'bug';
 
-            if (!date_vector || date_vector.length === 0) {
+            if (row.question_number == 105) {
+                console.log(row.code_vec_json)
+            }
+
+            if (!date_vector || date_vector.length === 0 || date_vector.every(v => v == null)) {
                 potential_memory_gain_multiplier = 'NA';
                 potential_memory_gain_in_days = 'NA';
+                latest_memory_interval = 'NA'
+                days_since_last_attempt = 'NA'
+                attempts_summary = 'NA'
             } else {
+                // Days since last attempt
+                days_since_last_attempt = date_vector.length
+                    ? Math.floor(
+                        (Date.now() - new Date(
+                            new Date(date_vector[date_vector.length - 1])
+                                .toLocaleString('en-US', { timeZone: 'America/Sao_Paulo' })
+                        ).getTime()) / (1000 * 60 * 60 * 24)
+                    )
+                    : null;
+
+
                 const memoryIntervals = [];
                 for (let j = 1; j < code_vector.length; j++) {
                     if (code_vector[j] === 1) {
@@ -170,26 +185,29 @@ GROUP BY q.question_number
                         days_since_last_attempt / latest_memory_interval
                     ).toFixed(2);
                 }
+
+
+                // Attempts summary (total; without help; with help; last attempt message)
+                totalAttempts = code_vector.length;
+                attemptsWithoutHelp = code_vector.filter(x => x === 1).length;
+                attemptsWithHelp = code_vector.filter(x => x === 0).length;
+                let lastAttemptMessage;
+                if (!code_vector || code_vector.length === 0) {
+                    lastAttemptMessage = 'NA';
+                } else {
+                    lastAttemptMessage = code_vector[code_vector.length - 1] !== 1
+                        ? 'W/H'
+                        : 'From memory';
+                }
+                attempts_summary = [
+                    totalAttempts,
+                    attemptsWithoutHelp,
+                    attemptsWithHelp,
+                    lastAttemptMessage
+                ].join('; ');
             }
 
-            // Attempts summary (total; without help; with help; last attempt message)
-            const totalAttempts = code_vector.length;
-            const attemptsWithoutHelp = code_vector.filter(x => x === 1).length;
-            const attemptsWithHelp = code_vector.filter(x => x === 0).length;
-            let lastAttemptMessage;
-            if (!code_vector || code_vector.length === 0) {
-                lastAttemptMessage = 'NA';
-            } else {
-                lastAttemptMessage = code_vector[code_vector.length - 1] !== 1
-                    ? 'W/H'
-                    : 'From memory';
-            }
-            const attempts_summary = [
-                totalAttempts,
-                attemptsWithoutHelp,
-                attemptsWithHelp,
-                lastAttemptMessage
-            ].join('; ');
+
 
             return {
                 ...row,
