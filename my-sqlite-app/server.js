@@ -134,42 +134,48 @@ GROUP BY q.question_number
                 )
                 : null;
 
-            const memoryIntervals = [];
-            for (let j = 1; j < code_vector.length; j++) {
-                if (code_vector[j] === 1) {
-                    const prev = new Date(date_vector[j - 1]);
-                    const curr = new Date(date_vector[j]);
-                    memoryIntervals.push(
-                        Math.floor((curr - prev) / (1000 * 60 * 60 * 24))
-                    );
+            let potential_memory_gain_in_days = 'bug';
+            let potential_memory_gain_multiplier = 'bug'
+
+            if (date_vector == null || date_vector == undefined || date_vector == '') {
+                potential_memory_gain_multiplier = 'NA';
+                potential_memory_gain_in_days = 'NA';
+            } else {
+                const memoryIntervals = [];
+                for (let j = 1; j < code_vector.length; j++) {
+                    if (code_vector[j] === 1) {
+                        const prev = new Date(date_vector[j - 1]);
+                        const curr = new Date(date_vector[j]);
+                        memoryIntervals.push(
+                            Math.floor((curr - prev) / (1000 * 60 * 60 * 24))
+                        );
+                    }
                 }
-            }
 
 
 
-            const lastCode = code_vector[code_vector.length - 1];
+                const lastCode = code_vector[code_vector.length - 1];
 
-            if (lastCode === 0) {
-                latest_memory_interval = 0;
-            } else {
-                latest_memory_interval =
-                    memoryIntervals.length ? memoryIntervals[memoryIntervals.length - 1] : 0;
-            }
+                if (lastCode === 0) {
+                    latest_memory_interval = 0;
+                } else {
+                    latest_memory_interval =
+                        memoryIntervals.length ? memoryIntervals[memoryIntervals.length - 1] : 0;
+                }
 
-            const potential_memory_gain_in_days = days_since_last_attempt - latest_memory_interval;
+                potential_memory_gain_in_days = days_since_last_attempt - latest_memory_interval;
 
-            let potential_memory_gain_multiplier;
+                potential_memory_gain_multiplier;
 
-
-
-            if (lastCode === 1 && code_vector.length === 1) {
-                potential_memory_gain_multiplier = 'SA';
-            } else if (latest_memory_interval === 0) {
-                potential_memory_gain_multiplier = 'W/H';
-            } else {
-                potential_memory_gain_multiplier = (
-                    days_since_last_attempt / latest_memory_interval
-                ).toFixed(2);
+                if (lastCode === 1 && code_vector.length === 1) {
+                    potential_memory_gain_multiplier = 'SA';
+                } else if (latest_memory_interval === 0) {
+                    potential_memory_gain_multiplier = 'W/H';
+                } else {
+                    potential_memory_gain_multiplier = (
+                        days_since_last_attempt / latest_memory_interval
+                    ).toFixed(2);
+                }
             }
 
             return {
