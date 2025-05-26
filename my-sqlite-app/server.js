@@ -1,5 +1,6 @@
 // server.js
 const express = require('express');
+const path = require('path');
 
 const sqlite3 = require('sqlite3').verbose();
 const db = new sqlite3.Database('./data.db');
@@ -35,6 +36,12 @@ const PORT = process.env.PORT || 3000;
 // Middleware
 app.use(express.json());                // parse JSON bodies
 app.use(express.static('public'));      // serve ./public on /
+
+app.use(
+    '/node_modules',
+    express.static(path.join(__dirname, 'node_modules'))
+);
+
 
 app.get('/api/questions', (req, res) => {
     const sql = `

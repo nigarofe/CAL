@@ -1,17 +1,18 @@
 loadQuestions();
 
-const questionsTable = document.getElementById('questionsTable');
+const debugJSON = document.getElementById('debugJSON');
 
 function loadQuestions() {
     fetch('/api/questions')
         .then(res => res.json())
         .then(questions => {
-            questionsTable.innerHTML = '';
+            debugJSON.innerHTML = '';
             questions.forEach(item => {
                 const pre = document.createElement('pre');
                 pre.textContent = JSON.stringify(item, null, 2);
-                questionsTable.appendChild(pre);
+                debugJSON.appendChild(pre);
 
+                
             });
         });
 }
