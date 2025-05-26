@@ -9,7 +9,7 @@ function loadQuestions() {
             questionsTable.innerHTML = '';
             questions.forEach(item => {
                 console.log(`Question JSON: ${JSON.stringify(item)}`);
-                
+
                 const li = document.createElement('li');
                 li.textContent = item.description;
                 questionsTable.appendChild(li);
@@ -18,13 +18,21 @@ function loadQuestions() {
 }
 
 
-const form = document.getElementById('questionForm');
 
-form.addEventListener('submit', () => {
+
+
+
+const questionCreationform = document.getElementById('questionForm');
+
+questionCreationform.addEventListener('submit', () => {
     const discipline = document.getElementById('discipline').value;
     const source = document.getElementById('source').value;
     const description = document.getElementById('description').value;
 
+    postQuestion(discipline, source, description);
+});
+
+function postQuestion(discipline, source, description) {
     if (!discipline || !source || !description) {
         alert('All fields are required!');
         return;
@@ -45,4 +53,40 @@ form.addEventListener('submit', () => {
             }
         })
         .catch(err => console.error('Error:', err));
+}
+
+
+
+
+
+
+const attemptForm = document.getElementById('attemptForm');
+
+attemptForm.addEventListener('submit', () => {
+    const question_number = document.getElementById('questionNumber').value;
+    const code = document.getElementById('code').value;
+
+    postAttempt(question_number, code);
 });
+
+function postAttempt(question_number, code) {
+    if (!question_number || !code) {
+        alert('Both fields are required!');
+        return;
+    }
+
+    fetch('/api/questions/attempt', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ question_number, code })
+    })
+        .then(res => res.json())
+        .then(data => {
+            if (data.error) {
+                alert(data.error);
+            } else {
+                alert(`Attempt recorded with ID: ${data.id}`);
+            }
+        })
+        .catch(err => console.error('Error:', err));
+}
