@@ -143,21 +143,9 @@ function loadHTMLQuestionsTable() {
             }
         });
 
-        // Action buttons column (if needed)
         const actionTd = document.createElement('td');
-        // Add your action buttons here, e.g.:
-        // actionTd.innerHTML = '<button>Edit</button> <button>Delete</button>';
+        addActionButtonsToCellData(actionTd, i);
         commonTableRow.appendChild(actionTd);
-
-
-
-
-        // if (columnName === 'Action buttons') {
-        //     // addActionButtonsToCellData(cellData, i);
-        // }
-
-
-
 
         tableBody.appendChild(commonTableRow);
     }
@@ -250,4 +238,47 @@ function showToast(toastTitle, toastMessage, toastTime) {
     document.getElementById('toastTime').innerHTML = toastTime
 
     toastBootstrap.show()
+}
+
+
+
+function addActionButtonsToCellData(cellData, question_number) {
+    const buttonContainer = document.createElement('div');
+    buttonContainer.className = 'd-flex justify-content-evenly align-items-center w-100 gap-2';
+
+    const button0 = document.createElement('button');
+    button0.className = 'btn btn-outline-warning';
+    button0.textContent = '0';
+    button0.onclick = function () {
+        registerQuestionAttempt(matrix[i]['#'], 0);
+    };
+    buttonContainer.appendChild(button0);
+
+    const button1 = document.createElement('button');
+    button1.className = 'btn btn-outline-success';
+    button1.textContent = '1';
+    button1.onclick = function () {
+        registerQuestionAttempt(questionNumber, 1);
+    };
+    buttonContainer.appendChild(button1);
+
+    const button2 = document.createElement('button');
+    button2.className = 'btn btn-outline-primary';
+
+    const logo = document.createElement('img');
+    logo.src = 'Obsidian_logo.svg';        // path to your Obsidian logo
+    logo.alt = 'Obsidian';
+    logo.style.width = '16px';                    // adjust size as needed
+    logo.style.height = '16px';
+    logo.style.verticalAlign = 'middle';
+
+    button2.appendChild(logo);
+
+    button2.onclick = function () {
+        openObsidianNote(questionNumber);
+    };
+
+    buttonContainer.appendChild(button2);
+
+    cellData.appendChild(buttonContainer);
 }
