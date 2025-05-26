@@ -270,10 +270,20 @@ function addActionButtonsToCellData(cellData, question_number) {
     button2.appendChild(logo);
 
     button2.onclick = function () {
-        openObsidianNote(questionNumber);
+        openObsidianNote(question_number);
     };
 
     buttonContainer.appendChild(button2);
 
     cellData.appendChild(buttonContainer);
+}
+
+function openObsidianNote(question_number) {
+    const vault = '1 Obsidian Vault'; // Replace with your vault name
+    const file = `5 git\\PKM\\Questions Project\\Questions .md\\q${question_number}`; // Replace with your file path
+    const encodedFile = encodeURIComponent(file);
+    const uri = `obsidian://open?vault=${vault}&file=${encodedFile}`;
+    // const uri = `obsidian://advanced-uri?vault=${vault}&filepath=${encodedFile}&commandid=obsidian-creases%3Afold-along-creases`;
+
+    window.location.href = uri;
 }
