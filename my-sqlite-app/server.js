@@ -39,28 +39,83 @@ app.use(express.static('public'));      // serve ./public on /
 
 app.get('/api/questions', (req, res) => {
     const sql = `
-  SELECT
-    q.*,
-    COALESCE(json_group_array(a.code), '[]')            AS code_vec_json,
-    COALESCE(json_group_array(a.attempt_datetime), '[]') AS date_vec_json
-  FROM questions AS q
-  LEFT JOIN attempts AS a
-    ON a.question_number = q.question_number
-  GROUP BY q.question_number
-`;
+    SELECT
+      q.*,
+      COALESCE(json_group_array(a.code), '[]')            AS code_vec_json,
+      COALESCE(json_group_array(a.attempt_datetime), '[]') AS date_vec_json
+    FROM questions AS q
+    LEFT JOIN attempts AS a
+      ON a.question_number = q.question_number
+    GROUP BY q.question_number
+  `;
 
     db.all(sql, (err, rows) => {
         if (err) return res.status(500).json({ error: err.message });
 
-        const enriched = rows.map(row => ({
-            ...row,
-            code_vector: JSON.parse(row.code_vec_json),
-            date_vector: JSON.parse(row.date_vec_json)
-        }));
+        const enriched = rows.map(row => {
+            const code_vector = JSON.parse(row.code_vec_json);      // 0=with help, 1=without help
+            const date_vector = JSON.parse(row.date_vec_json);
+
+            // days since last attempt (in São Paulo timezone)
+            const days_since_last_attempt = date_vector.length
+                ? Math.floor(
+                    (Date.now() -
+                        new Date(
+                            new Date(date_vector[date_vector.length - 1])
+                                .toLocaleString('en-US', { timeZone: 'America/Sao_Paulo' })
+                        ).getTime()) /
+                    (1000 * 60 * 60 * 24)
+                )
+                : null;
+
+            // build array of “memory intervals” (days between consecutive without-help attempts)
+            const memoryIntervals = [];
+            for (let j = 1; j < code_vector.length; j++) {
+                if (code_vector[j] === 1) {
+                    const prev = new Date(date_vector[j - 1]);
+                    const curr = new Date(date_vector[j]);
+                    const diffDays = Math.floor(
+                        (curr.getTime() - prev.getTime()) / (1000 * 60 * 60 * 24)
+                    );
+                    memoryIntervals.push(diffDays);
+                }
+            }
+
+            const latest_memory_interval =
+                memoryIntervals.length > 0 ? memoryIntervals[memoryIntervals.length - 1] : 0;
+
+            const potential_memory_gain_in_days = days_since_last_attempt - latest_memory_interval;
+
+            // PMG-X classification / ratio
+            let potential_memory_gain_multiplier;
+            const lastCode = code_vector[code_vector.length - 1];
+            if (lastCode === 1 && code_vector.length === 1) {
+                potential_memory_gain_multiplier = 'SA';      // Single Attempt without help
+            } else if (latest_memory_interval === 0) {
+                potential_memory_gain_multiplier = 'W/H';     // Last interval was with help (or no prior without-help interval)
+            } else {
+                potential_memory_gain_multiplier = (days_since_last_attempt / latest_memory_interval).toFixed(2);
+            }
+
+            return {
+                ...row,
+                code_vector,
+                date_vector,
+                number_of_attempts: code_vector.length,
+                number_of_attempts_with_help: code_vector.filter(x => x === 0).length,
+                number_of_attempts_without_help: code_vector.filter(x => x === 1).length,
+                days_since_last_attempt,
+                latest_memory_interval,
+                potential_memory_gain_in_days,
+                potential_memory_gain_multiplier
+            };
+        });
 
         res.json(enriched);
     });
 });
+
+
 
 
 

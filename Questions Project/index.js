@@ -31,33 +31,33 @@ async function reloadPage() {
 
 
     // Attempts SQL dump
-    const allAttempts = [];
+    // const allAttempts = [];
 
-    for (let i = questionsStartRow; i < matrix.length; i++) {
-        const questionId = i - questionsStartRow + 1;
-        const dates = matrix[i]['Date Vector']?.split(',') ?? [];
-        const codes = matrix[i]['Code Vector']?.split(',') ?? [];
+    // for (let i = questionsStartRow; i < matrix.length; i++) {
+    //     const questionId = i - questionsStartRow + 1;
+    //     const dates = matrix[i]['Date Vector']?.split(',') ?? [];
+    //     const codes = matrix[i]['Code Vector']?.split(',') ?? [];
 
-        for (let j = 0; j < dates.length; j++) {
-            const dateStr = dates[j].trim();
-            if (!dateStr) continue;
-            // parse into a Date object so we can sort chronologically
-            const dateObj = new Date(`${dateStr}T03:00:00`);
-            allAttempts.push({ questionId, code: codes[j], dateStr, dateObj });
-        }
-    }
+    //     for (let j = 0; j < dates.length; j++) {
+    //         const dateStr = dates[j].trim();
+    //         if (!dateStr) continue;
+    //         // parse into a Date object so we can sort chronologically
+    //         const dateObj = new Date(`${dateStr}T03:00:00`);
+    //         allAttempts.push({ questionId, code: codes[j], dateStr, dateObj });
+    //     }
+    // }
 
-    // 2. Sort globally by the dateObj
-    allAttempts.sort((a, b) => a.dateObj - b.dateObj);
+    // // 2. Sort globally by the dateObj
+    // allAttempts.sort((a, b) => a.dateObj - b.dateObj);
 
-    // 3. Generate your SQL in true chronological order
-    for (let i = 0; i < allAttempts.length; i++) {
-        const sql = `INSERT INTO "attempts" VALUES (${i+1}, ${allAttempts[i].questionId}, ${allAttempts[i].code}, '${allAttempts[i].dateStr} 03:00:00');`;
-        const span = document.createElement('span');
-        span.textContent = sql;
-        divSqlExport.appendChild(span);
-        divSqlExport.appendChild(document.createElement('br'));
-    }
+    // // 3. Generate your SQL in true chronological order
+    // for (let i = 0; i < allAttempts.length; i++) {
+    //     const sql = `INSERT INTO "attempts" VALUES (${i+1}, ${allAttempts[i].questionId}, ${allAttempts[i].code}, '${allAttempts[i].dateStr} 03:00:00');`;
+    //     const span = document.createElement('span');
+    //     span.textContent = sql;
+    //     divSqlExport.appendChild(span);
+    //     divSqlExport.appendChild(document.createElement('br'));
+    // }
 }
 
 
