@@ -1,21 +1,85 @@
-loadQuestions();
+let questions = [];
+
+window.addEventListener("DOMContentLoaded", () => {
+    loadQuestions();
+    reloadPage();
+    showToast("Hello!", "Have a nice day!", ":)");
+})
+
+async function reloadPage() {
+    await loadQuestions();
+    // loadHTMLQuestionsTable();
+    loadHTMLQuestionsTableMini();
+}
+
 
 const debugJSON = document.getElementById('debugJSON');
 
 function loadQuestions() {
-    fetch('/api/questions')
+    return fetch('/api/questions')
         .then(res => res.json())
-        .then(questions => {
+        .then(fetchedQuestions => {
             debugJSON.innerHTML = '';
-            questions.forEach(item => {
+            fetchedQuestions.forEach(item => {
                 const pre = document.createElement('pre');
                 pre.textContent = JSON.stringify(item, null, 2);
                 debugJSON.appendChild(pre);
-
-                
             });
+            questions = fetchedQuestions;
+            return fetchedQuestions;
         });
 }
+
+
+
+function loadHTMLQuestionsTableMini(metrics_name = "potential_memory_gain_multiplier") {
+    htmlTableMini = document.getElementById('questionsTableMini');
+
+    let numberOfColumns = 15;
+    let numberOfQuestions = questions.length;
+    console.log('Number of questions:', numberOfQuestions);
+    let numberOfRows = Math.ceil(numberOfQuestions / numberOfColumns);
+
+    const th = document.getElementById('questionsTableMiniTh');
+    th.colSpan = numberOfColumns;
+
+    tableBody = document.getElementById('questionsTableMiniBody');
+    tableBody.innerHTML = '';
+
+    for (let i = 0; i < numberOfRows; i++) {
+        let commonTableRow = document.createElement('tr');
+        commonTableRow.classList.add('w-100', 'p-2');
+
+        for (let j = 0; j < numberOfColumns; j++) {
+            let question_number = i * numberOfColumns + j;
+            if (question_number < questions.length) {
+                const cellData = document.createElement('td');
+                cellData.classList.add('p-2', 'text-center', 'align-middle');
+                // cellData.textContent = questions[question_number]['#'];
+                cellData.innerHTML = 'q' + questions[question_number]['question_number'] + '<br>' + questions[question_number][metrics_name];
+
+                cellData.style.cursor = 'pointer';
+                cellData.style.border = '1px solid black';
+                // cellData.title = questions[toolTipsRow][Object.keys(questions[headersRow])[0]].replace(/\\n/g, '\n');
+
+                if (metrics_name == 'potential_memory_gain_multiplier') {
+                    cellData.style.backgroundColor = `rgba(${questions[question_number]['PMG-X Cell Color']})`;
+                    if (questions[question_number]['PMG-X'] <= 1) {
+                        cellData.style.color = 'rgba(0, 0, 0, 0.2)'; // 20 %-opaque black
+                    }
+                }
+
+                cellData.onclick = function () {
+                    openObsidianNote(questions[question_number]['#']);
+                };
+                commonTableRow.appendChild(cellData);
+            }
+        }
+        tableBody.appendChild(commonTableRow);
+    }
+    htmlTableMini.appendChild(tableBody);
+}
+
 
 
 
@@ -86,4 +150,19 @@ function postAttempt(question_number, code) {
             }
         })
         .catch(err => console.error('Error:', err));
+}
+
+
+
+
+
+function showToast(toastTitle, toastMessage, toastTime) {
+    const toastLiveExample = document.getElementById('liveToast')
+    const toastBootstrap = bootstrap.Toast.getOrCreateInstance(toastLiveExample)
+
+    document.getElementById('toastTitle').innerHTML = toastTitle
+    document.getElementById('toastMessage').innerHTML = toastMessage
+    document.getElementById('toastTime').innerHTML = toastTime
+
+    toastBootstrap.show()
 }

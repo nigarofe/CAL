@@ -90,8 +90,6 @@ function showToast(toastTitle, toastMessage, toastTime) {
     document.getElementById('toastTime').innerHTML = toastTime
 
     toastBootstrap.show()
-
-
 }
 
 function loadHTMLQuestionsTable() {
@@ -198,6 +196,11 @@ function loadHTMLQuestionsTableMini(metrics_name = "PMG-X") {
     }
     htmlTableMini.appendChild(tableBody);
 }
+
+
+
+
+
 
 function addActionButtonsToCellData(cellData, i) {
     const buttonContainer = document.createElement('div');
