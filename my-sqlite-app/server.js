@@ -46,13 +46,20 @@ app.use(
 app.get('/api/questions', (req, res) => {
     const sql = `
     SELECT
-      q.*,
-      COALESCE(json_group_array(a.code), '[]')            AS code_vec_json,
-      COALESCE(json_group_array(a.attempt_datetime), '[]') AS date_vec_json
-    FROM questions AS q
-    LEFT JOIN attempts AS a
-      ON a.question_number = q.question_number
-    GROUP BY q.question_number
+  q.*,
+  COALESCE(
+    json_group_array(a.code        ORDER BY a.attempt_datetime),
+    '[]'
+  ) AS code_vec_json,
+  COALESCE(
+    json_group_array(a.attempt_datetime ORDER BY a.attempt_datetime),
+    '[]'
+  ) AS date_vec_json
+FROM questions AS q
+LEFT JOIN attempts AS a
+  ON a.question_number = q.question_number
+GROUP BY q.question_number
+
   `;
 
     function applyPMG_XCellColor(records, metric_name = 'potential_memory_gain_multiplier') {
@@ -138,13 +145,23 @@ app.get('/api/questions', (req, res) => {
                 }
             }
 
-            const latest_memory_interval =
-                memoryIntervals.length ? memoryIntervals[memoryIntervals.length - 1] : 0;
+
+
+            const lastCode = code_vector[code_vector.length - 1];
+
+            if (lastCode === 0) {
+                latest_memory_interval = 0;
+            } else {
+                latest_memory_interval =
+                    memoryIntervals.length ? memoryIntervals[memoryIntervals.length - 1] : 0;
+            }
 
             const potential_memory_gain_in_days = days_since_last_attempt - latest_memory_interval;
 
             let potential_memory_gain_multiplier;
-            const lastCode = code_vector[code_vector.length - 1];
+
+
+
             if (lastCode === 1 && code_vector.length === 1) {
                 potential_memory_gain_multiplier = 'SA';
             } else if (latest_memory_interval === 0) {
