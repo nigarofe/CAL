@@ -19,12 +19,16 @@ async function reloadPage() {
 
     // Questions SQL dump
     // for (let i = questionsStartRow; i < matrix.length; i++) {
+    //     let safeDescription = matrix[i]['Description'].replace(/'/g, "''");
+    //     let sql = `INSERT INTO "questions" VALUES (${matrix[i]['#']},'${matrix[i]['Discipline']}','${matrix[i]['Source']}','${safeDescription}');`;
+
     //     let sqlSpan = document.createElement('span');
-    //     sqlSpan.textContent = `INSERT INTO "questions" VALUES (${matrix[i]['#']},'${matrix[i]['Discipline']}','${matrix[i]['Source']}','${matrix[i]['Description']}');`;
+    //     sqlSpan.textContent = sql;
 
     //     divSqlExport.appendChild(sqlSpan);
     //     divSqlExport.appendChild(document.createElement('br'));
     // }
+
 
     // Attempts SQL dump
     const allAttempts = [];

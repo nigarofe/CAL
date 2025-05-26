@@ -12,15 +12,9 @@ function loadQuestions() {
                 pre.textContent = JSON.stringify(item, null, 2);
                 questionsTable.appendChild(pre);
 
-                const li = document.createElement('li');
-                li.textContent = item.description;
-                questionsTable.appendChild(li);
             });
         });
 }
-
-
-
 
 
 
