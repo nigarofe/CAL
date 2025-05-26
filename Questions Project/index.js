@@ -3,10 +3,48 @@ window.addEventListener("DOMContentLoaded", () => {
     showToast("Hello!", "Have a nice day!", ":)");
 })
 
+
+
+
+
 async function reloadPage() {
     await updateMatrixVariable();
     loadHTMLQuestionsTable();
     loadHTMLQuestionsTableMini()
+
+
+    // INSERT INTO "questions" VALUES (1,'first','avocado','banaan');
+
+    const divSqlExport = document.getElementById('sqlExport');
+
+    // Questions SQL dump
+    // for (let i = questionsStartRow; i < matrix.length; i++) {
+    //     let sqlSpan = document.createElement('span');
+    //     sqlSpan.textContent = `INSERT INTO "questions" VALUES (${matrix[i]['#']},'${matrix[i]['Discipline']}','${matrix[i]['Source']}','${matrix[i]['Description']}');`;
+
+    //     divSqlExport.appendChild(sqlSpan);
+    //     divSqlExport.appendChild(document.createElement('br'));
+    // }
+
+    // Attempts SQL dump
+
+    for (let i = questionsStartRow; i < matrix.length; i++) {
+        let stringDateVector = matrix[i]['Date Vector'];
+        let dateVector = stringDateVector ? stringDateVector.split(',') : [];
+
+        let stringCodeVector = matrix[i]['Code Vector'];
+        let codeVector = stringCodeVector ? stringCodeVector.split(',') : [];
+
+        for (let j = 0; j < dateVector.length; j++) {
+            console.log(`i = ${i}    j = ${j}    dateVector[j] = ${dateVector[j]}`);
+
+            let sqlSpan = document.createElement('span');
+            sqlSpan.textContent = `INSERT INTO "attempts" VALUES (1,${i-questionsStartRow+1},${codeVector[j]},'${dateVector[j]} 03:00:00');`
+
+            divSqlExport.appendChild(sqlSpan);
+            divSqlExport.appendChild(document.createElement('br'));
+        }
+    }
 }
 
 document.querySelectorAll('input[name="metric"]').forEach(radio => {

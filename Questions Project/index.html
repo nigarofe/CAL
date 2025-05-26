@@ -17,6 +17,7 @@
 </head>
 
 <body>
+
   <div class="toast-container position-fixed bottom-0 end-0 p-3">
     <div id="liveToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
       <div class="toast-header">
@@ -34,8 +35,11 @@
     </div>
   </div>
 
+  
+  <div id="sqlExport"></div>
 
   <h1 class="display-1 text-success text-center">Questions</h1>
+  
   <!-- <div id="controls"></div> -->
 
   <table class="table table-fixed text-center w-75 h-25 mx-auto mt-3 mb-5" id="questionsTableMini">
@@ -46,10 +50,10 @@
             <!-- <input type="radio" class="btn-check" name="metric" id="metric-dsla" autocomplete="off" checked />
             <label class="btn btn-outline-success " for="metric-dsla">DSLA</label> -->
 
-            <input type="radio" class="btn-check" name="metric" id="metric-pmgd" autocomplete="off"  />
+            <input type="radio" class="btn-check" name="metric" id="metric-pmgd" autocomplete="off" />
             <label class="btn btn-outline-success" for="metric-pmgd">LaMI</label>
 
-            <input type="radio" class="btn-check" name="metric" id="metric-pmgx" autocomplete="off" checked/>
+            <input type="radio" class="btn-check" name="metric" id="metric-pmgx" autocomplete="off" checked />
             <label class="btn btn-outline-success" for="metric-pmgx">PMG-X</label>
           </div>
         </th>
