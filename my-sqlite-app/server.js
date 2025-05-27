@@ -136,10 +136,6 @@ GROUP BY q.question_number
             let attemptsWithoutHelp = 'bug';
             let attemptsWithHelp = 'bug';
 
-            if (row.question_number == 105) {
-                console.log(row.code_vec_json)
-            }
-
             if (!date_vector || date_vector.length === 0 || date_vector.every(v => v == null)) {
                 potential_memory_gain_multiplier = 'NA';
                 potential_memory_gain_in_days = 'NA';
