@@ -91,20 +91,21 @@ app.get('/api/questions', (req, res) => {
             }
 
             return {
-                ...row,
-                // code_vector,
-                // date_vector,
-                // attempts_with_help,
-                // attempts_without_help,
+                // ...row,
+                question_number: row.question_number,
+                discipline: row.discipline,
+                source: row.source,
+                description: row.description,
                 days_since_last_attempt,
                 latest_memory_interval,
                 potential_memory_gain_in_days,
                 potential_memory_gain_multiplier,
-                attempts_summary
+                attempts_summary,
+                date_vector: date_vector
             };
         });
 
-        applyPMG_XCellColor(enriched, 'potential_memory_gain_multiplier');
+        calculateCellColor(enriched, 'potential_memory_gain_multiplier');
 
         res.json(enriched);
     });
@@ -112,9 +113,9 @@ app.get('/api/questions', (req, res) => {
 
 
 function calculateDaysSinceLastAttempt(date_vector) {
-    // All calculations in GMT-0
+    // All calculations in GMT-0, hence the 'Z' in the date string
     const today = Date.now();
-    const last_attempt_date = new Date(date_vector[date_vector.length - 1]).getTime();
+    const last_attempt_date = new Date(date_vector[date_vector.length - 1] + 'Z').getTime();
 
     let result = (today - last_attempt_date) / MS_PER_DAY;
     return Math.floor(result);
@@ -135,7 +136,7 @@ function calculateLatestMemoryIntervalAndPotentialGain(code_vector, date_vector,
     const lastCode = code_vector[code_vector.length - 1];
 
     // If it was a single attempt
-    if (lastCode === 1 && code_vector.length === 1) {
+    if ((lastCode === 1 && code_vector.length === 1)) {
         latest_memory_interval = 'SA';
         potential_memory_gain_multiplier = 'SA';
         potential_memory_gain_in_days = days_since_last_attempt
@@ -147,7 +148,8 @@ function calculateLatestMemoryIntervalAndPotentialGain(code_vector, date_vector,
             potential_memory_gain_in_days = days_since_last_attempt;
         } else {
             // Calculate latest_memory_interval and potential_memory_gain_multiplier
-            latest_memory_interval = memoryIntervals[memoryIntervals.length - 1]
+            memoryIntervals[memoryIntervals.length - 1] === 0 ?
+                latest_memory_interval = 1 : latest_memory_interval = memoryIntervals[memoryIntervals.length - 1];
             potential_memory_gain_multiplier = (
                 days_since_last_attempt / latest_memory_interval
             ).toFixed(2);
@@ -186,9 +188,6 @@ function calculateAttemptsSummary(code_vector) {
 }
 
 
-
-
-
 app.post('/api/sql', (req, res) => {
     const { SQL } = req.body;
     if (!SQL) return res.status(400).json({ error: 'SQL is required' });
@@ -198,8 +197,6 @@ app.post('/api/sql', (req, res) => {
         res.status(201).json({ message: 'SQL executed', changes: this.changes });
     });
 });
-
-
 
 
 app.post('/api/questions/create', (req, res) => {
@@ -238,7 +235,7 @@ app.post('/api/questions/attempt', (req, res) => {
 });
 
 
-function applyPMG_XCellColor(records, metric_name = 'potential_memory_gain_multiplier') {
+function calculateCellColor(records, metric_name = 'potential_memory_gain_multiplier') {
     // Collect all *numeric* values that belong to the chosen metric
     const numericValues = records
         .map(r => parseFloat(r[metric_name]))
@@ -291,8 +288,6 @@ function applyPMG_XCellColor(records, metric_name = 'potential_memory_gain_multi
         r['PMG-X Cell Color'] = colour;               // attach to the current record
     });
 }
-
-
 
 
 // app.listen(PORT, () => {

@@ -34,20 +34,40 @@
 
     <h1 class="display-1 text-success text-center">Questions</h1>
 
-    <form id="questionForm">
-        <input type="text" id="discipline" placeholder="Enter question discipline" required>
-        <input type="text" id="source" placeholder="Enter question source" required>
-        <input type="text" id="description" placeholder="Enter question description" required>
-        <button type="submit" id="createQuestion">Create question</button>
-    </form>
+    <!-- Toggle button -->
+    <div class="text-center my-3">
+        <button class="btn btn-outline-success" type="button" data-bs-toggle="collapse" data-bs-target="#questionFormCollapse" aria-expanded="false" aria-controls="questionFormCollapse">
+            Add New Question
+        </button>
+    </div>
+
+    <!-- Collapsible form -->
+    <div class="collapse" id="questionFormCollapse">
+        <form id="questionForm" class="card shadow-sm p-4 mx-auto my-4" style="max-width: 500px;">
+            <h2 class="mb-4 text-success text-center">Add New Question</h2>
+            <div class="mb-3">
+                <label for="discipline" class="form-label">Discipline</label>
+                <input type="text" id="discipline" class="form-control" placeholder="e.g. Mathematics" required>
+            </div>
+            <div class="mb-3">
+                <label for="source" class="form-label">Source</label>
+                <input type="text" id="source" class="form-control" placeholder="e.g. Textbook, Exam" required>
+            </div>
+            <div class="mb-3">
+                <label for="description" class="form-label">Description</label>
+                <textarea id="description" class="form-control" rows="3" placeholder="Enter question description" required></textarea>
+            </div>
+            <button type="submit" id="createQuestion" class="btn btn-success w-100">Create Question</button>
+        </form>
+    </div></div>
 
     <br>
 
-    <form id="attemptForm">
+    <!-- <form id="attemptForm">
         <input type="number" id="questionNumber" placeholder="Enter question number" required>
         <input type="number" id="code" placeholder="Enter code" required>
         <button type="submit" id="attemptQuestion">Attempt question</button>
-    </form>
+    </form> -->
 
     <table class="table table-fixed text-center w-75 h-25 mx-auto mt-3 mb-5" id="questionsTableMini">
         <thead>
