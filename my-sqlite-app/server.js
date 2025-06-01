@@ -1,4 +1,6 @@
 // server.js
+require('dotenv').config();
+
 const express = require('express');
 const path = require('path');
 
@@ -6,6 +8,46 @@ const sqlite3 = require('sqlite3').verbose();
 const db = new sqlite3.Database('./data.db');
 
 const MS_PER_DAY = 24 * 60 * 60 * 1000;
+
+
+
+
+
+
+
+
+const { InferenceClient } = require("@huggingface/inference");
+
+async function runHuggingFaceInference() {
+    const client = new InferenceClient(process.env.HF_API_TOKEN);
+
+    const output = await client.featureExtraction({
+        model: "intfloat/multilingual-e5-large-instruct",
+        inputs: "Today is a sunny day and I will get some ice cream.",
+        provider: "hf-inference",
+    });
+
+    console.log(output);
+}
+
+// Optionally call the function if you want to run it at startup
+runHuggingFaceInference();
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 db.serialize(() => {
     db.exec(`
