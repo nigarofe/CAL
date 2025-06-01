@@ -196,14 +196,14 @@ function postQuestion(discipline, source, description) {
 
 
 
-const attemptForm = document.getElementById('attemptForm');
+// const attemptForm = document.getElementById('attemptForm');
 
-attemptForm.addEventListener('submit', () => {
-    const question_number = document.getElementById('questionNumber').value;
-    const code = document.getElementById('code').value;
+// attemptForm.addEventListener('submit', () => {
+//     const question_number = document.getElementById('questionNumber').value;
+//     const code = document.getElementById('code').value;
 
-    postAttempt(question_number, code);
-});
+//     postAttempt(question_number, code);
+// });
 
 function postAttempt(question_number, code) {
     fetch('/api/questions/attempt', {
