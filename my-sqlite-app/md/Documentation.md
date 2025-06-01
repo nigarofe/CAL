@@ -49,6 +49,7 @@ This design minimizes server-side complexity and usage, ensures secure file acce
 	- npm i bootstrap
 	- npm install express fs path cors
 	- npm install -g nodemon
+	- npm install dotenv
 - Start server
 	- nodemon server.js
 	- node server.js
