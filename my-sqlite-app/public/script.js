@@ -68,7 +68,7 @@ function loadHTMLQuestionsTableMini(metrics_name = "potential_memory_gain_multip
                 }
 
                 cellData.onclick = function () {
-                    openObsidianNote(questions[question_number]['#']);
+                    openObsidianNote(question_number + 1); // +1 because question_number is 0-indexed
                 };
                 commonTableRow.appendChild(cellData);
             }

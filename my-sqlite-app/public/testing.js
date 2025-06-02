@@ -91,7 +91,7 @@ async function query(data) {
         "https://router.huggingface.co/hf-inference/models/intfloat/multilingual-e5-large-instruct/pipeline/feature-extraction",
         {
             headers: {
-                Authorization: "Bearer hf_",
+                Authorization: "Bearer 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",
                 "Content-Type": "application/json",
             },
             method: "POST",
