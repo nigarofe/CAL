@@ -243,9 +243,6 @@ app.post('/api/sql', (req, res) => {
 
 app.post('/api/questions/create', (req, res) => {
     const { discipline, source, description } = req.body;
-    if (!discipline || !source || !description) {
-        return res.status(400).json({ error: 'discipline, source, and description are required' });
-    }
 
     const sql = `
         INSERT INTO questions (discipline, source, description)

@@ -34,7 +34,7 @@ function loadQuestions() {
 function loadHTMLQuestionsTableMini(metrics_name = "potential_memory_gain_multiplier") {
     htmlTableMini = document.getElementById('questionsTableMini');
 
-    let numberOfColumns = 15;
+    let numberOfColumns = 10;
     let numberOfQuestions = questions.length;
     let numberOfRows = Math.ceil(numberOfQuestions / numberOfColumns);
 
@@ -169,11 +169,6 @@ questionCreationform.addEventListener('submit', () => {
 });
 
 function postQuestion(discipline, source, description) {
-    if (!discipline || !source || !description) {
-        alert('All fields are required!');
-        return;
-    }
-
     fetch('/api/questions/create', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
