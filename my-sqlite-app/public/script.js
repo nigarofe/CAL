@@ -132,6 +132,7 @@ function loadHTMLQuestionsTable() {
         columns.forEach(col => {
             const td = document.createElement('td');
             td.textContent = questions[i][col] !== undefined ? questions[i][col] : '';
+            td.classList.add('align-middle');
             commonTableRow.appendChild(td);
 
             if (col == 'potential_memory_gain_multiplier') {
