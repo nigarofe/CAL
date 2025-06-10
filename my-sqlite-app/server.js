@@ -98,12 +98,18 @@ app.get('/api/questions', (req, res) => {
     FROM questions AS q
     LEFT JOIN attempts AS a
     ON a.question_number = q.question_number
+    --WHERE q.source != "Consulta"
     GROUP BY q.question_number
   `;
 
 
     db.all(sql, (err, rows) => {
-        if (err) return res.status(500).json({ error: err.message });
+        if (err) {
+            console.error('Error executing SQL:', err)
+            return res.status(500).json({ error: err.message });
+        }
+
+
 
         const enriched = rows.map(row => {
             const code_vector = JSON.parse(row.code_vec_json);
