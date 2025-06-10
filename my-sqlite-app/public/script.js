@@ -3,7 +3,31 @@ let questions = [];
 window.addEventListener("DOMContentLoaded", () => {
     loadQuestions();
     reloadPage();
-    showToast("Hello!", "Have a nice day!", ":)");
+
+
+
+
+
+    el_autohide = document.querySelector('.autohide');
+    // add padding-top to bady (if necessary)
+    navbar_height = document.querySelector('.navbar').offsetHeight;
+    document.body.style.paddingTop = navbar_height + 'px';
+
+    if (el_autohide) {
+        var last_scroll_top = 0;
+        window.addEventListener('scroll', function () {
+            let scroll_top = window.scrollY;
+            if (scroll_top < last_scroll_top) {
+                el_autohide.classList.remove('scrolled-down');
+                el_autohide.classList.add('scrolled-up');
+            }
+            else {
+                el_autohide.classList.remove('scrolled-up');
+                el_autohide.classList.add('scrolled-down');
+            }
+            last_scroll_top = scroll_top;
+        });
+    }
 })
 
 async function reloadPage() {
@@ -144,7 +168,7 @@ function loadHTMLQuestionsTable() {
         });
 
         const actionTd = document.createElement('td');
-        addActionButtonsToCellData(actionTd, i+1);
+        addActionButtonsToCellData(actionTd, i + 1);
         commonTableRow.appendChild(actionTd);
 
         tableBody.appendChild(commonTableRow);
@@ -187,19 +211,6 @@ function postQuestion(discipline, source, description) {
         .catch(err => console.error('Error:', err));
 }
 
-
-
-
-
-
-// const attemptForm = document.getElementById('attemptForm');
-
-// attemptForm.addEventListener('submit', () => {
-//     const question_number = document.getElementById('questionNumber').value;
-//     const code = document.getElementById('code').value;
-
-//     postAttempt(question_number, code);
-// });
 
 function postAttempt(question_number, code) {
     fetch('/api/questions/attempt', {
@@ -283,3 +294,5 @@ function openObsidianNote(question_number) {
 
     window.location.href = uri;
 }
+
+

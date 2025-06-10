@@ -11,9 +11,37 @@
 
     <link rel="stylesheet" href="./node_modules/bootstrap/dist/css/bootstrap.min.css">
     <script src="/node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+
+    <style>
+        .scrolled-down {
+            transform: translateY(-100%);
+            transition: all 0.3s ease-in-out;
+        }
+
+        .scrolled-up {
+            transform: translateY(0);
+            transition: all 0.3s ease-in-out;
+        }
+    </style>
 </head>
 
-<body>
+<body class="mg-0 p-0">
+    <nav class="autohide navbar navbar-expand-lg navbar-dark bg-success sticky-top">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">Questions</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#main_nav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="" id="main_nav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link" href="#"> Menu item </a></li>
+                    <li class="nav-item"><a class="nav-link" href="#"> Menu item </a></li>
+                    <li class="nav-item"><a class="nav-link" href="#"> Menu item </a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
     <h1 class="display-1 text-success text-center">Questions</h1>
 
     <!-- Toast -->
@@ -33,6 +61,14 @@
             </div>
         </div>
     </div>
+
+
+
+
+
+
+
+
 
     <!-- Add New Question button -->
     <div class="text-center my-3">
