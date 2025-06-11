@@ -288,7 +288,7 @@ function addActionButtonsToCellData(cellData, question_number) {
 function openObsidianNote(question_number) {
     const vault = '1 Obsidian Vault'; // Replace with your vault name
     // need to remove this hardcoded path
-    const file = `CAL\\Questions .md\\q${question_number}`; // Replace with your file path
+    const file = `CAL\\Questões .md\\q${question_number}`; // Replace with your file path
     const encodedFile = encodeURIComponent(file);
     const uri = `obsidian://open?vault=${vault}&file=${encodedFile}`;
     // const uri = `obsidian://advanced-uri?vault=${vault}&filepath=${encodedFile}&commandid=obsidian-creases%3Afold-along-creases`;
