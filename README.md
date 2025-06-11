@@ -1,12 +1,12 @@
 # Computer Assisted Learning (CAL): Uma Metodologia para Aprendizagem Adaptativa
 Esta metodologia de Computer Assisted Learning (CAL) propõe um fluxo de estudo adaptativo, concebido para se ajustar dinamicamente à profundidade desejada e ao tempo disponível do aprendiz. A arquitetura do sistema é modular e organizada em camadas, cada qual com uma implementação tecnológica específica:
 
-| Camada                                  | Implementação Técnica                                                                                                                              |
-| --------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------- |
-| **Base de Conhecimento (Questões)**     | Arquivos Markdown, com gestão de conteúdo no Obsidian                                                                                              |
-| **Base de Conhecimento (Premissas)**    | Arquivos Markdown, com gestão de conteúdo no Obsidian                                                                                              |
-| **Sistema de Repetição Espaçada (SRS)** | Aplicativo web com funcionalidade offline                                                                                                          |
-| **Sistema de Memorização e Associação** | [Sistema Mnemônico Fonético](https://www.google.com/url?sa=E&q=https%3A%2F%2Fen.wikipedia.org%2Fwiki%2FMnemonic_major_system) aplicado manualmente |
+| Camada                                  | Implementação Técnica                                                                                                                              | Pasta           |
+| --------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------- | --------------- |
+| **Base de Conhecimento (Questões)**     | Arquivos Markdown, com gestão de conteúdo no Obsidian                                                                                              | questions-md    |
+| **Base de Conhecimento (Premissas)**    | Arquivos Markdown, com gestão de conteúdo no Obsidian                                                                                              | premise-sets-md |
+| **Sistema de Repetição Espaçada (SRS)** | Aplicativo web com funcionalidade offline                                                                                                          | web-app         |
+| **Sistema de Memorização e Associação** | [Sistema Mnemônico Fonético](https://www.google.com/url?sa=E&q=https%3A%2F%2Fen.wikipedia.org%2Fwiki%2FMnemonic_major_system) aplicado manualmente |                 |
 
 Para a camada de Memorização, a metodologia utiliza o [Sistema Mnemônico Fonético](https://en.wikipedia.org/wiki/Mnemonic_major_system), uma técnica poderosa que converte números abstratos em palavras e imagens mentais concretas, facilitando a retenção de fórmulas, datas e constantes.
 

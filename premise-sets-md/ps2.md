@@ -1,15 +1,4 @@
-# Question Statement
-Create a table with the following columns
-- Integral type
-- Field type
-- Integral formula
-- Element of integration
-After that, explain when the jacobian of a coordinate transformation should be used
 
-# LLM Solution %% fold %%
-
-
-# Question answer %% fold %%
 $$
 \begin{array}{llll}
 \text{Integral type} & \text{Field type} & \text{Integral formula} & \text{Element of integration} \\
@@ -21,6 +10,5 @@ $$
 \text{Volume} & \text{Scalar} & \iiint_V f(x,y)\,dV & dV = dx\,dy\,dz \\
 \end{array}
 $$
-
 
 

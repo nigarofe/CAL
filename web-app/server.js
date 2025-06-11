@@ -98,7 +98,6 @@ app.get('/api/questions', (req, res) => {
     FROM questions AS q
     LEFT JOIN attempts AS a
     ON a.question_number = q.question_number
-    --WHERE q.source != "Consulta"
     GROUP BY q.question_number
   `;
 

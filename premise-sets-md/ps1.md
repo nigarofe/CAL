@@ -1,4 +1,3 @@
-# Question Statement
 Express your knowledge of line integrals by providing its essential formulas using symbolic notation and describing each formula in plain language. The answer should include the following topics:
  - Pythagoras's Theorem in 2 and 3 dimensions
  - Arc length of a curve
@@ -6,10 +5,6 @@ Express your knowledge of line integrals by providing its essential formulas usi
  - Line integral of a vector field
  - Line integral of a **conservative** vector field in 2D
 
-# LLM Solution %% fold %%
-carai
-
-# Question answer %% fold %%
 
 ## Pythagoras's Theorem
 **2D Space**: Suppose you have two points, A and B, on a 2D plane. Let **dx** be the difference in their x-coordinates and **dy** be the difference in their y-coordinates. The straight-line distance **D** between these points is given by: 

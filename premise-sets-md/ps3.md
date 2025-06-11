@@ -1,10 +1,3 @@
-# Question Statement
-Explique por que o tensor tensão é simétrico
-
-# LLM Solution %% fold %%
-
-
-# Question answer %% fold %%
 1. Equilíbrio de momentos em um elemento infinitesimal
 
 Considere um cubo infinitesimal de material sujeito ao estado de tensões
