@@ -1,42 +1,12 @@
 # Interface description
-- There's only one screen
-	- There's a centralized h1 title "Questions"
-	- There's a search bar that search in regex across all table fields
-- Clicking a row of the table opens a modal with the question
-	- Modal structure
-		- The modal header has a centralized h1 title "Question 42"
-		- The model body has the following sections
-			- Question statement
-			- Question resolution by LLM
-			- Question resolution by myself
-			- Question answer
-		- The model footer has a button tray aligned to the center with two buttons, named "0" and "1," , that when hovered display
-			- "0 = I needed help to solve the question" 
-			- "1 = I solved the question without any external help" 
-
-
-# Data Management
-- To maintain a lightweight architecture while meeting modest performance goals, we persist all records in a single CSV file rather than using a full database.
-- Since browsers cannot write directly to local files for security reasons, a minimal Node.js backend handles every CSV read/write operation. This backend is deliberately kept simple, exposing just two endpoints:
-- GET /data: Reads the CSV file and returns the raw data to the client.
-- POST /data: Receives updated data from the client and writes it back to the CSV file.
-
-This design minimizes server-side complexity and usage, ensures secure file access, and keeps the overall system easy to maintain.
-
-
-
-
 
 ## Tech Stack / Requirements
 - npm 10.9.2
-
 - CSS
 - HTML
 	- Bootstrap 5.3.5
 - JavaScript
 	- Node.js 22.14.0
-- Katex 0.16.22
-- csv-stringify 6.5.2
 
 ### Useful commands
 - See if is installed correctly
@@ -45,7 +15,6 @@ This design minimizes server-side complexity and usage, ensures secure file acce
 - Start Node.js project in folder
 	- npm init -y
 - Install 
-	- npm i csv-stringify
 	- npm i bootstrap
 	- npm install express fs path cors
 	- npm install -g nodemon
@@ -56,48 +25,23 @@ This design minimizes server-side complexity and usage, ensures secure file acce
 	- nodemon server.js
 	- node server.js
 
-## CSV
-- Separator
-	- Tab = \t
-- Encoding
-	- UTF-8
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-# File structure
-main.js
-questions.csv
-matrixManipulation.js
-
-UI
-    index.html
-    style.css
-    ui.js
-Server
-    server.js
-    other node.js stuff
-
+# Folder structure
+```
+experiments/
+    LLM API/
+    p5/
+premise-sets-md/
+question-images/
+questions-md/
+    pending/
+        latex-conversion/
+        to-become-questions/
+web-app/
+    notes and docs/
+    public/
+writings-md/
+```
 
 
 # Design choices
@@ -119,16 +63,7 @@ The idea is to create black boxes: I shouldn't need to understand what each file
 
 
 
-
-
-
-
-
-
-
-
 # Performance Metrics Documentation
-
 ## Introduction
 
 This interface offers a comprehensive view of your performance across various questions by displaying key metrics in a tabular format. All time-based metrics are expressed in days, similar to the DSLA metric. The table now includes the following columns:
@@ -259,3 +194,18 @@ Continuing the previous example, a 3-day gain on a 10-day interval results in a 
 ## Conclusion
 
 This updated documentation clarifies each performance metric with separate columns for DSLA, Longest Memory Interval, Latest Memory Interval, and the two components of Potential Memory Gain. Each of these time-based metrics is expressed in days, ensuring consistency and making it easier to compare and track your progress. Use these insights to identify areas for improvement and enhance your learning strategy and retention capabilities.
+
+
+
+
+
+
+
+
+
+
+
+# Relevant sources
+- SVGs
+    - https://iconsvg.xyz/
+    - https://flowbite.com/icons/
