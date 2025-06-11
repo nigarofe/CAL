@@ -1,15 +1,16 @@
+const config = {
+    obsidianVault: '1 Obsidian Vault',
+    obsidianNotePath: 'CAL/questions-md/' // Use forward slashes for better compatibility
+};
+
 let questions = [];
 
 window.addEventListener("DOMContentLoaded", () => {
     loadQuestions();
     reloadPage();
 
-
-
-
-
     el_autohide = document.querySelector('.autohide');
-    // add padding-top to bady (if necessary)
+    // add padding-top to body (if necessary)
     navbar_height = document.querySelector('.navbar').offsetHeight;
     document.body.style.paddingTop = navbar_height + 'px';
 
@@ -286,13 +287,11 @@ function addActionButtonsToCellData(cellData, question_number) {
 }
 
 function openObsidianNote(question_number) {
-    const vault = '1 Obsidian Vault'; // Replace with your vault name
-    // need to remove this hardcoded path
-    const file = `CAL\\Questões .md\\q${question_number}`; // Replace with your file path
+    const vault = config.obsidianVault;
+    const file = `${config.obsidianNotePath}q${question_number}`; // Build path dynamically
+
     const encodedFile = encodeURIComponent(file);
     const uri = `obsidian://open?vault=${vault}&file=${encodedFile}`;
-    // const uri = `obsidian://advanced-uri?vault=${vault}&filepath=${encodedFile}&commandid=obsidian-creases%3Afold-along-creases`;
-
     window.location.href = uri;
 }
 
