@@ -35,7 +35,8 @@ Lista ou bloco de texto com as respostas finais, destacadas para fácil identifi
 Links para os arquivos de premissas (`[cpXYZ.md]`) que fundamentam a resolução.
 ```
 
-A curadoria dos **Conjuntos de Premissas** associados é estratégica: priorizam-se conceitos específicos (ex: as fórmulas de um teorema) em detrimento de conhecimento genérico (ex: regras básicas de álgebra). O sistema parte do pressuposto de que o aprendiz já domina os fundamentos, focando em recomendar os blocos de conhecimento mais diretamente aplicáveis à questão.
+A curadoria dos **Conjuntos de Premissas** associados é estratégica: priorizam-se conceitos específicos (ex: as fórmulas de um teorema) em detrimento de conhecimento genérico (ex: regras básicas de álgebra). O sistema parte do pressuposto de que o aprendiz já domina os fundamentos, focando em recomendar os blocos de conhecimento mais diretamente aplicáveis à questão. Além disso, também inclui as premissas que foram consultadas ao fazer a questão, mesmo se for algo relativamente simples.
+Toda questão é associada a pelo menos 1 premissa.
 
 ## Conjuntos de Premissas (cp)
 Um **Conjunto de Premissas (cpXYZ.md)** representa uma unidade atômica e fundamental de conhecimento. Suas características definem o funcionamento do sistema:

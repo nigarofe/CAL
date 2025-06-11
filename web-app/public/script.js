@@ -169,7 +169,8 @@ function loadHTMLQuestionsTable() {
         });
 
         const actionTd = document.createElement('td');
-        addActionButtonsToCellData(actionTd, i + 1);
+
+        addActionButtonsToCellData(actionTd, questions[i]['question_number']);
         commonTableRow.appendChild(actionTd);
 
         tableBody.appendChild(commonTableRow);

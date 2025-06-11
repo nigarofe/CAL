@@ -7,6 +7,7 @@
 # Cálculo Diferencial e Integral 3
 1. [[ps1]] Arc length of a curve; Line integrals of scalar and vector fields; Line integral of a **conservative** vector field in 2D
 2. [[ps2]] Table of elements of integrations in different integral and field types
+3. [[ps17]] Técnicas básicas de derivação e integração
 
 # MecSol
 1. [[ps3]] Por que o tensor tensão é simétrico
