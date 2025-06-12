@@ -1,5 +1,10 @@
 **Conjunto de premissas última vez utilizado na disciplina...**
 
+
+
+# Matemática fundamental
+1. [[ps18]] Relações trigonométricas
+
 # EDA
 1. [[ps12]] EDO Linear Homogênea de 2ª ordem com coeficientes constantes
 2. [[ps13]] EDO Linear **Não** Homogênea de 2ª ordem com coeficientes constantes
