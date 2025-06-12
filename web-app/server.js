@@ -1,5 +1,5 @@
 // server.js
-require('dotenv').config(); 
+require('dotenv').config();
 
 const express = require('express');
 const path = require('path');
@@ -52,9 +52,7 @@ app.use(
     express.static(path.join(__dirname, 'node_modules'))
 );
 
-
-app.get('/api/questions', (req, res) => {
-    const sql = `
+const GET_QUESTIONS_SQL = `
     SELECT
   q.*,
   COALESCE(
@@ -67,72 +65,59 @@ app.get('/api/questions', (req, res) => {
     GROUP BY q.question_number
   `;
 
-
-    db.all(sql, (err, rows) => {
-        if (err) {
-            console.error('Error executing SQL:', err)
-            return res.status(500).json({ error: err.message });
-        }
-
-
-
-        const enriched = rows.map(row => {
-            const code_vector = JSON.parse(row.code_vec_json);
-            const date_vector = JSON.parse(row.date_vec_json);
-
-            let latest_memory_interval = 'ERROR',
-                potential_memory_gain_in_days = 'ERROR',
-                potential_memory_gain_multiplier = 'ERROR',
-                days_since_last_attempt = 'ERROR',
-                attempts_summary = 'ERROR';
-
-            if (!date_vector || date_vector.length === 0 || date_vector.every(v => v == null)) {
-                potential_memory_gain_multiplier = 'NA';
-                potential_memory_gain_in_days = 'NA';
-                latest_memory_interval = 'NA';
-                days_since_last_attempt = 'NA';
-                attempts_summary = 'NA';
-            } else {
-                days_since_last_attempt = calculateDaysSinceLastAttempt(date_vector);
-                attempts_summary = calculateAttemptsSummary(code_vector);
-
-                ({
-                    latest_memory_interval,
-                    potential_memory_gain_multiplier,
-                    potential_memory_gain_in_days
-                } = calculateLatestMemoryIntervalAndPotentialGain(code_vector, date_vector, days_since_last_attempt))
+app.get('/api/questions', (req, res) => {
+        db.all(GET_QUESTIONS_SQL, (err, rows) => {
+            if (err) {
+                console.error('Error executing SQL:', err)
+                return res.status(500).json({ error: err.message });
             }
 
-            return {
-                // ...row,
-                question_number: row.question_number,
-                discipline: row.discipline,
-                source: row.source,
-                description: row.description,
-                days_since_last_attempt,
-                latest_memory_interval,
-                potential_memory_gain_in_days,
-                potential_memory_gain_multiplier,
-                attempts_summary,
-                date_vector: date_vector
-            };
+            const enriched = rows.map(row => {
+                const code_vector = JSON.parse(row.code_vec_json);
+                const date_vector = JSON.parse(row.date_vec_json);
+
+                let latest_memory_interval = 'ERROR',
+                    potential_memory_gain_in_days = 'ERROR',
+                    potential_memory_gain_multiplier = 'ERROR',
+                    days_since_last_attempt = 'ERROR',
+                    attempts_summary = 'ERROR';
+
+                if (!date_vector || date_vector.length === 0 || date_vector.every(v => v == null)) {
+                    potential_memory_gain_multiplier = 'NA';
+                    potential_memory_gain_in_days = 'NA';
+                    latest_memory_interval = 'NA';
+                    days_since_last_attempt = 'NA';
+                    attempts_summary = 'NA';
+                } else {
+                    days_since_last_attempt = calculateDaysSinceLastAttempt(date_vector);
+                    attempts_summary = calculateAttemptsSummary(code_vector);
+
+                    ({
+                        latest_memory_interval,
+                        potential_memory_gain_multiplier,
+                        potential_memory_gain_in_days
+                    } = calculateLatestMemoryIntervalAndPotentialGain(code_vector, date_vector, days_since_last_attempt))
+                }
+
+                return {
+                    // ...row,
+                    question_number: row.question_number,
+                    discipline: row.discipline,
+                    source: row.source,
+                    description: row.description,
+                    days_since_last_attempt,
+                    latest_memory_interval,
+                    potential_memory_gain_in_days,
+                    potential_memory_gain_multiplier,
+                    attempts_summary,
+                    date_vector: date_vector
+                };
+            });
+
+            calculateCellColor(enriched, 'potential_memory_gain_multiplier');
+
+            res.json(enriched);
         });
-
-        calculateCellColor(enriched, 'potential_memory_gain_multiplier');
-
-        res.json(enriched);
-    });
-});
-
-
-app.post('/api/sql', (req, res) => {
-    const { SQL } = req.body;
-    if (!SQL) return res.status(400).json({ error: 'SQL is required' });
-
-    db.run(SQL, function (err) {
-        if (err) return res.status(500).json({ error: err.message });
-        res.status(201).json({ message: 'SQL executed', changes: this.changes });
-    });
 });
 
 
