@@ -11,7 +11,24 @@ window.addEventListener("DOMContentLoaded", () => {
 
 async function reloadPage() {
     await loadQuestionsFromDB();
-    loadHTMLQuestionsTableMini('potential_memory_gain_multiplier');
+    let selectedRadioId = document.querySelector('input[name="metric"]:checked')?.id;
+    console.log(selectedRadioId);
+
+    let order_by = metricRadios.find(radio => radio.id === selectedRadioId).order_by;
+    console.log(order_by)
+
+    let order;
+
+    if (order_by === 'question_number') {
+        metric_name = 'potential_memory_gain_multiplier';
+        order = 'asc';
+    } else {
+        order = 'desc'
+        metric_name = order_by;
+    }
+
+    reorderAndFilterQuestions(order, order_by, '');
+    loadHTMLQuestionsTableMini(metric_name);
     loadHTMLQuestionsTable();
 }
 
@@ -32,7 +49,7 @@ function loadQuestionsFromDB() {
         });
 }
 
-function reorderAndFilterQuestions(order, order_by, filter ) {
+function reorderAndFilterQuestions(order, order_by, filter) {
     console.log(`reorderAndFilterQuestions(order_by: ${order_by}, filter: "${filter}", order: ${order})`);
     let filteredQuestions = questions;
     // if (filter) {
