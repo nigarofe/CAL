@@ -22,7 +22,6 @@ document.addEventListener('DOMContentLoaded', () => {
     loadComponent('components/add-question-form.html', 'add-question-form-container');
     loadComponent('components/questions-table-mini.html', 'questions-table-mini-container');
     loadComponent('components/questions-table.html', 'questions-table-container');
-    loadComponent('components/filters.html', 'filters-container');
 
     const questionCreationform = document.getElementById('add-question-form-container');
 

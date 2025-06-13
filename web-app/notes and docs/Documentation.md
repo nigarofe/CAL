@@ -209,3 +209,4 @@ This updated documentation clarifies each performance metric with separate colum
 - SVGs
     - https://iconsvg.xyz/
     - https://flowbite.com/icons/
+    - https://www.svgrepo.com/svg/
