@@ -11,7 +11,7 @@ window.addEventListener("DOMContentLoaded", () => {
 
 async function reloadPage() {
     await loadQuestionsFromDB();
-    loadHTMLQuestionsTableMini();
+    loadHTMLQuestionsTableMini('potential_memory_gain_multiplier');
     loadHTMLQuestionsTable();
 }
 
@@ -32,11 +32,12 @@ function loadQuestionsFromDB() {
         });
 }
 
-function reorderAndFilterQuestions(order_by = "question_number", filter = "", order = "desc") {
+function reorderAndFilterQuestions(order, order_by, filter ) {
+    console.log(`reorderAndFilterQuestions(order_by: ${order_by}, filter: "${filter}", order: ${order})`);
     let filteredQuestions = questions;
-    if (filter) {
-        filteredQuestions = filteredQuestions.filter(q => q.description.toLowerCase().includes(filter.toLowerCase()));
-    }
+    // if (filter) {
+    //     filteredQuestions = filteredQuestions.filter(q => q.description.toLowerCase().includes(filter.toLowerCase()));
+    // }
 
     filteredQuestions.sort((a, b) => {
         const aVal = isNaN(Number(a[order_by])) ? a[order_by] : Number(a[order_by]);
@@ -53,8 +54,7 @@ function reorderAndFilterQuestions(order_by = "question_number", filter = "", or
     return questions;
 }
 
-function loadHTMLQuestionsTableMini(order_by = "question_number", metric_name = "potential_memory_gain_multiplier", order = "asc") {
-    reorderAndFilterQuestions(order_by, "", order);
+function loadHTMLQuestionsTableMini(metric_name) {
     // make it UI responsive
     let numberOfColumns = 10;
     let numberOfQuestionsToBeDisplayed = questions.length;

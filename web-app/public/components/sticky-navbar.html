@@ -6,14 +6,14 @@
                 <i class="bi bi-funnel me-1"></i> Order questions by
             </span>
             <div class="btn-group btn-group-sm w-100" role="group" aria-label="Metrics filter">
-                <input type="radio" class="btn-check" name="metric" id="metric-pmgx1" autocomplete="off" />
-                <label class="btn btn-outline-light" for="metric-pmgx1">#</label>
-                <input type="radio" class="btn-check" name="metric" id="metric-pmgx2" autocomplete="off" />
-                <label class="btn btn-outline-light" for="metric-pmgx2">PMG-X</label>
-                <input type="radio" class="btn-check" name="metric" id="metric-pmgx3" autocomplete="off" />
-                <label class="btn btn-outline-light" for="metric-pmgx3">PMG-D</label>
+                <input type="radio" class="btn-check" name="metric" id="metric-question_number" autocomplete="off" />
+                <label class="btn btn-outline-light" for="metric-question_number">#</label>
+                <input type="radio" class="btn-check" name="metric" id="metric-pmgx" autocomplete="off" />
+                <label class="btn btn-outline-light" for="metric-pmgx">PMG-X</label>
                 <input type="radio" class="btn-check" name="metric" id="metric-pmgd" autocomplete="off" />
-                <label class="btn btn-outline-light" for="metric-pmgd">LaMI</label>
+                <label class="btn btn-outline-light" for="metric-pmgd">PMG-D</label>
+                <input type="radio" class="btn-check" name="metric" id="metric-lami" autocomplete="off" />
+                <label class="btn btn-outline-light" for="metric-lami">LaMI</label>
                 <input type="radio" class="btn-check" name="metric" id="metric-dsla" autocomplete="off" />
                 <label class="btn btn-outline-light" for="metric-dsla">DSLA</label>
             </div>
@@ -28,4 +28,13 @@
                 <button class="btn btn-outline-light" type="button">Apply</button>
             </div>
         </div>
+    </div>
 </nav>
+<script>
+    // Set default checked radio (optional, e.g. # by default)
+    document.addEventListener('DOMContentLoaded', function () {
+        if (!document.querySelector('input[name="metric"]:checked')) {
+            document.getElementById('metric-question_number').checked = true;
+        }
+    });
+</script>

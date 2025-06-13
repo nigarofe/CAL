@@ -20,7 +20,40 @@ document.addEventListener('DOMContentLoaded', () => {
         showToast('Welcome!', 'This is a sample toast message.', 'Just now');
     });
     // Load other components
-    loadComponent('components/sticky-navbar.html', 'navbar-container');
+    loadComponent('components/sticky-navbar.html', 'navbar-container').then(() => {
+        // Add event listeners to radio buttons for metrics
+        const metricRadios = [
+            { id: 'metric-question_number', order_by: 'question_number' },
+            { id: 'metric-pmgx', order_by: 'potential_memory_gain_multiplier' },
+            { id: 'metric-pmgd', order_by: 'potential_memory_gain_in_days' },
+            { id: 'metric-lami', order_by: 'latest_memory_interval' },
+            { id: 'metric-dsla', order_by: 'days_since_last_attempt' }
+        ];
+        metricRadios.forEach(radio => {
+            const el = document.getElementById(radio.id);
+            if (el) {
+                el.addEventListener('change', function () {
+                    if (this.checked) {
+                        let order;
+                        let order_by = radio.order_by;
+                        let metric_name = '';
+
+                        if (order_by === 'question_number') {
+                            metric_name = 'potential_memory_gain_multiplier';
+                            order = 'asc';
+                        } else {
+                            metric_name = radio.order_by;
+                            order = 'desc'
+                        }
+
+                        reorderAndFilterQuestions(order, order_by);
+                        loadHTMLQuestionsTableMini(metric_name);
+                        loadHTMLQuestionsTable();
+                    }
+                });
+            }
+        });
+    });
     loadComponent('components/add-question-form.html', 'add-question-form-container');
     loadComponent('components/questions-table-mini.html', 'questions-table-mini-container').then(() => {
         questionsTableMini = document.getElementById('questionsTableMini');
