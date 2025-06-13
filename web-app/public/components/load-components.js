@@ -12,6 +12,8 @@ async function loadComponent(url, placeholderId) {
     }
 }
 
+let questionsTableMini, questionsTableMiniTh, questionsTableMiniBody, questionsTable;
+
 document.addEventListener('DOMContentLoaded', () => {
     // Load toast component and show toast only after it's loaded
     loadComponent('components/toast.html', 'toast-container-placeholder').then(() => {
@@ -20,8 +22,14 @@ document.addEventListener('DOMContentLoaded', () => {
     // Load other components
     loadComponent('components/sticky-navbar.html', 'navbar-container');
     loadComponent('components/add-question-form.html', 'add-question-form-container');
-    loadComponent('components/questions-table-mini.html', 'questions-table-mini-container');
-    loadComponent('components/questions-table.html', 'questions-table-container');
+    loadComponent('components/questions-table-mini.html', 'questions-table-mini-container').then(() => {
+        questionsTableMini = document.getElementById('questionsTableMini');
+        questionsTableMiniTh = document.getElementById('questionsTableMiniTh');
+        questionsTableMiniBody = document.getElementById('questionsTableMiniBody');
+    });
+    loadComponent('components/questions-table.html', 'questions-table-container').then(() => {
+        questionsTable = document.getElementById('questionsTable');
+    });
 
     const questionCreationform = document.getElementById('add-question-form-container');
 

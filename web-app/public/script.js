@@ -6,87 +6,78 @@ const config = {
 let questions = [];
 
 window.addEventListener("DOMContentLoaded", () => {
-    loadQuestions();
-    reloadPage();    
+    reloadPage();
 })
 
 async function reloadPage() {
-    await loadQuestions();
-    loadHTMLQuestionsTable();
+    await loadQuestionsFromDB();
     loadHTMLQuestionsTableMini();
+    loadHTMLQuestionsTable();
 }
 
+const DEBUG_JSON = document.getElementById('debugJSON');
 
-const debugJSON = document.getElementById('debugJSON');
-
-function loadQuestions() {
+function loadQuestionsFromDB() {
     return fetch('/api/questions')
         .then(res => res.json())
         .then(fetchedQuestions => {
-            debugJSON.innerHTML = '';
+            DEBUG_JSON.innerHTML = '';
             fetchedQuestions.forEach(item => {
                 const pre = document.createElement('pre');
                 pre.textContent = JSON.stringify(item, null, 2);
-                debugJSON.appendChild(pre);
+                DEBUG_JSON.appendChild(pre);
             });
             questions = fetchedQuestions;
             return fetchedQuestions;
         });
 }
 
-
 function loadHTMLQuestionsTableMini(metrics_name = "potential_memory_gain_multiplier") {
-    htmlTableMini = document.getElementById('questionsTableMini');
-
     let numberOfColumns = 10;
     let numberOfQuestions = questions.length;
     let numberOfRows = Math.ceil(numberOfQuestions / numberOfColumns);
 
-    const th = document.getElementById('questionsTableMiniTh');
-    th.colSpan = numberOfColumns;
-
-    tableBody = document.getElementById('questionsTableMiniBody');
-    tableBody.innerHTML = '';
+    questionsTableMiniTh.colSpan = numberOfColumns;
+    questionsTableMiniBody.innerHTML = '';
 
     for (let i = 0; i < numberOfRows; i++) {
         let commonTableRow = document.createElement('tr');
-        commonTableRow.classList.add('w-100', 'p-2');
+        commonTableRow.classList.add('w-100');
 
         for (let j = 0; j < numberOfColumns; j++) {
-            let question_number = i * numberOfColumns + j;
-            if (question_number < questions.length) {
+            let cell_index = i * numberOfColumns + j;
+            if (cell_index < questions.length) {
                 const cellData = document.createElement('td');
                 cellData.classList.add('p-2', 'text-center', 'align-middle');
-                // cellData.textContent = questions[question_number]['#'];
-                cellData.innerHTML = 'q' + questions[question_number]['question_number'] + '<br>' + questions[question_number][metrics_name];
-
-                cellData.style.cursor = 'pointer';
-                cellData.style.border = '1px solid black';
-                // cellData.title = questions[toolTipsRow][Object.keys(questions[headersRow])[0]].replace(/\\n/g, '\n');
+                cellData.innerHTML =
+                    'q' + questions[cell_index]['question_number'] +
+                    '<br>' +
+                    questions[cell_index][metrics_name];
+                cellData.style.border = 'none';
 
                 if (metrics_name == 'potential_memory_gain_multiplier') {
-                    cellData.style.backgroundColor = `rgba(${questions[question_number]['PMG-X Cell Color']})`;
-                    if (questions[question_number]['potential_memory_gain_multiplier'] <= 1) {
+                    cellData.style.backgroundColor = `rgba(${questions[cell_index]['PMG-X Cell Color']})`;
+                    if (questions[cell_index]['potential_memory_gain_multiplier'] <= 1) {
                         cellData.style.color = 'rgba(0, 0, 0, 0.2)'; // 20 %-opaque black
                     }
                 }
 
                 cellData.onclick = function () {
-                    openObsidianNote(question_number + 1); // +1 because question_number is 0-indexed
+                    openObsidianNote(questions[cell_index]['question_number']); // +1 because question_number is 0-indexed
                 };
                 commonTableRow.appendChild(cellData);
             }
         }
-        tableBody.appendChild(commonTableRow);
+        questionsTableMiniBody.appendChild(commonTableRow);
     }
-    htmlTableMini.appendChild(tableBody);
+    questionsTableMini.appendChild(questionsTableMiniBody);
+    questionsTableMini.style.cursor = 'pointer';
 }
 
 
 
 function loadHTMLQuestionsTable() {
-    htmlTable = document.getElementById('questionsTable');
-    htmlTable.innerHTML = '';
+    questionsTable.innerHTML = '';
 
     let tableHeaders = [
         '#',
@@ -114,7 +105,7 @@ function loadHTMLQuestionsTable() {
 
         tableHead.appendChild(cellHeader);
     }
-    htmlTable.appendChild(tableHead);
+    questionsTable.appendChild(tableHead);
 
 
     tableBody = document.createElement('tbody');
@@ -154,7 +145,7 @@ function loadHTMLQuestionsTable() {
 
         tableBody.appendChild(commonTableRow);
     }
-    htmlTable.appendChild(tableBody);
+    questionsTable.appendChild(tableBody);
 }
 
 
@@ -178,7 +169,7 @@ function postQuestion(discipline, source, description) {
                 alert(data.error);
             } else {
                 alert(`Question created with ID: ${data.question_number}`);
-                loadQuestions();
+                loadQuestionsFromDB();
             }
         })
         .catch(err => console.error('Error:', err));
