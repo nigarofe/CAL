@@ -11,7 +11,7 @@ window.addEventListener("DOMContentLoaded", () => {
 
     el_autohide = document.querySelector('.autohide');
     // add padding-top to body (if necessary)
-    navbar_height = document.querySelector('.navbar').offsetHeight;
+    const navbar_height = document.getElementById('navbar-container').offsetHeight;
     document.body.style.paddingTop = navbar_height + 'px';
 
     if (el_autohide) {
@@ -29,6 +29,16 @@ window.addEventListener("DOMContentLoaded", () => {
             last_scroll_top = scroll_top;
         });
     }
+
+    const questionCreationform = document.getElementById('add-question-form-container');
+
+    questionCreationform.addEventListener('submit', () => {
+        const discipline = document.getElementById('discipline').value;
+        const source = document.getElementById('source').value;
+        const description = document.getElementById('description').value;
+
+        postQuestion(discipline, source, description);
+    });
 })
 
 async function reloadPage() {
@@ -185,15 +195,7 @@ function loadHTMLQuestionsTable() {
 
 
 
-const questionCreationform = document.getElementById('questionForm');
 
-questionCreationform.addEventListener('submit', () => {
-    const discipline = document.getElementById('discipline').value;
-    const source = document.getElementById('source').value;
-    const description = document.getElementById('description').value;
-
-    postQuestion(discipline, source, description);
-});
 
 function postQuestion(discipline, source, description) {
     fetch('/api/questions/create', {

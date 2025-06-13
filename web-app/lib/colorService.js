@@ -1,30 +1,14 @@
-/** @const {string} Status indicating a single attempt. */
 const STATUS_SA = 'SA';
-/** @const {string} Status indicating an attempt was made with help. */
 const STATUS_WH = 'W/H';
-/** @const {string} Status indicating data is not available or never attempted. */
 const STATUS_NA = 'NA';
 
-/** @const {string} RGBA color for single attempt status. */
 const COLOR_SINGLE_ATTEMPT = '128, 128, 0, 1';
-/** @const {string} RGBA color for with help status. */
 const COLOR_WITH_HELP = '128, 0, 128, 1';
-/** @const {string} RGBA color for never attempted status. */
 const COLOR_NEVER_ATTEMPTED = '0, 0, 200, 1';
-/** @const {string} RGBA color for solid green (gain <= 1). */
 const COLOR_SOLID_GREEN = '0, 128, 0, 1';
-/** @const {string} RGBA color for degenerate cases (e.g., all same values in gradient). */
 const COLOR_DEGENERATE_GRAY = '128, 128, 128, 1';
-/** @const {string} RGBA color for fallback or corrupt values. */
 const COLOR_FALLBACK_GRAY = '128, 128, 128, 1';
 
-/**
- * Calculates and assigns a cell color to each record based on a specified metric.
- * The color is added to each record object in the `records` array under the key 'PMG-X Cell Color'.
- * @param {Object[]} records - An array of record objects. Each object is expected to have a property corresponding to `metric_name`.
- * @param {string} [metric_name='potential_memory_gain_multiplier'] - The name of the metric in each record to use for color calculation.
- *                                                                    This metric can be a string (like 'SA', 'W/H', 'NA') or a number.
- */
 function calculateCellColor(records, metric_name = 'potential_memory_gain_multiplier') {
     // Collect all *numeric* values that belong to the chosen metric
     const numericValues = records
