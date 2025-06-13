@@ -26,109 +26,44 @@
 </head>
 
 <body class="mg-0 p-0">
-    <!-- Stick navbar -->
-    <nav class="autohide navbar navbar-expand-lg navbar-dark bg-success sticky-top">
-        <div class="container-fluid">
-            <a class="navbar-brand" href="#">Questions</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#main_nav">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="" id="main_nav">
-                <ul class="navbar-nav ms-auto">
-                    <li class="nav-item"><a class="nav-link" href="#"> Order by PMG-X </a></li>
-                    <li class="nav-item"><a class="nav-link" href="#"> Menu item </a></li>
-                    <li class="nav-item"><a class="nav-link" href="#"> Menu item </a></li>
-                </ul>
-            </div>
-        </div>
-    </nav>
+    <div id="navbar-container"></div>
 
     <h1 class="display-1 text-success text-center">Questions</h1>
 
-    <!-- Toast -->
-    <div class="toast-container position-fixed bottom-0 end-0 p-3">
-        <div id="liveToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
-            <div class="toast-header">
-                <svg class="bd-placeholder-img rounded me-2" width="20" height="20" xmlns="http://www.w3.org/2000/svg"
-                    aria-hidden="true" preserveAspectRatio="xMidYMid slice">
-                    <rect width="100%" height="100%" fill="green"></rect>
-                </svg>
-                <strong class="me-auto text-center" id="toastTitle">Bootstrap</strong>
-                <small id="toastTime">Just now</small>
-                <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
-            </div>
-            <div class="toast-body text-center" id="toastMessage">
-                Hello, world! This is a toast message.
-            </div>
-        </div>
-    </div>
+    <div id="toast-container-placeholder"></div>
 
+    <div id="add-question-form-container"></div>
 
+    <div id="questions-table-mini-container"></div>
 
-
-
-
-
-
-
-    <!-- Add New Question button -->
-    <div class="text-center my-3">
-        <button class="btn btn-outline-success" type="button" data-bs-toggle="collapse"
-            data-bs-target="#questionFormCollapse" aria-expanded="false" aria-controls="questionFormCollapse">
-            Add New Question
-        </button>
-    </div>
-
-    <!-- Collapsible form -->
-    <div class="collapse" id="questionFormCollapse">
-        <form id="questionForm" class="card shadow-sm p-4 mx-auto my-4" style="max-width: 500px;">
-            <h2 class="mb-4 text-success text-center">Add New Question</h2>
-            <div class="mb-3">
-                <label for="discipline" class="form-label">Discipline</label>
-                <input type="text" id="discipline" class="form-control" placeholder="e.g. Mathematics" required>
-            </div>
-            <div class="mb-3">
-                <label for="source" class="form-label">Source</label>
-                <input type="text" id="source" class="form-control" placeholder="e.g. Textbook, Exam">
-            </div>
-            <div class="mb-3">
-                <label for="description" class="form-label">Description</label>
-                <textarea id="description" class="form-control" rows="3"
-                    placeholder="Enter question description"></textarea>
-            </div>
-            <button type="submit" id="createQuestion" class="btn btn-success w-100">Create Question</button>
-        </form>
-    </div>
-
-
-    <!-- Questions table mini -->
-    <table class="table table-fixed text-center w-75 h-25 mx-auto mt-3 mb-5" id="questionsTableMini">
-        <thead>
-            <tr class="text-light bg-success" style="border-bottom:1px dotted #888;">
-                <th id='questionsTableMiniTh' style="cursor:help; padding:.75rem;">
-                    <div class="btn-group btn-group-sm" role="group" aria-label="Metrics filter">
-                        <!-- <input type="radio" class="btn-check" name="metric" id="metric-dsla" autocomplete="off" checked />
-            <label class="btn btn-outline-success " for="metric-dsla">DSLA</label> -->
-
-                        <input type="radio" class="btn-check" name="metric" id="metric-pmgd" autocomplete="off" />
-                        <label class="btn btn-outline-success" for="metric-pmgd">LaMI</label>
-
-                        <input type="radio" class="btn-check" name="metric" id="metric-pmgx" autocomplete="off"
-                            checked />
-                        <label class="btn btn-outline-success" for="metric-pmgx">PMG-X</label>
-                    </div>
-                </th>
-            </tr>
-        </thead>
-        <tbody id="questionsTableMiniBody"></tbody>
-    </table>
-
-    <!-- Questions table -->
-    <table class="table table-striped text-center" id="questionsTable"></table>
+    <div id="questions-table-container"></div>
 
     <!-- JSON debug -->
     <div class='d-none' id="debugJSON"></div>
 
+<script>
+    async function loadComponent(url, placeholderId) {
+        try {
+            const response = await fetch(url);
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+            const html = await response.text();
+            document.getElementById(placeholderId).innerHTML = html;
+        } catch (error) {
+            console.error(`Failed to load component ${url}:`, error);
+            document.getElementById(placeholderId).innerHTML = `<p class="text-danger">Error loading component: ${url}</p>`;
+        }
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+        loadComponent('components/navbar.html', 'navbar-container');
+        loadComponent('components/toast.html', 'toast-container-placeholder');
+        loadComponent('components/add_question_form.html', 'add-question-form-container');
+        loadComponent('components/questions_table_mini.html', 'questions-table-mini-container');
+        loadComponent('components/questions_table.html', 'questions-table-container');
+    });
+</script>
     <script src="script.js"></script>
     <!-- <script src="testing.js"></script> -->
 </body>

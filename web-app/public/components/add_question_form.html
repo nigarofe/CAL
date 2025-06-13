@@ -1,0 +1,28 @@
+<!-- Add New Question button -->
+    <div class="text-center my-3">
+        <button class="btn btn-outline-success" type="button" data-bs-toggle="collapse"
+            data-bs-target="#questionFormCollapse" aria-expanded="false" aria-controls="questionFormCollapse">
+            Add New Question
+        </button>
+    </div>
+
+    <!-- Collapsible form -->
+    <div class="collapse" id="questionFormCollapse">
+        <form id="questionForm" class="card shadow-sm p-4 mx-auto my-4" style="max-width: 500px;">
+            <h2 class="mb-4 text-success text-center">Add New Question</h2>
+            <div class="mb-3">
+                <label for="discipline" class="form-label">Discipline</label>
+                <input type="text" id="discipline" class="form-control" placeholder="e.g. Mathematics" required>
+            </div>
+            <div class="mb-3">
+                <label for="source" class="form-label">Source</label>
+                <input type="text" id="source" class="form-control" placeholder="e.g. Textbook, Exam">
+            </div>
+            <div class="mb-3">
+                <label for="description" class="form-label">Description</label>
+                <textarea id="description" class="form-control" rows="3"
+                    placeholder="Enter question description"></textarea>
+            </div>
+            <button type="submit" id="createQuestion" class="btn btn-success w-100">Create Question</button>
+        </form>
+    </div>
