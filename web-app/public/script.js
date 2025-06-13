@@ -7,38 +7,7 @@ let questions = [];
 
 window.addEventListener("DOMContentLoaded", () => {
     loadQuestions();
-    reloadPage();
-
-    el_autohide = document.querySelector('.autohide');
-    // add padding-top to body (if necessary)
-    const navbar_height = document.getElementById('navbar-container').offsetHeight;
-    document.body.style.paddingTop = navbar_height + 'px';
-
-    if (el_autohide) {
-        var last_scroll_top = 0;
-        window.addEventListener('scroll', function () {
-            let scroll_top = window.scrollY;
-            if (scroll_top < last_scroll_top) {
-                el_autohide.classList.remove('scrolled-down');
-                el_autohide.classList.add('scrolled-up');
-            }
-            else {
-                el_autohide.classList.remove('scrolled-up');
-                el_autohide.classList.add('scrolled-down');
-            }
-            last_scroll_top = scroll_top;
-        });
-    }
-
-    const questionCreationform = document.getElementById('add-question-form-container');
-
-    questionCreationform.addEventListener('submit', () => {
-        const discipline = document.getElementById('discipline').value;
-        const source = document.getElementById('source').value;
-        const description = document.getElementById('description').value;
-
-        postQuestion(discipline, source, description);
-    });
+    reloadPage();    
 })
 
 async function reloadPage() {
@@ -233,19 +202,6 @@ function postAttempt(question_number, code) {
         })
         .catch(err => console.error('Error:', err));
 }
-
-
-function showToast(toastTitle, toastMessage, toastTime) {
-    const toastLiveExample = document.getElementById('liveToast')
-    const toastBootstrap = bootstrap.Toast.getOrCreateInstance(toastLiveExample)
-
-    document.getElementById('toastTitle').innerHTML = toastTitle
-    document.getElementById('toastMessage').innerHTML = toastMessage
-    document.getElementById('toastTime').innerHTML = toastTime
-
-    toastBootstrap.show()
-}
-
 
 
 function addActionButtonsToCellData(cellData, question_number) {
