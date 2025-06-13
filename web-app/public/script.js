@@ -228,7 +228,7 @@ function addActionButtonsToCellData(cellData, question_number) {
     button2.className = 'btn btn-outline-primary';
 
     const logo = document.createElement('img');
-    logo.src = 'Obsidian_logo.svg';        // path to your Obsidian logo
+    logo.src = 'components/Obsidian_logo.svg';        // path to your Obsidian logo
     logo.alt = 'Obsidian';
     logo.style.width = '16px';                    // adjust size as needed
     logo.style.height = '16px';

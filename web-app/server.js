@@ -66,58 +66,58 @@ const GET_QUESTIONS_SQL = `
   `;
 
 app.get('/api/questions', (req, res) => {
-        db.all(GET_QUESTIONS_SQL, (err, rows) => {
-            if (err) {
-                console.error('Error executing SQL:', err)
-                return res.status(500).json({ error: err.message });
+    db.all(GET_QUESTIONS_SQL, (err, rows) => {
+        if (err) {
+            console.error('Error executing SQL:', err)
+            return res.status(500).json({ error: err.message });
+        }
+
+        const enriched = rows.map(row => {
+            const code_vector = JSON.parse(row.code_vec_json);
+            const date_vector = JSON.parse(row.date_vec_json);
+
+            let latest_memory_interval = 'ERROR',
+                potential_memory_gain_in_days = 'ERROR',
+                potential_memory_gain_multiplier = 'ERROR',
+                days_since_last_attempt = 'ERROR',
+                attempts_summary = 'ERROR';
+
+            if (!date_vector || date_vector.length === 0 || date_vector.every(v => v == null)) {
+                potential_memory_gain_multiplier = 'NA';
+                potential_memory_gain_in_days = 'NA';
+                latest_memory_interval = 'NA';
+                days_since_last_attempt = 'NA';
+                attempts_summary = 'NA';
+            } else {
+                days_since_last_attempt = calculateDaysSinceLastAttempt(date_vector);
+                attempts_summary = calculateAttemptsSummary(code_vector);
+
+                ({
+                    latest_memory_interval,
+                    potential_memory_gain_multiplier,
+                    potential_memory_gain_in_days
+                } = calculateLatestMemoryIntervalAndPotentialGain(code_vector, date_vector, days_since_last_attempt))
             }
 
-            const enriched = rows.map(row => {
-                const code_vector = JSON.parse(row.code_vec_json);
-                const date_vector = JSON.parse(row.date_vec_json);
-
-                let latest_memory_interval = 'ERROR',
-                    potential_memory_gain_in_days = 'ERROR',
-                    potential_memory_gain_multiplier = 'ERROR',
-                    days_since_last_attempt = 'ERROR',
-                    attempts_summary = 'ERROR';
-
-                if (!date_vector || date_vector.length === 0 || date_vector.every(v => v == null)) {
-                    potential_memory_gain_multiplier = 'NA';
-                    potential_memory_gain_in_days = 'NA';
-                    latest_memory_interval = 'NA';
-                    days_since_last_attempt = 'NA';
-                    attempts_summary = 'NA';
-                } else {
-                    days_since_last_attempt = calculateDaysSinceLastAttempt(date_vector);
-                    attempts_summary = calculateAttemptsSummary(code_vector);
-
-                    ({
-                        latest_memory_interval,
-                        potential_memory_gain_multiplier,
-                        potential_memory_gain_in_days
-                    } = calculateLatestMemoryIntervalAndPotentialGain(code_vector, date_vector, days_since_last_attempt))
-                }
-
-                return {
-                    // ...row,
-                    question_number: row.question_number,
-                    discipline: row.discipline,
-                    source: row.source,
-                    description: row.description,
-                    days_since_last_attempt,
-                    latest_memory_interval,
-                    potential_memory_gain_in_days,
-                    potential_memory_gain_multiplier,
-                    attempts_summary,
-                    date_vector: date_vector
-                };
-            });
-
-            calculateCellColor(enriched, 'potential_memory_gain_multiplier');
-
-            res.json(enriched);
+            return {
+                // ...row,
+                question_number: row.question_number,
+                discipline: row.discipline,
+                source: row.source,
+                description: row.description,
+                days_since_last_attempt,
+                latest_memory_interval,
+                potential_memory_gain_in_days,
+                potential_memory_gain_multiplier,
+                attempts_summary,
+                date_vector: date_vector
+            };
         });
+
+        calculateCellColor(enriched, 'potential_memory_gain_multiplier');
+
+        res.json(enriched);
+    });
 });
 
 
@@ -137,14 +137,16 @@ app.post('/api/questions/create', (req, res) => {
     });
 });
 
+
+
+const INSERT_ATTEMPT_SQL = `
+    INSERT INTO attempts (question_number, code)
+    VALUES (?, ?)
+`;
+
 app.post('/api/questions/attempt', (req, res) => {
     const { question_number, code } = req.body;
-
-    const sql = `
-        INSERT INTO attempts (question_number, code)
-        VALUES (?, ?)
-    `;
-    db.run(sql, [question_number, code], function (err) {
+    db.run(INSERT_ATTEMPT_SQL, [question_number, code], function (err) {
         if (err) return res.status(500).json({ error: err.message });
         res.status(201).json({
             message: 'Attempt recorded',
@@ -154,9 +156,6 @@ app.post('/api/questions/attempt', (req, res) => {
 });
 
 
-// app.listen(PORT, () => {
-//     console.log(`Server listening on http://localhost:${PORT}`);
-// });
 
 app.listen(PORT, '0.0.0.0', () => {
     console.log(`Server listening on http://0.0.0.0:${PORT}`);
