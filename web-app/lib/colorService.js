@@ -10,14 +10,14 @@ const COLOR_DEGENERATE_GRAY = '128, 128, 128, 1';
 const COLOR_FALLBACK_GRAY = '128, 128, 128, 1';
 
 function calculateCellColor(records, metric_name = 'potential_memory_gain_multiplier') {
-    // Collect all *numeric* values that belong to the chosen metric
     const numericValues = records
         .map(r => parseFloat(r[metric_name]))
-        .filter(v => !isNaN(v) && v >= 0);
+        .filter(v => !isNaN(v) && v >= 1);
 
     const maxVal = Math.max(...numericValues);
     const minVal = Math.min(...numericValues);
-    const greatestIsGreen = false;     //  ←- the “PMG-X” rule
+    const greatestIsGreen = false;
+
 
     records.forEach(r => {
         const v = r[metric_name];
@@ -27,6 +27,7 @@ function calculateCellColor(records, metric_name = 'potential_memory_gain_multip
         if (v === STATUS_SA) colour = COLOR_SINGLE_ATTEMPT;   // Single Attempt (no-help)
         else if (v === STATUS_WH) colour = COLOR_WITH_HELP;   // Last round With Help
         else if (v === STATUS_NA) colour = COLOR_NEVER_ATTEMPTED;     // Never attempted
+        // Make this a UI responsive value
         else if (!isNaN(v) && v <= 1) colour = COLOR_SOLID_GREEN;        // gain ≤ 1 → solid green
         else if (!isNaN(v)) {
             // numeric and > 1  → gradient
