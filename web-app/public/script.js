@@ -32,10 +32,33 @@ function loadQuestionsFromDB() {
         });
 }
 
-function loadHTMLQuestionsTableMini(metrics_name = "potential_memory_gain_multiplier") {
+function reorderAndFilterQuestions(order_by = "question_number", filter = "", order = "desc") {
+    let filteredQuestions = questions;
+    if (filter) {
+        filteredQuestions = filteredQuestions.filter(q => q.description.toLowerCase().includes(filter.toLowerCase()));
+    }
+
+    filteredQuestions.sort((a, b) => {
+        const aVal = isNaN(Number(a[order_by])) ? a[order_by] : Number(a[order_by]);
+        const bVal = isNaN(Number(b[order_by])) ? b[order_by] : Number(b[order_by]);
+
+        if (typeof aVal === 'string' && typeof bVal !== 'string') return 1;
+        if (typeof bVal === 'string' && typeof aVal !== 'string') return -1;
+        if (aVal < bVal) return order === "desc" ? 1 : -1;
+        if (aVal > bVal) return order === "desc" ? -1 : 1;
+        return 0;
+    });
+
+    questions = filteredQuestions;
+    return questions;
+}
+
+function loadHTMLQuestionsTableMini(order_by = "question_number", metric_name = "potential_memory_gain_multiplier", order = "asc") {
+    reorderAndFilterQuestions(order_by, "", order);
+    // make it UI responsive
     let numberOfColumns = 10;
-    let numberOfQuestions = questions.length;
-    let numberOfRows = Math.ceil(numberOfQuestions / numberOfColumns);
+    let numberOfQuestionsToBeDisplayed = questions.length;
+    let numberOfRows = Math.ceil(numberOfQuestionsToBeDisplayed / numberOfColumns);
 
     questionsTableMiniTh.colSpan = numberOfColumns;
     questionsTableMiniBody.innerHTML = '';
@@ -46,16 +69,16 @@ function loadHTMLQuestionsTableMini(metrics_name = "potential_memory_gain_multip
 
         for (let j = 0; j < numberOfColumns; j++) {
             let cell_index = i * numberOfColumns + j;
-            if (cell_index < questions.length) {
+            if (cell_index < numberOfQuestionsToBeDisplayed) {
                 const cellData = document.createElement('td');
                 cellData.classList.add('p-2', 'text-center', 'align-middle');
                 cellData.innerHTML =
                     'q' + questions[cell_index]['question_number'] +
                     '<br>' +
-                    questions[cell_index][metrics_name];
+                    questions[cell_index][metric_name];
                 cellData.style.border = 'none';
 
-                if (metrics_name == 'potential_memory_gain_multiplier') {
+                if (metric_name == 'potential_memory_gain_multiplier') {
                     cellData.style.backgroundColor = `rgba(${questions[cell_index]['PMG-X Cell Color']})`;
                     if (questions[cell_index]['potential_memory_gain_multiplier'] <= 1) {
                         cellData.style.color = 'rgba(0, 0, 0, 0.2)'; // 20 %-opaque black
